@@ -13,8 +13,13 @@ public sealed class UserPaths
         HomeDirectory = Path.GetFullPath(homeDirectory);
     }
 
+    /// <summary>Overrides the managed home folder, so a sandbox run never touches the real ~/.ssh and ~/.gitconfig.</summary>
+    public const string OverrideVariable = "GITPERSONA_HOME_DIR";
+
     public static UserPaths ForCurrentUser() =>
-        new(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+        new(Environment.GetEnvironmentVariable(OverrideVariable) is { Length: > 0 } custom
+            ? custom
+            : Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
 
     public string HomeDirectory { get; }
 

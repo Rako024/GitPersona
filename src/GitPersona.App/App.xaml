@@ -4,6 +4,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:vm="clr-namespace:GitPersona.App.ViewModels"
              xmlns:views="clr-namespace:GitPersona.App.Views"
+             xmlns:conv="clr-namespace:GitPersona.App.Converters"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,9 +14,20 @@
                 <ResourceDictionary Source="Themes/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <conv:HexToBrushConverter x:Key="HexToBrush" />
+            <conv:PresenceToVisibilityConverter x:Key="Presence" />
+            <conv:PresenceToVisibilityConverter x:Key="Absence" Invert="True" />
+            <conv:InverseBooleanConverter x:Key="Not" />
+
             <!-- Page view model -> view -->
             <DataTemplate DataType="{x:Type vm:PlaceholderPageViewModel}">
                 <views:PlaceholderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ProfilesViewModel}">
+                <views:ProfilesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ProfileEditorViewModel}">
+                <views:ProfileEditorView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <views:SettingsView />

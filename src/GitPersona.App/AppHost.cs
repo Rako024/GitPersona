@@ -6,10 +6,12 @@ using GitPersona.App.Tray;
 using GitPersona.App.ViewModels;
 using GitPersona.App.Views;
 using GitPersona.Core.ConfigFiles;
+using GitPersona.Core.Git;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Infrastructure.Processes;
 using GitPersona.Core.Profiles;
 using GitPersona.Core.Settings;
+using GitPersona.Core.Ssh;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -44,18 +46,26 @@ internal static class AppHost
         services.AddSingleton(paths);
         services.AddSingleton(UserPaths.ForCurrentUser());
         services.AddSingleton<IProcessRunner, ProcessRunner>();
+        services.AddSingleton<ToolLocator>();
+        services.AddSingleton<GitService>();
+        services.AddSingleton<SshKeyService>();
         services.AddSingleton(_ => new BackupManager());
         services.AddSingleton<ConfigWriter>();
+        services.AddSingleton<ConfigPlanner>();
         services.AddSingleton<ProfileStore>();
         services.AddSingleton<SettingsStore>();
 
         // App
         services.AddSingleton<SettingsService>();
+        services.AddSingleton<ProfilesService>();
+        services.AddSingleton<ConfigReviewService>();
+        services.AddSingleton<DialogService>();
         services.AddSingleton<StartupService>();
         services.AddSingleton<ThemeService>();
         services.AddSingleton<AppShell>();
         services.AddSingleton<TrayService>();
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<ProfilesViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<MainWindow>();
 

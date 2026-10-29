@@ -11,7 +11,7 @@ using MenuItem = System.Windows.Controls.MenuItem;
 namespace GitPersona.App.Tray;
 
 /// <summary>The notification-area icon and its menu.</summary>
-public sealed class TrayService(AppShell shell) : IDisposable
+public sealed class TrayService(AppShell shell, ProfilesService profiles) : IDisposable
 {
     private static LocalizationManager Loc => LocalizationManager.Instance;
 
@@ -28,19 +28,21 @@ public sealed class TrayService(AppShell shell) : IDisposable
             ContextMenu = BuildMenu(),
         };
         _icon.ForceCreate(enablesEfficiencyMode: false);
-        Loc.LanguageChanged += OnLanguageChanged;
+        Loc.LanguageChanged += RebuildMenu;
+        profiles.Changed += RebuildMenu;
     }
 
     public void ShowNotification(string title, string message) => _icon?.ShowNotification(title, message);
 
     public void Dispose()
     {
-        Loc.LanguageChanged -= OnLanguageChanged;
+        Loc.LanguageChanged -= RebuildMenu;
+        profiles.Changed -= RebuildMenu;
         _icon?.Dispose();
         _icon = null;
     }
 
-    private void OnLanguageChanged(object? sender, EventArgs e)
+    private void RebuildMenu(object? sender, EventArgs e)
     {
         if (_icon is not null)
         {
@@ -54,10 +56,22 @@ public sealed class TrayService(AppShell shell) : IDisposable
         menu.Items.Add(Item("Tray_Open", SymbolRegular.Open24, shell.ShowMainWindow));
         menu.Items.Add(new Separator());
 
-        // Filled with the saved profiles in phase 2.
-        var profiles = Item("Tray_Profiles", SymbolRegular.People24, () => shell.Navigate(AppPage.Profiles));
-        profiles.Items.Add(new MenuItem { Header = Loc["Tray_NoProfiles"], IsEnabled = false });
-        menu.Items.Add(profiles);
+        var profileMenu = Item("Tray_Profiles", SymbolRegular.People24, () => shell.Navigate(AppPage.Profiles));
+        foreach (var profile in profiles.Profiles)
+        {
+            var icon = Enum.TryParse<SymbolRegular>(profile.Icon, out var symbol) ? symbol : SymbolRegular.Person24;
+            var id = profile.Id;
+            var entry = new MenuItem { Header = $"{profile.DisplayName}  ·  {profile.GitUserEmail}", Icon = new SymbolIcon(icon) };
+            entry.Click += (_, _) => shell.ShowProfile(id);
+            profileMenu.Items.Add(entry);
+        }
+
+        if (profileMenu.Items.Count == 0)
+        {
+            profileMenu.Items.Add(new MenuItem { Header = Loc["Tray_NoProfiles"], IsEnabled = false });
+        }
+
+        menu.Items.Add(profileMenu);
 
         menu.Items.Add(Item("Tray_CloneFromUrl", SymbolRegular.ArrowDownload24, () => shell.Navigate(AppPage.Clone)));
         menu.Items.Add(Item("Tray_Scan", SymbolRegular.FolderSearch24, () => shell.Navigate(AppPage.Scanner)));

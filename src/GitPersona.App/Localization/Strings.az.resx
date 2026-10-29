@@ -71,4 +71,125 @@
 
 GitPersona boş profil siyahısı ilə açılır. Orijinal fayl həmin yerdə saxlanılıb.</value></data>
   <data name="Error_StartupToggle" xml:space="preserve"><value>Başlanğıc ayarını dəyişmək mümkün olmadı: {0}</value></data>
+
+  <!-- Ümumi -->
+  <data name="Common_Yes" xml:space="preserve"><value>Bəli</value></data>
+  <data name="Common_No" xml:space="preserve"><value>Xeyr</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Ləğv et</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>Oldu</value></data>
+  <data name="Common_Browse" xml:space="preserve"><value>Seç…</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Sil</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Yadda saxla</value></data>
+  <data name="Common_Discard" xml:space="preserve"><value>Ləğv et</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Sil</value></data>
+
+  <!-- Profillər səhifəsi -->
+  <data name="Profiles_New" xml:space="preserve"><value>Yeni profil</value></data>
+  <data name="Profiles_Apply" xml:space="preserve"><value>Konfiqurasiyanı tətbiq et</value></data>
+  <data name="Profiles_PendingChanges" xml:space="preserve"><value>{0} fayl yenilənməlidir</value></data>
+  <data name="Profiles_UpToDate" xml:space="preserve"><value>Konfiqurasiya aktualdır</value></data>
+  <data name="Profiles_PlanBlocked" xml:space="preserve"><value>Problemlər var — ətraflı baxmaq üçün "Konfiqurasiyanı tətbiq et" düyməsini basın</value></data>
+  <data name="Profiles_Empty_Title" xml:space="preserve"><value>Hələ profil yoxdur</value></data>
+  <data name="Profiles_Empty_Text" xml:space="preserve"><value>Bu kompüterdə istifadə etdiyiniz hər GitHub hesabı üçün bir profil yaradın.</value></data>
+  <data name="Profiles_SelectHint" xml:space="preserve"><value>Soldan profil seçin və ya yenisini yaradın.</value></data>
+  <data name="Profiles_NoKey" xml:space="preserve"><value>SSH key yoxdur</value></data>
+  <data name="Profiles_Applied" xml:space="preserve"><value>Konfiqurasiya tətbiq olundu: {0} fayl yazıldı, backup-lar yanlarında saxlanıldı.</value></data>
+
+  <!-- Profil redaktoru -->
+  <data name="Editor_NewTitle" xml:space="preserve"><value>Yeni profil</value></data>
+  <data name="Editor_Identity" xml:space="preserve"><value>Git identity</value></data>
+  <data name="Editor_Ssh" xml:space="preserve"><value>SSH</value></data>
+  <data name="Editor_Rules" xml:space="preserve"><value>Profilin tətbiq olunduğu yerlər</value></data>
+  <data name="Editor_Appearance" xml:space="preserve"><value>Görünüş</value></data>
+  <data name="Editor_Revert" xml:space="preserve"><value>Dəyişiklikləri ləğv et</value></data>
+  <data name="Editor_Delete" xml:space="preserve"><value>Profili sil</value></data>
+  <data name="Editor_DeleteTitle" xml:space="preserve"><value>Profili sil</value></data>
+  <data name="Editor_DeleteConfirm" xml:space="preserve"><value>"{0}" profili silinsin?
+
+SSH key faylları saxlanılır. Sonra GitPersona git və ssh konfiqurasiyasından hansı qeydləri sildiyini göstərəcək.</value></data>
+  <data name="Editor_UnsavedTitle" xml:space="preserve"><value>Yadda saxlanılmamış dəyişikliklər</value></data>
+  <data name="Editor_UnsavedPrompt" xml:space="preserve"><value>"{0}" profilindəki dəyişikliklər yadda saxlanılsın?</value></data>
+  <data name="Field_DisplayName" xml:space="preserve"><value>Göstərilən ad</value></data>
+  <data name="Field_Id" xml:space="preserve"><value>Profil ID</value></data>
+  <data name="Field_Id_Help" xml:space="preserve"><value>Fayl adlarında və SSH alias-da istifadə olunur: kiçik hərflər, rəqəmlər və defis.</value></data>
+  <data name="Field_GitUserName" xml:space="preserve"><value>Git user.name</value></data>
+  <data name="Field_GitUserEmail" xml:space="preserve"><value>Git user.email</value></data>
+  <data name="Field_GitHubUsername" xml:space="preserve"><value>GitHub istifadəçi adı</value></data>
+  <data name="Field_HostAlias" xml:space="preserve"><value>Host alias</value></data>
+  <data name="Field_HostAlias_Help" xml:space="preserve"><value>Remote URL-lər git@&lt;alias&gt;:owner/repo.git formasında olur.</value></data>
+  <data name="Field_Host" xml:space="preserve"><value>SSH host</value></data>
+  <data name="Field_Host_Help" xml:space="preserve"><value>github.com və ya GitHub Enterprise host-unuz.</value></data>
+  <data name="Field_SshKey" xml:space="preserve"><value>Private key</value></data>
+  <data name="Field_Folders" xml:space="preserve"><value>Qovluqlar</value></data>
+  <data name="Field_Folders_Help" xml:space="preserve"><value>Bu qovluqlardakı repo-lar bu identity ilə commit edir.</value></data>
+  <data name="Field_Owners" xml:space="preserve"><value>GitHub owner və təşkilatları</value></data>
+  <data name="Field_Owners_Help" xml:space="preserve"><value>Bu owner-lərin repo-ları avtomatik bu profillə clone edilir.</value></data>
+  <data name="Field_CloneFolder" xml:space="preserve"><value>Default clone qovluğu</value></data>
+  <data name="Field_CloneFolder_Help" xml:space="preserve"><value>Boş qalsa, yuxarıdakı ilk qovluq istifadə olunur.</value></data>
+  <data name="Field_Color" xml:space="preserve"><value>Rəng</value></data>
+  <data name="Field_Icon" xml:space="preserve"><value>İkon</value></data>
+  <data name="Folders_Add" xml:space="preserve"><value>Qovluq əlavə et…</value></data>
+  <data name="Owners_Add" xml:space="preserve"><value>Əlavə et</value></data>
+  <data name="Owners_Placeholder" xml:space="preserve"><value>owner və ya təşkilat</value></data>
+  <data name="Owners_Invalid" xml:space="preserve"><value>"{0}" düzgün GitHub owner adı deyil.</value></data>
+  <data name="Key_Generate" xml:space="preserve"><value>Yeni key yarat…</value></data>
+  <data name="Key_Choose" xml:space="preserve"><value>Mövcud key-i seç…</value></data>
+  <data name="Key_CopyPublic" xml:space="preserve"><value>Public key-i kopyala</value></data>
+  <data name="Key_Copied" xml:space="preserve"><value>Public key buferə kopyalandı.</value></data>
+  <data name="Key_None" xml:space="preserve"><value>Hələ key seçilməyib.</value></data>
+  <data name="Key_NotFound" xml:space="preserve"><value>Key faylı mövcud deyil.</value></data>
+  <data name="Key_ChooseTitle" xml:space="preserve"><value>Private SSH key seçin</value></data>
+  <data name="Key_ChooseFilter" xml:space="preserve"><value>Bütün fayllar|*.*</value></data>
+  <data name="Key_Invalid" xml:space="preserve"><value>Key oxuna bilmədi: {0}</value></data>
+  <data name="Key_NeedId" xml:space="preserve"><value>Key yaratmazdan əvvəl düzgün profil ID-si daxil edin.</value></data>
+
+  <!-- Yoxlama -->
+  <data name="Issue_Profile_InvalidId" xml:space="preserve"><value>"{0}" profil ID-si yanlışdır: kiçik hərflər, rəqəmlər və defis istifadə edin.</value></data>
+  <data name="Issue_Profile_DuplicateId" xml:space="preserve"><value>"{0}" ID-si artıq başqa profildə istifadə olunur.</value></data>
+  <data name="Issue_Profile_MissingDisplayName" xml:space="preserve"><value>Göstərilən adı daxil edin.</value></data>
+  <data name="Issue_Profile_MissingGitUserName" xml:space="preserve"><value>Git user.name daxil edin.</value></data>
+  <data name="Issue_Profile_InvalidEmail" xml:space="preserve"><value>"{0}" düzgün email ünvanı deyil.</value></data>
+  <data name="Issue_Profile_MissingHost" xml:space="preserve"><value>SSH host-u daxil edin (adətən github.com).</value></data>
+  <data name="Issue_Profile_InvalidHostAlias" xml:space="preserve"><value>"{0}" host alias-ı yanlışdır: hərflər, rəqəmlər, nöqtə, defis və alt xətt istifadə edin.</value></data>
+  <data name="Issue_Profile_DuplicateHostAlias" xml:space="preserve"><value>"{0}" alias-ı artıq başqa profildə istifadə olunur.</value></data>
+  <data name="Issue_Profile_InvalidFolder" xml:space="preserve"><value>"{0}" tam qovluq yolu deyil.</value></data>
+  <data name="Issue_Profile_DuplicateFolder" xml:space="preserve"><value>"{0}" qovluğu artıq başqa profilə aiddir.</value></data>
+  <data name="Issue_Profile_DuplicateOwner" xml:space="preserve"><value>"{0}" owner-i artıq başqa profilə aiddir.</value></data>
+  <data name="Issue_Plan_MissingSshKey" xml:space="preserve"><value>"{0}" profilinin hələ SSH key-i yoxdur, ona görə onun üçün SSH host qeydi yaradılmır.</value></data>
+  <data name="Issue_Plan_SshKeyNotFound" xml:space="preserve"><value>"{0}" profili: {1} key faylı mövcud deyil.</value></data>
+  <data name="Issue_Plan_AliasDefinedOutsideBlock" xml:space="preserve"><value>~/.ssh/config faylınızda "Host {1}" GitPersona blokundan kənarda da təyin olunub. GitPersona-nın qeydi əvvəldə gəldiyi üçün keçərli olan odur.</value></data>
+  <data name="Issue_Plan_ForeignProfileConfigFile" xml:space="preserve"><value>{1} artıq mövcuddur və GitPersona tərəfindən yaradılmayıb. Onun adını dəyişin, onu silin və ya "{0}" profilinin ID-sini dəyişin.</value></data>
+  <data name="Issue_Plan_MalformedBlock" xml:space="preserve"><value>{1} faylındakı GitPersona markerləri zədələnib (təkrarlanıb və ya cütü yoxdur). Onları əl ilə düzəldin — GitPersona təxmin etməyəcək.</value></data>
+  <data name="Issue_Plan_UnreadableFile" xml:space="preserve"><value>{1} UTF-8 mətn deyil, ona görə GitPersona onu dəyişməyəcək.</value></data>
+
+  <!-- Baxış pəncərəsi -->
+  <data name="Review_Title" xml:space="preserve"><value>Konfiqurasiya dəyişikliklərinə baxış</value></data>
+  <data name="Review_Intro" xml:space="preserve"><value>GitPersona aşağıdakı faylları yazacaq. Yalnız onun marker blokları dəyişir və hər mövcud faylın əvvəlcə yanında backup-ı yaradılır.</value></data>
+  <data name="Review_Apply" xml:space="preserve"><value>Tətbiq et</value></data>
+  <data name="Review_NoChanges" xml:space="preserve"><value>Hər şey artıq aktualdır.</value></data>
+  <data name="Review_Blocked" xml:space="preserve"><value>Tətbiq etməzdən əvvəl yuxarıdakı problemləri həll edin.</value></data>
+  <data name="Review_Conflict" xml:space="preserve"><value>{0} siz baxarkən dəyişdi. Bu pəncərəni bağlayın və yenidən baxın.</value></data>
+  <data name="Review_ApplyFailed" xml:space="preserve"><value>{0} yazıla bilmədi: {1}
+Ondan əvvəl yazılmış faylların backup-ı yanlarındadır.</value></data>
+  <data name="Review_Skipped" xml:space="preserve"><value>… dəyişməmiş {0} sətir</value></data>
+  <data name="Kind_Create" xml:space="preserve"><value>yeni fayl</value></data>
+  <data name="Kind_Modify" xml:space="preserve"><value>dəyişdirilir</value></data>
+  <data name="Kind_Delete" xml:space="preserve"><value>silinir</value></data>
+  <data name="Role_SshConfig" xml:space="preserve"><value>SSH konfiqurasiyası</value></data>
+  <data name="Role_GlobalGitConfig" xml:space="preserve"><value>Global git konfiqurasiyası</value></data>
+  <data name="Role_ProfileGitConfig" xml:space="preserve"><value>"{0}" profilinin git identity-si</value></data>
+  <data name="Role_Other" xml:space="preserve"><value>Konfiqurasiya faylı</value></data>
+
+  <!-- Key yaratma -->
+  <data name="KeyGen_Title" xml:space="preserve"><value>SSH key yarat</value></data>
+  <data name="KeyGen_Intro" xml:space="preserve"><value>.ssh qovluğunuzda ed25519 key cütü yaradır. Mövcud fayllar heç vaxt üzərinə yazılmır.</value></data>
+  <data name="KeyGen_Path" xml:space="preserve"><value>Fayl</value></data>
+  <data name="KeyGen_Comment" xml:space="preserve"><value>Şərh</value></data>
+  <data name="KeyGen_Passphrase" xml:space="preserve"><value>Passphrase (opsional)</value></data>
+  <data name="KeyGen_Confirm" xml:space="preserve"><value>Passphrase-i təkrarlayın</value></data>
+  <data name="KeyGen_PassphraseNote" xml:space="preserve"><value>Passphrase olsa və key ssh-agent-ə yüklənməyibsə, git hər push-da onu soruşacaq. Diaqnostika səhifəsi agent-i necə aktiv etməyi göstərir.</value></data>
+  <data name="KeyGen_Generate" xml:space="preserve"><value>Yarat</value></data>
+  <data name="KeyGen_Mismatch" xml:space="preserve"><value>Passphrase-lər uyğun gəlmir.</value></data>
+  <data name="KeyGen_Exists" xml:space="preserve"><value>{0} artıq mövcuddur. Başqa fayl adı seçin.</value></data>
+  <data name="KeyGen_Failed" xml:space="preserve"><value>Key yaradıla bilmədi: {0}</value></data>
 </root>

@@ -71,4 +71,125 @@ Details are in the log file.</value></data>
 
 GitPersona starts with an empty profile list. Your original file is kept there.</value></data>
   <data name="Error_StartupToggle" xml:space="preserve"><value>Could not change the startup setting: {0}</value></data>
+
+  <!-- Common -->
+  <data name="Common_Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="Common_No" xml:space="preserve"><value>No</value></data>
+  <data name="Common_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Common_OK" xml:space="preserve"><value>OK</value></data>
+  <data name="Common_Browse" xml:space="preserve"><value>Browse…</value></data>
+  <data name="Common_Remove" xml:space="preserve"><value>Remove</value></data>
+  <data name="Common_Save" xml:space="preserve"><value>Save</value></data>
+  <data name="Common_Discard" xml:space="preserve"><value>Discard</value></data>
+  <data name="Common_Delete" xml:space="preserve"><value>Delete</value></data>
+
+  <!-- Profiles page -->
+  <data name="Profiles_New" xml:space="preserve"><value>New profile</value></data>
+  <data name="Profiles_Apply" xml:space="preserve"><value>Apply configuration</value></data>
+  <data name="Profiles_PendingChanges" xml:space="preserve"><value>{0} file(s) need updating</value></data>
+  <data name="Profiles_UpToDate" xml:space="preserve"><value>Configuration is up to date</value></data>
+  <data name="Profiles_PlanBlocked" xml:space="preserve"><value>Problems found — open Apply configuration for details</value></data>
+  <data name="Profiles_Empty_Title" xml:space="preserve"><value>No profiles yet</value></data>
+  <data name="Profiles_Empty_Text" xml:space="preserve"><value>Create a profile for each GitHub account you use on this computer.</value></data>
+  <data name="Profiles_SelectHint" xml:space="preserve"><value>Select a profile on the left or create a new one.</value></data>
+  <data name="Profiles_NoKey" xml:space="preserve"><value>No SSH key</value></data>
+  <data name="Profiles_Applied" xml:space="preserve"><value>Configuration applied: {0} file(s) written, backups saved next to them.</value></data>
+
+  <!-- Profile editor -->
+  <data name="Editor_NewTitle" xml:space="preserve"><value>New profile</value></data>
+  <data name="Editor_Identity" xml:space="preserve"><value>Git identity</value></data>
+  <data name="Editor_Ssh" xml:space="preserve"><value>SSH</value></data>
+  <data name="Editor_Rules" xml:space="preserve"><value>Where this profile applies</value></data>
+  <data name="Editor_Appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Editor_Revert" xml:space="preserve"><value>Discard changes</value></data>
+  <data name="Editor_Delete" xml:space="preserve"><value>Delete profile</value></data>
+  <data name="Editor_DeleteTitle" xml:space="preserve"><value>Delete profile</value></data>
+  <data name="Editor_DeleteConfirm" xml:space="preserve"><value>Delete the profile "{0}"?
+
+Its SSH key files are kept. GitPersona will then show which git and ssh configuration entries it removes.</value></data>
+  <data name="Editor_UnsavedTitle" xml:space="preserve"><value>Unsaved changes</value></data>
+  <data name="Editor_UnsavedPrompt" xml:space="preserve"><value>Save the changes to "{0}"?</value></data>
+  <data name="Field_DisplayName" xml:space="preserve"><value>Display name</value></data>
+  <data name="Field_Id" xml:space="preserve"><value>Profile ID</value></data>
+  <data name="Field_Id_Help" xml:space="preserve"><value>Used in file names and the SSH alias: lowercase letters, digits and hyphens.</value></data>
+  <data name="Field_GitUserName" xml:space="preserve"><value>Git user.name</value></data>
+  <data name="Field_GitUserEmail" xml:space="preserve"><value>Git user.email</value></data>
+  <data name="Field_GitHubUsername" xml:space="preserve"><value>GitHub username</value></data>
+  <data name="Field_HostAlias" xml:space="preserve"><value>Host alias</value></data>
+  <data name="Field_HostAlias_Help" xml:space="preserve"><value>Remote URLs take the form git@&lt;alias&gt;:owner/repo.git.</value></data>
+  <data name="Field_Host" xml:space="preserve"><value>SSH host</value></data>
+  <data name="Field_Host_Help" xml:space="preserve"><value>github.com, or your GitHub Enterprise host.</value></data>
+  <data name="Field_SshKey" xml:space="preserve"><value>Private key</value></data>
+  <data name="Field_Folders" xml:space="preserve"><value>Folders</value></data>
+  <data name="Field_Folders_Help" xml:space="preserve"><value>Repositories inside these folders commit with this identity.</value></data>
+  <data name="Field_Owners" xml:space="preserve"><value>GitHub owners and organizations</value></data>
+  <data name="Field_Owners_Help" xml:space="preserve"><value>Repositories of these owners are cloned with this profile automatically.</value></data>
+  <data name="Field_CloneFolder" xml:space="preserve"><value>Default clone folder</value></data>
+  <data name="Field_CloneFolder_Help" xml:space="preserve"><value>When empty, the first folder above is used.</value></data>
+  <data name="Field_Color" xml:space="preserve"><value>Color</value></data>
+  <data name="Field_Icon" xml:space="preserve"><value>Icon</value></data>
+  <data name="Folders_Add" xml:space="preserve"><value>Add folder…</value></data>
+  <data name="Owners_Add" xml:space="preserve"><value>Add</value></data>
+  <data name="Owners_Placeholder" xml:space="preserve"><value>owner or organization</value></data>
+  <data name="Owners_Invalid" xml:space="preserve"><value>"{0}" is not a valid GitHub owner name.</value></data>
+  <data name="Key_Generate" xml:space="preserve"><value>Generate new key…</value></data>
+  <data name="Key_Choose" xml:space="preserve"><value>Choose existing…</value></data>
+  <data name="Key_CopyPublic" xml:space="preserve"><value>Copy public key</value></data>
+  <data name="Key_Copied" xml:space="preserve"><value>Public key copied to the clipboard.</value></data>
+  <data name="Key_None" xml:space="preserve"><value>No key selected yet.</value></data>
+  <data name="Key_NotFound" xml:space="preserve"><value>The key file does not exist.</value></data>
+  <data name="Key_ChooseTitle" xml:space="preserve"><value>Choose a private SSH key</value></data>
+  <data name="Key_ChooseFilter" xml:space="preserve"><value>All files|*.*</value></data>
+  <data name="Key_Invalid" xml:space="preserve"><value>Could not read the key: {0}</value></data>
+  <data name="Key_NeedId" xml:space="preserve"><value>Enter a valid profile ID before generating a key.</value></data>
+
+  <!-- Validation -->
+  <data name="Issue_Profile_InvalidId" xml:space="preserve"><value>Profile ID "{0}" is not valid: use lowercase letters, digits and hyphens.</value></data>
+  <data name="Issue_Profile_DuplicateId" xml:space="preserve"><value>Another profile already uses the ID "{0}".</value></data>
+  <data name="Issue_Profile_MissingDisplayName" xml:space="preserve"><value>Enter a display name.</value></data>
+  <data name="Issue_Profile_MissingGitUserName" xml:space="preserve"><value>Enter the git user.name.</value></data>
+  <data name="Issue_Profile_InvalidEmail" xml:space="preserve"><value>"{0}" is not a valid email address.</value></data>
+  <data name="Issue_Profile_MissingHost" xml:space="preserve"><value>Enter the SSH host (usually github.com).</value></data>
+  <data name="Issue_Profile_InvalidHostAlias" xml:space="preserve"><value>Host alias "{0}" is not valid: use letters, digits, dots, hyphens and underscores.</value></data>
+  <data name="Issue_Profile_DuplicateHostAlias" xml:space="preserve"><value>Another profile already uses the alias "{0}".</value></data>
+  <data name="Issue_Profile_InvalidFolder" xml:space="preserve"><value>"{0}" is not a full folder path.</value></data>
+  <data name="Issue_Profile_DuplicateFolder" xml:space="preserve"><value>The folder "{0}" already belongs to another profile.</value></data>
+  <data name="Issue_Profile_DuplicateOwner" xml:space="preserve"><value>The owner "{0}" already belongs to another profile.</value></data>
+  <data name="Issue_Plan_MissingSshKey" xml:space="preserve"><value>Profile "{0}" has no SSH key yet, so it gets no SSH host entry.</value></data>
+  <data name="Issue_Plan_SshKeyNotFound" xml:space="preserve"><value>Profile "{0}": the key file {1} does not exist.</value></data>
+  <data name="Issue_Plan_AliasDefinedOutsideBlock" xml:space="preserve"><value>Your ~/.ssh/config also defines "Host {1}" outside GitPersona's block. GitPersona's entry comes first, so it wins.</value></data>
+  <data name="Issue_Plan_ForeignProfileConfigFile" xml:space="preserve"><value>{1} already exists and was not created by GitPersona. Rename or remove it, or change the ID of profile "{0}".</value></data>
+  <data name="Issue_Plan_MalformedBlock" xml:space="preserve"><value>The GitPersona markers in {1} are damaged (duplicated or unmatched). Fix them by hand; GitPersona will not guess.</value></data>
+  <data name="Issue_Plan_UnreadableFile" xml:space="preserve"><value>{1} is not UTF-8 text, so GitPersona will not edit it.</value></data>
+
+  <!-- Review window -->
+  <data name="Review_Title" xml:space="preserve"><value>Review configuration changes</value></data>
+  <data name="Review_Intro" xml:space="preserve"><value>GitPersona will write the files below. Only its own marked blocks change, and every existing file is backed up next to itself first.</value></data>
+  <data name="Review_Apply" xml:space="preserve"><value>Apply</value></data>
+  <data name="Review_NoChanges" xml:space="preserve"><value>Everything is already up to date.</value></data>
+  <data name="Review_Blocked" xml:space="preserve"><value>Fix the problems above before applying.</value></data>
+  <data name="Review_Conflict" xml:space="preserve"><value>{0} changed while you were reviewing. Close this window and review again.</value></data>
+  <data name="Review_ApplyFailed" xml:space="preserve"><value>Writing {0} failed: {1}
+Files written before it have backups next to them.</value></data>
+  <data name="Review_Skipped" xml:space="preserve"><value>… {0} unchanged line(s)</value></data>
+  <data name="Kind_Create" xml:space="preserve"><value>new file</value></data>
+  <data name="Kind_Modify" xml:space="preserve"><value>modified</value></data>
+  <data name="Kind_Delete" xml:space="preserve"><value>deleted</value></data>
+  <data name="Role_SshConfig" xml:space="preserve"><value>SSH configuration</value></data>
+  <data name="Role_GlobalGitConfig" xml:space="preserve"><value>Global git configuration</value></data>
+  <data name="Role_ProfileGitConfig" xml:space="preserve"><value>Git identity of profile "{0}"</value></data>
+  <data name="Role_Other" xml:space="preserve"><value>Configuration file</value></data>
+
+  <!-- Key generation -->
+  <data name="KeyGen_Title" xml:space="preserve"><value>Generate SSH key</value></data>
+  <data name="KeyGen_Intro" xml:space="preserve"><value>Creates an ed25519 key pair in your .ssh folder. Existing files are never overwritten.</value></data>
+  <data name="KeyGen_Path" xml:space="preserve"><value>File</value></data>
+  <data name="KeyGen_Comment" xml:space="preserve"><value>Comment</value></data>
+  <data name="KeyGen_Passphrase" xml:space="preserve"><value>Passphrase (optional)</value></data>
+  <data name="KeyGen_Confirm" xml:space="preserve"><value>Repeat passphrase</value></data>
+  <data name="KeyGen_PassphraseNote" xml:space="preserve"><value>With a passphrase, git asks for it on every push unless the key is loaded into ssh-agent. The Diagnostics page shows how to enable the agent.</value></data>
+  <data name="KeyGen_Generate" xml:space="preserve"><value>Generate</value></data>
+  <data name="KeyGen_Mismatch" xml:space="preserve"><value>The passphrases do not match.</value></data>
+  <data name="KeyGen_Exists" xml:space="preserve"><value>{0} already exists. Choose another file name.</value></data>
+  <data name="KeyGen_Failed" xml:space="preserve"><value>Key generation failed: {0}</value></data>
 </root>

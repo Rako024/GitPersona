@@ -1,0 +1,108 @@
+<UserControl x:Class="GitPersona.App.Views.ProfilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:l="clr-namespace:GitPersona.App.Localization"
+             xmlns:vm="clr-namespace:GitPersona.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:ProfilesViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <DockPanel Grid.Row="0" LastChildFill="False">
+            <ui:Button DockPanel.Dock="Left"
+                       Appearance="Primary"
+                       Icon="{ui:SymbolIcon Add24}"
+                       Command="{Binding NewProfileCommand}"
+                       Content="{l:Loc Profiles_New}" />
+            <ui:Button DockPanel.Dock="Left"
+                       Margin="8,0,0,0"
+                       Icon="{ui:SymbolIcon ArrowSync24}"
+                       Command="{Binding ApplyConfigurationCommand}"
+                       Content="{l:Loc Profiles_Apply}" />
+            <StackPanel DockPanel.Dock="Left" Margin="16,0,0,0" VerticalAlignment="Center" Orientation="Horizontal"
+                        Visibility="{Binding PlanSummary, Converter={StaticResource Presence}}">
+                <ui:SymbolIcon Margin="0,0,6,0" FontSize="16" Symbol="Warning24"
+                               Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                               Visibility="{Binding PlanNeedsAttention, Converter={StaticResource Presence}}" />
+                <ui:SymbolIcon Margin="0,0,6,0" FontSize="16" Symbol="CheckmarkCircle24"
+                               Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                               Visibility="{Binding PlanNeedsAttention, Converter={StaticResource Absence}}" />
+                <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding PlanSummary}" />
+            </StackPanel>
+        </DockPanel>
+
+        <TextBlock Grid.Row="1"
+                   Margin="0,12,0,0"
+                   Style="{StaticResource SecondaryTextStyle}"
+                   FontSize="13"
+                   Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                   Text="{Binding StatusMessage}"
+                   Visibility="{Binding StatusMessage, Converter={StaticResource Presence}}" />
+
+        <Grid Grid.Row="2" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="24" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Profile list -->
+            <ListBox Grid.Column="0"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     ItemsSource="{Binding Items}"
+                     SelectedItem="{Binding SelectedItem}"
+                     ItemContainerStyle="{StaticResource ProfileItemStyle}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:ProfileListItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border Width="36" Height="36" CornerRadius="18" VerticalAlignment="Top"
+                                    Background="{Binding Color, Converter={StaticResource HexToBrush}}">
+                                <ui:SymbolIcon FontSize="18" Foreground="White" Symbol="{Binding Icon}" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                                <TextBlock FontSize="14" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Text="{Binding DisplayName}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" Text="{Binding Email}" />
+                                <TextBlock Style="{StaticResource SecondaryTextStyle}" FontFamily="Cascadia Mono, Consolas" Text="{Binding Alias}" />
+                                <StackPanel Margin="0,4,0,0" Orientation="Horizontal" Visibility="{Binding KeyWarning, Converter={StaticResource Presence}}">
+                                    <ui:SymbolIcon FontSize="14" Foreground="{DynamicResource SystemFillColorCautionBrush}" Symbol="Warning24" />
+                                    <TextBlock Margin="4,0,0,0" Style="{StaticResource SecondaryTextStyle}" Text="{Binding KeyWarning}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Empty state -->
+            <Border Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Top" Style="{StaticResource SectionCardStyle}"
+                    Visibility="{Binding ShowEmptyState, Converter={StaticResource Presence}}">
+                <StackPanel>
+                    <ui:SymbolIcon HorizontalAlignment="Left" FontSize="32" Foreground="{DynamicResource AccentTextFillColorPrimaryBrush}" Symbol="PersonAdd24" />
+                    <TextBlock Margin="0,12,0,4" Style="{StaticResource CardTitleStyle}" Text="{l:Loc Profiles_Empty_Title}" />
+                    <TextBlock Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{l:Loc Profiles_Empty_Text}" />
+                    <ui:Button Margin="0,16,0,0" Appearance="Primary" Icon="{ui:SymbolIcon Add24}"
+                               Command="{Binding NewProfileCommand}" Content="{l:Loc Profiles_New}" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock Grid.Column="2" Style="{StaticResource SecondaryTextStyle}" FontSize="14" Text="{l:Loc Profiles_SelectHint}"
+                       Visibility="{Binding ShowSelectHint, Converter={StaticResource Presence}}" />
+
+            <ContentControl Grid.Column="2" Focusable="False" Content="{Binding Editor}" />
+        </Grid>
+    </Grid>
+</UserControl>

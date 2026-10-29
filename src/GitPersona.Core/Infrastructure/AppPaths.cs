@@ -9,9 +9,14 @@ public sealed class AppPaths
         RootDirectory = Path.GetFullPath(rootDirectory);
     }
 
-    /// <summary><c>%APPDATA%\GitPersona</c> of the current user.</summary>
+    /// <summary>Overrides the data folder, e.g. to try GitPersona against a sandbox.</summary>
+    public const string OverrideVariable = "GITPERSONA_DATA_DIR";
+
+    /// <summary><c>%APPDATA%\GitPersona</c> of the current user, unless <see cref="OverrideVariable"/> is set.</summary>
     public static AppPaths ForCurrentUser() =>
-        new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GitPersona"));
+        new(Environment.GetEnvironmentVariable(OverrideVariable) is { Length: > 0 } custom
+            ? custom
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GitPersona"));
 
     public string RootDirectory { get; }
 

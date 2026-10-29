@@ -68,7 +68,7 @@ docs/
 - `~/.gitconfig`: blok faylın **sonuna** yazılır, çünki git-də sonuncu dəyər qalib gəlir. Belə olanda `includeIf` global `user.email`-i override edir.
 - Hər profil üçün iki `includeIf` qaydası yazılır:
   - `[includeIf "gitdir/i:C:/work/"]` — qovluğa görə işləyir.
-  - `[includeIf "hasconfig:remote.*.url:git@github-work:**"]` — remote alias-a görə işləyir.
+  - `[includeIf "hasconfig:remote.*.url:git@github-work:*/**"]` — remote alias-a görə işləyir. Burada `:*/**` lazımdır, çünki git-də `**` yalnız `/`-dən sonra rekursivdir.
 
   Hər ikisi uyğun gəlsə, alias qaydası qalib gəlir.
 - `~/.gitconfig-<id>` faylı tam tətbiqə məxsusdur. İçində `user.name`, `user.email` və `credential.https://github.com.username` olur.

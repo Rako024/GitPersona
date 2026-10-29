@@ -60,7 +60,7 @@ public partial class App : Application
         }
 
         _logger.LogInformation("GitPersona {Version} started (minimized: {Minimized})", SettingsViewModel.AppVersion, minimized);
-        WarnAboutQuarantinedProfiles(services.GetRequiredService<ProfileStore>());
+        WarnAboutQuarantinedProfiles(services);
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -76,10 +76,11 @@ public partial class App : Application
         base.OnExit(e);
     }
 
-    private static void WarnAboutQuarantinedProfiles(ProfileStore store)
+    private static void WarnAboutQuarantinedProfiles(IServiceProvider services)
     {
-        store.Load();
-        if (store.QuarantinedFile is { } path)
+        // The first (and only) load happens through ProfilesService; the store remembers what it found.
+        _ = services.GetRequiredService<ProfilesService>().Profiles;
+        if (services.GetRequiredService<ProfileStore>().QuarantinedFile is { } path)
         {
             MessageBox.Show(LocalizationManager.Instance.Format("Error_ProfilesQuarantined", path), "GitPersona",
                 MessageBoxButton.OK, MessageBoxImage.Warning);

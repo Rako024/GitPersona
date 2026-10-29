@@ -7,6 +7,11 @@ namespace GitPersona.Core.ConfigFiles;
 /// <param name="Updated">Content to write; <see langword="null"/> deletes the file.</param>
 public sealed record ConfigChange(string FilePath, TextFileContent? Original, TextFileContent? Updated, string Description)
 {
+    public ConfigFileRole Role { get; init; } = ConfigFileRole.Other;
+
+    /// <summary>Profile the file belongs to, for <see cref="ConfigFileRole.ProfileGitConfig"/>.</summary>
+    public string? ProfileId { get; init; }
+
     public bool HasChanges => Original != Updated;
 
     public ConfigChangeKind Kind => (Original, Updated) switch
@@ -15,6 +20,14 @@ public sealed record ConfigChange(string FilePath, TextFileContent? Original, Te
         (not null, null) => ConfigChangeKind.Delete,
         _ => ConfigChangeKind.Modify,
     };
+}
+
+public enum ConfigFileRole
+{
+    Other,
+    SshConfig,
+    GlobalGitConfig,
+    ProfileGitConfig,
 }
 
 public enum ConfigChangeKind

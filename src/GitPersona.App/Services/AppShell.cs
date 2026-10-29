@@ -33,6 +33,12 @@ public sealed class AppShell(IServiceProvider services)
         ShowMainWindow();
     }
 
+    public void ShowProfile(string profileId)
+    {
+        Navigate(AppPage.Profiles);
+        services.GetRequiredService<ProfilesViewModel>().Select(profileId);
+    }
+
     public void Exit()
     {
         IsExiting = true;
