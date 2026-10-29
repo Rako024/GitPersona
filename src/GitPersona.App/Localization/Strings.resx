@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Navigation -->
+  <data name="Nav_Profiles" xml:space="preserve"><value>Profiles</value></data>
+  <data name="Nav_Clone" xml:space="preserve"><value>Clone</value></data>
+  <data name="Nav_Scanner" xml:space="preserve"><value>Repository scanner</value></data>
+  <data name="Nav_Diagnostics" xml:space="preserve"><value>Diagnostics</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
+
+  <!-- Pages that arrive in later phases -->
+  <data name="Profiles_Description" xml:space="preserve"><value>Git identities, SSH keys and the folders and GitHub owners each one applies to.</value></data>
+  <data name="Clone_Description" xml:space="preserve"><value>Paste a GitHub URL and the right profile, SSH alias and folder are picked automatically.</value></data>
+  <data name="Scanner_Description" xml:space="preserve"><value>Find repositories with HTTPS remotes, the wrong SSH alias or the wrong email, and fix them.</value></data>
+  <data name="Diagnostics_Description" xml:space="preserve"><value>Test SSH access per profile and detect Windows-specific conflicts.</value></data>
+  <data name="Placeholder_Phase" xml:space="preserve"><value>This section is added in a later build (phase {0}).</value></data>
+  <data name="Placeholder_Title" xml:space="preserve"><value>Under construction</value></data>
+
+  <!-- Settings -->
+  <data name="Settings_Description" xml:space="preserve"><value>Appearance, language and how GitPersona starts.</value></data>
+  <data name="Settings_Appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Settings_Theme_Description" xml:space="preserve"><value>Light, dark, or follow Windows.</value></data>
+  <data name="Theme_System" xml:space="preserve"><value>Use system setting</value></data>
+  <data name="Theme_Light" xml:space="preserve"><value>Light</value></data>
+  <data name="Theme_Dark" xml:space="preserve"><value>Dark</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Settings_Language_Description" xml:space="preserve"><value>Language of the interface and of commit guard messages.</value></data>
+  <data name="Language_System" xml:space="preserve"><value>Use system language</value></data>
+  <data name="Language_Azerbaijani" xml:space="preserve"><value>Azərbaycanca</value></data>
+  <data name="Language_English" xml:space="preserve"><value>English</value></data>
+  <data name="Settings_Startup" xml:space="preserve"><value>Startup</value></data>
+  <data name="Settings_StartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
+  <data name="Settings_StartWithWindows_Description" xml:space="preserve"><value>Starts minimized to the notification area when you sign in.</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Data and logs</value></data>
+  <data name="Settings_Data_Description" xml:space="preserve"><value>Profiles and settings are stored in {0}.</value></data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve"><value>Open data folder</value></data>
+  <data name="Settings_OpenLogsFolder" xml:space="preserve"><value>Open logs folder</value></data>
+  <data name="Settings_About" xml:space="preserve"><value>About</value></data>
+  <data name="Settings_Version" xml:space="preserve"><value>Version {0}</value></data>
+
+  <!-- Tray -->
+  <data name="Tray_Open" xml:space="preserve"><value>Open GitPersona</value></data>
+  <data name="Tray_Profiles" xml:space="preserve"><value>Profiles</value></data>
+  <data name="Tray_NoProfiles" xml:space="preserve"><value>No profiles yet</value></data>
+  <data name="Tray_CloneFromUrl" xml:space="preserve"><value>Clone from URL…</value></data>
+  <data name="Tray_Scan" xml:space="preserve"><value>Scan repositories</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Exit</value></data>
+  <data name="Tray_StillRunning_Title" xml:space="preserve"><value>GitPersona is still running</value></data>
+  <data name="Tray_StillRunning_Message" xml:space="preserve"><value>It stays in the notification area. Right-click the icon to exit.</value></data>
+
+  <!-- Errors -->
+  <data name="Error_Unexpected" xml:space="preserve"><value>An unexpected error occurred:
+{0}
+
+Details are in the log file.</value></data>
+  <data name="Error_ProfilesQuarantined" xml:space="preserve"><value>profiles.json could not be read and was moved to:
+{0}
+
+GitPersona starts with an empty profile list. Your original file is kept there.</value></data>
+  <data name="Error_StartupToggle" xml:space="preserve"><value>Could not change the startup setting: {0}</value></data>
+</root>

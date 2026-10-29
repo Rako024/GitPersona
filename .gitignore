@@ -1,0 +1,17 @@
+## Build output
+bin/
+obj/
+artifacts/
+publish/
+installer/Output/
+
+## IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+
+## Test results
+TestResults/
+coverage*/

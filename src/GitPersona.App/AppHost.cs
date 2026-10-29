@@ -1,0 +1,64 @@
+using System.Globalization;
+using System.IO;
+using GitPersona.App.Platform;
+using GitPersona.App.Services;
+using GitPersona.App.Tray;
+using GitPersona.App.ViewModels;
+using GitPersona.App.Views;
+using GitPersona.Core.ConfigFiles;
+using GitPersona.Core.Infrastructure;
+using GitPersona.Core.Infrastructure.Processes;
+using GitPersona.Core.Profiles;
+using GitPersona.Core.Settings;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+
+namespace GitPersona.App;
+
+internal static class AppHost
+{
+    public static IHost Build(AppPaths paths)
+    {
+        var builder = Host.CreateApplicationBuilder(new HostApplicationBuilderSettings
+        {
+            DisableDefaults = true,
+            ContentRootPath = AppContext.BaseDirectory,
+        });
+
+        builder.Services.AddSerilog(log => log
+            .MinimumLevel.Debug()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            .Enrich.FromLogContext()
+            .WriteTo.File(
+                Path.Combine(paths.LogsDirectory, "gitpersona-.log"),
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 14,
+                formatProvider: CultureInfo.InvariantCulture,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}"));
+
+        var services = builder.Services;
+
+        // Core
+        services.AddSingleton(paths);
+        services.AddSingleton(UserPaths.ForCurrentUser());
+        services.AddSingleton<IProcessRunner, ProcessRunner>();
+        services.AddSingleton(_ => new BackupManager());
+        services.AddSingleton<ConfigWriter>();
+        services.AddSingleton<ProfileStore>();
+        services.AddSingleton<SettingsStore>();
+
+        // App
+        services.AddSingleton<SettingsService>();
+        services.AddSingleton<StartupService>();
+        services.AddSingleton<ThemeService>();
+        services.AddSingleton<AppShell>();
+        services.AddSingleton<TrayService>();
+        services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<MainWindow>();
+
+        return builder.Build();
+    }
+}

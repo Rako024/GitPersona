@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <!-- Required by [LibraryImport] P/Invoke source generation. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <!-- Logging volume in a desktop app is tiny; LoggerMessage source generators would only add noise. -->
+    <NoWarn>$(NoWarn);CA1848;CA1873</NoWarn>
+    <Version>0.1.0</Version>
+    <Product>GitPersona</Product>
+    <Company>GitPersona</Company>
+    <Copyright>© 2026 GitPersona</Copyright>
+    <!-- Keeps the single-file publish to one file: symbols live inside the assemblies. -->
+    <DebugType Condition="'$(Configuration)' == 'Release'">embedded</DebugType>
+    <!-- Only ship the UI languages we actually translate. -->
+    <SatelliteResourceLanguages>en;az</SatelliteResourceLanguages>
+  </PropertyGroup>
+</Project>

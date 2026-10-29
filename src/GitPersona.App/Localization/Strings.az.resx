@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Naviqasiya -->
+  <data name="Nav_Profiles" xml:space="preserve"><value>Profillər</value></data>
+  <data name="Nav_Clone" xml:space="preserve"><value>Clone</value></data>
+  <data name="Nav_Scanner" xml:space="preserve"><value>Repo skaneri</value></data>
+  <data name="Nav_Diagnostics" xml:space="preserve"><value>Diaqnostika</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Ayarlar</value></data>
+
+  <!-- Sonrakı mərhələlərdə gələcək səhifələr -->
+  <data name="Profiles_Description" xml:space="preserve"><value>Git identity-ləri, SSH key-lər və hər birinin aid olduğu qovluqlar və GitHub owner-ləri.</value></data>
+  <data name="Clone_Description" xml:space="preserve"><value>GitHub URL-i yapışdırın — uyğun profil, SSH alias və qovluq avtomatik seçiləcək.</value></data>
+  <data name="Scanner_Description" xml:space="preserve"><value>HTTPS remote-u, səhv SSH alias-ı və ya səhv email-i olan repo-ları tapın və düzəldin.</value></data>
+  <data name="Diagnostics_Description" xml:space="preserve"><value>Hər profil üçün SSH girişini yoxlayın və Windows-a xas ziddiyyətləri aşkarlayın.</value></data>
+  <data name="Placeholder_Phase" xml:space="preserve"><value>Bu bölmə növbəti versiyalarda əlavə olunacaq (mərhələ {0}).</value></data>
+  <data name="Placeholder_Title" xml:space="preserve"><value>Hazırlanır</value></data>
+
+  <!-- Ayarlar -->
+  <data name="Settings_Description" xml:space="preserve"><value>Görünüş, dil və GitPersona-nın necə açılması.</value></data>
+  <data name="Settings_Appearance" xml:space="preserve"><value>Görünüş</value></data>
+  <data name="Settings_Theme" xml:space="preserve"><value>Mövzu</value></data>
+  <data name="Settings_Theme_Description" xml:space="preserve"><value>Açıq, tünd və ya Windows ayarına uyğun.</value></data>
+  <data name="Theme_System" xml:space="preserve"><value>Sistem ayarı</value></data>
+  <data name="Theme_Light" xml:space="preserve"><value>Açıq</value></data>
+  <data name="Theme_Dark" xml:space="preserve"><value>Tünd</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Dil</value></data>
+  <data name="Settings_Language_Description" xml:space="preserve"><value>İnterfeysin və commit qoruyucusu mesajlarının dili.</value></data>
+  <data name="Language_System" xml:space="preserve"><value>Sistem dili</value></data>
+  <data name="Language_Azerbaijani" xml:space="preserve"><value>Azərbaycanca</value></data>
+  <data name="Language_English" xml:space="preserve"><value>English</value></data>
+  <data name="Settings_Startup" xml:space="preserve"><value>Başlanğıc</value></data>
+  <data name="Settings_StartWithWindows" xml:space="preserve"><value>Windows ilə açılsın</value></data>
+  <data name="Settings_StartWithWindows_Description" xml:space="preserve"><value>Sistemə daxil olanda bildiriş sahəsində (tray) minimallaşdırılmış açılır.</value></data>
+  <data name="Settings_Data" xml:space="preserve"><value>Məlumat və loglar</value></data>
+  <data name="Settings_Data_Description" xml:space="preserve"><value>Profillər və ayarlar bu qovluqda saxlanılır: {0}</value></data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve"><value>Məlumat qovluğunu aç</value></data>
+  <data name="Settings_OpenLogsFolder" xml:space="preserve"><value>Log qovluğunu aç</value></data>
+  <data name="Settings_About" xml:space="preserve"><value>Haqqında</value></data>
+  <data name="Settings_Version" xml:space="preserve"><value>Versiya {0}</value></data>
+
+  <!-- Tray -->
+  <data name="Tray_Open" xml:space="preserve"><value>GitPersona-nı aç</value></data>
+  <data name="Tray_Profiles" xml:space="preserve"><value>Profillər</value></data>
+  <data name="Tray_NoProfiles" xml:space="preserve"><value>Hələ profil yoxdur</value></data>
+  <data name="Tray_CloneFromUrl" xml:space="preserve"><value>URL-dən clone et…</value></data>
+  <data name="Tray_Scan" xml:space="preserve"><value>Repo-ları skan et</value></data>
+  <data name="Tray_Exit" xml:space="preserve"><value>Çıxış</value></data>
+  <data name="Tray_StillRunning_Title" xml:space="preserve"><value>GitPersona işləməyə davam edir</value></data>
+  <data name="Tray_StillRunning_Message" xml:space="preserve"><value>Tətbiq bildiriş sahəsində qalır. Çıxmaq üçün ikona sağ klikləyin.</value></data>
+
+  <!-- Xətalar -->
+  <data name="Error_Unexpected" xml:space="preserve"><value>Gözlənilməz xəta baş verdi:
+{0}
+
+Ətraflı məlumat log faylındadır.</value></data>
+  <data name="Error_ProfilesQuarantined" xml:space="preserve"><value>profiles.json oxuna bilmədi və bu fayla köçürüldü:
+{0}
+
+GitPersona boş profil siyahısı ilə açılır. Orijinal fayl həmin yerdə saxlanılıb.</value></data>
+  <data name="Error_StartupToggle" xml:space="preserve"><value>Başlanğıc ayarını dəyişmək mümkün olmadı: {0}</value></data>
+</root>
