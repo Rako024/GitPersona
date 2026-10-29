@@ -29,6 +29,7 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
         nameof(Host), nameof(HostAlias), nameof(SshKeyPath), nameof(DefaultCloneFolder), nameof(Color), nameof(Icon),
     ];
 
+    private readonly EditorServices _services;
     private readonly ProfilesService _profiles;
     private readonly SshKeyService _keys;
     private readonly DialogService _dialogs;
@@ -42,12 +43,13 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
     private SshKeyInfo? _keyInfo;
     private int _keyLookup;
 
-    public ProfileEditorViewModel(Profile? original, ProfilesService profiles, SshKeyService keys, DialogService dialogs, UserPaths paths, ILogger logger)
+    public ProfileEditorViewModel(Profile? original, EditorServices services, ILogger logger)
     {
-        _profiles = profiles;
-        _keys = keys;
-        _dialogs = dialogs;
-        _paths = paths;
+        _services = services;
+        _profiles = services.Profiles;
+        _keys = services.Keys;
+        _dialogs = services.Dialogs;
+        _paths = services.Paths;
         _logger = logger;
         Folders.CollectionChanged += (_, _) => MarkDirty();
         Owners.CollectionChanged += (_, _) => MarkDirty();
@@ -119,8 +121,13 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
     public partial string? KeyMessage { get; set; }
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(CopyPublicKeyCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CopyPublicKeyCommand), nameof(ConnectGitHubCommand))]
     public partial bool HasPublicKey { get; set; }
+
+    /// <summary>Set when a GitHub token for this profile's account is saved in Credential Manager.</summary>
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(ForgetGitHubCommand))]
+    public partial string? GitHubStatus { get; set; }
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveCommand), nameof(RevertCommand))]
@@ -183,7 +190,12 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
     {
         base.OnLanguageChanged();
         _ = RefreshKeyAsync();
+        RefreshGitHubStatus();
     }
+
+    partial void OnGitHubUsernameChanged(string value) => RefreshGitHubStatus();
+
+    partial void OnHostChanged(string value) => RefreshGitHubStatus();
 
     partial void OnDisplayNameChanged(string value)
     {
@@ -338,6 +350,64 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
     }
 
     [RelayCommand(CanExecute = nameof(HasPublicKey))]
+    private void ConnectGitHub()
+    {
+        if (_keyInfo is null)
+        {
+            return;
+        }
+
+        KeyMessage = null;
+        // The window disposes the view model when it closes.
+        var viewModel = new GitHubConnectViewModel(
+            _services.GitHub,
+            _services.Tokens,
+            _logger,
+            EffectiveHost,
+            GitHubUsername,
+            _keyInfo.PublicKey,
+            Id.Trim(),
+            GitUserEmail.Trim(),
+            _services.Settings.Current.GitHubOAuthClientId);
+        var window = new GitHubConnectWindow(viewModel) { Owner = DialogService.ActiveWindow };
+        if (window.ShowDialog() != true || viewModel.Result is not { } result)
+        {
+            RefreshGitHubStatus();
+            return;
+        }
+
+        if (!result.Login.Equals(GitHubUsername.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            GitHubUsername = result.Login;
+        }
+
+        if (result.Email is { } email && !email.Equals(GitUserEmail.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            GitUserEmail = email;
+        }
+
+        KeyMessage = result.Summary;
+        RefreshGitHubStatus();
+    }
+
+    private bool HasGitHubStatus => GitHubStatus is not null;
+
+    [RelayCommand(CanExecute = nameof(HasGitHubStatus))]
+    private void ForgetGitHub()
+    {
+        try
+        {
+            _services.Tokens.Delete(EffectiveHost, GitHubUsername);
+        }
+        catch (Win32Exception ex)
+        {
+            KeyMessage = ex.Message;
+        }
+
+        RefreshGitHubStatus();
+    }
+
+    [RelayCommand(CanExecute = nameof(HasPublicKey))]
     private void CopyPublicKey()
     {
         if (_keyInfo is null)
@@ -393,6 +463,29 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
         _loading = false;
         IsDirty = false;
         _ = RefreshKeyAsync();
+        RefreshGitHubStatus();
+    }
+
+    private string EffectiveHost => string.IsNullOrWhiteSpace(Host) ? Profile.DefaultHost : Host.Trim();
+
+    private void RefreshGitHubStatus()
+    {
+        if (_loading)
+        {
+            return;
+        }
+
+        try
+        {
+            GitHubStatus = !string.IsNullOrWhiteSpace(GitHubUsername) && _services.Tokens.Read(EffectiveHost, GitHubUsername) is not null
+                ? Loc.Format("Editor_GitHubSignedIn", GitHubUsername.Trim())
+                : null;
+        }
+        catch (Win32Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not read the saved GitHub token");
+            GitHubStatus = null;
+        }
     }
 
     private Profile BuildProfile() => new()

@@ -192,4 +192,68 @@ Ondan əvvəl yazılmış faylların backup-ı yanlarındadır.</value></data>
   <data name="KeyGen_Mismatch" xml:space="preserve"><value>Passphrase-lər uyğun gəlmir.</value></data>
   <data name="KeyGen_Exists" xml:space="preserve"><value>{0} artıq mövcuddur. Başqa fayl adı seçin.</value></data>
   <data name="KeyGen_Failed" xml:space="preserve"><value>Key yaradıla bilmədi: {0}</value></data>
+
+  <!-- Ayarlar: GitHub -->
+  <data name="Settings_GitHub" xml:space="preserve"><value>GitHub</value></data>
+  <data name="Settings_ClientId" xml:space="preserve"><value>OAuth App client ID</value></data>
+  <data name="Settings_ClientId_Description" xml:space="preserve"><value>"GitHub ilə daxil ol" üçün lazımdır. Device Flow aktiv olan öz OAuth App-inizi qeydiyyatdan keçirin (README-yə baxın); client secret lazım deyil.</value></data>
+  <data name="Settings_RegisterApp" xml:space="preserve"><value>OAuth App qeydiyyatı…</value></data>
+
+  <!-- Profil redaktoru: GitHub -->
+  <data name="Key_ConnectGitHub" xml:space="preserve"><value>GitHub-a yüklə…</value></data>
+  <data name="Editor_GitHubSignedIn" xml:space="preserve"><value>{0} üçün GitHub girişi Windows Credential Manager-də saxlanılıb.</value></data>
+  <data name="Editor_ForgetGitHub" xml:space="preserve"><value>Girişi unut</value></data>
+
+  <!-- Qoşulma dialoqu -->
+  <data name="Connect_Title" xml:space="preserve"><value>GitHub hesabını qoş</value></data>
+  <data name="Connect_Intro" xml:space="preserve"><value>Bu profilin public key-ini GitHub hesabınıza yükləyir və uyğun commit email-ini təklif edir.</value></data>
+  <data name="Connect_UseSaved" xml:space="preserve"><value>{0} kimi davam et (saxlanılmış giriş)</value></data>
+  <data name="Connect_SignIn" xml:space="preserve"><value>GitHub ilə daxil ol</value></data>
+  <data name="Connect_NoClientId" xml:space="preserve"><value>Brauzer vasitəsilə daxil olmaq üçün OAuth App client ID-ni Ayarlar → GitHub bölməsində daxil edin.</value></data>
+  <data name="Connect_UsePat" xml:space="preserve"><value>Bunun əvəzinə personal access token istifadə et</value></data>
+  <data name="Connect_Remember" xml:space="preserve"><value>Girişi Windows Credential Manager-də yadda saxla</value></data>
+  <data name="Connect_EnterCode" xml:space="preserve"><value>Bu kodu GitHub-da daxil edin:</value></data>
+  <data name="Connect_CopyAndOpen" xml:space="preserve"><value>Kodu kopyala və GitHub-ı aç</value></data>
+  <data name="Connect_AccountTip" xml:space="preserve"><value>Brauzerdə düzgün hesabla ({0}) daxil olduğunuza əmin olun. Başqa hesab açıqdırsa, linki gizli (private) pəncərədə açın.</value></data>
+  <data name="Connect_AccountTipAny" xml:space="preserve"><value>Brauzerdə bu profilin aid olduğu hesabla daxil olduğunuza əmin olun. Başqa hesab açıqdırsa, linki gizli (private) pəncərədə açın.</value></data>
+  <data name="Connect_Waiting" xml:space="preserve"><value>GitPersona-nı brauzerdə təsdiq etməyiniz gözlənilir…</value></data>
+  <data name="Connect_Starting" xml:space="preserve"><value>GitHub ilə əlaqə qurulur…</value></data>
+  <data name="Connect_CheckingAccount" xml:space="preserve"><value>Hesab yoxlanılır…</value></data>
+  <data name="Connect_CheckingKeys" xml:space="preserve"><value>Hesabın SSH key-ləri yoxlanılır…</value></data>
+  <data name="Connect_Uploading" xml:space="preserve"><value>Public key yüklənir…</value></data>
+  <data name="Connect_ReadingEmails" xml:space="preserve"><value>Hesabın email ünvanları oxunur…</value></data>
+  <data name="Connect_TokenLabel" xml:space="preserve"><value>Personal access token</value></data>
+  <data name="Connect_TokenHelp" xml:space="preserve"><value>write:public_key və user:email scope-ları olan classic token, və ya "Git SSH keys: Read and write" və "Email addresses: Read-only" hesab icazələri olan fine-grained token.</value></data>
+  <data name="Connect_CreateToken" xml:space="preserve"><value>GitHub-da token yarat…</value></data>
+  <data name="Connect_Continue" xml:space="preserve"><value>Davam et</value></data>
+  <data name="Connect_Back" xml:space="preserve"><value>Geri</value></data>
+  <data name="Connect_Mismatch" xml:space="preserve"><value>Siz {0} kimi daxil oldunuz, amma bu profil {1} üçündür.
+
+Commit və push-ların səhv hesaba getməsi məhz belə baş verir. Brauzerdə {0} hesabından çıxın (və ya gizli pəncərədən istifadə edin) və yenidən daxil olun, ya da bu profil üçün {0} hesabını seçin.</value></data>
+  <data name="Connect_UseThisAccount" xml:space="preserve"><value>Bu profil üçün {0} istifadə et</value></data>
+  <data name="Connect_SignInAgain" xml:space="preserve"><value>Yenidən daxil ol</value></data>
+  <data name="Connect_KeyUploaded" xml:space="preserve"><value>Public key {0} hesabına əlavə olundu.</value></data>
+  <data name="Connect_KeyAlreadyPresent" xml:space="preserve"><value>{0} hesabında bu public key artıq var.</value></data>
+  <data name="Connect_SsoNote" xml:space="preserve"><value>Təşkilat SAML single sign-on istifadə edirsə, key-i GitHub-da Settings → SSH and GPG keys → Configure SSO bölməsində həmin təşkilat üçün təsdiqləyin.</value></data>
+  <data name="Connect_EmailLabel" xml:space="preserve"><value>Bu profil üçün commit email-i</value></data>
+  <data name="Connect_EmailPrimary" xml:space="preserve"><value>{0} — əsas</value></data>
+  <data name="Connect_EmailVerified" xml:space="preserve"><value>{0} — təsdiqlənmiş</value></data>
+  <data name="Connect_EmailNoReply" xml:space="preserve"><value>{0} — gizli (noreply)</value></data>
+  <data name="Connect_EmailKeep" xml:space="preserve"><value>{0} — cari email-i saxla</value></data>
+  <data name="Connect_EmailNotOnAccount" xml:space="preserve"><value>Profilin cari email-i ({0}) {1} hesabının təsdiqlənmiş ünvanı deyil; bu email ilə edilən commit-lər hesaba bağlanmayacaq.</value></data>
+  <data name="Connect_EmailsUnavailable" xml:space="preserve"><value>Token email ünvanlarını oxuya bilmir (user:email yoxdur); yalnız noreply ünvanı təklif olunur.</value></data>
+  <data name="Connect_Done" xml:space="preserve"><value>Hazırdır</value></data>
+  <data name="Connect_Close" xml:space="preserve"><value>Bağla</value></data>
+  <data name="Connect_SignedInAs" xml:space="preserve"><value>{0} kimi daxil olunub</value></data>
+  <data name="Connect_TokenNotSaved" xml:space="preserve"><value>Giriş Windows Credential Manager-də saxlanıla bilmədi: {0}</value></data>
+  <data name="Connect_Device_Expired" xml:space="preserve"><value>Kod daxil edilməmiş vaxtı bitdi. Yenidən başlayın.</value></data>
+  <data name="Connect_Device_AccessDenied" xml:space="preserve"><value>Brauzerdə icazə rədd edildi.</value></data>
+  <data name="Connect_Device_DeviceFlowDisabled" xml:space="preserve"><value>Bu OAuth App üçün Device Flow aktiv deyil. Onu GitHub-da tətbiqin ayarlarında aktiv edin.</value></data>
+  <data name="Connect_Device_InvalidClient" xml:space="preserve"><value>GitHub bu OAuth App client ID-ni tanımır. Onu Ayarlar → GitHub bölməsində yoxlayın.</value></data>
+  <data name="Connect_Device_Unknown" xml:space="preserve"><value>GitHub girişi dayandırdı: {0}</value></data>
+  <data name="Connect_TokenInvalid" xml:space="preserve"><value>GitHub token-i qəbul etmədi (səhv, vaxtı bitmiş və ya ləğv edilmiş ola bilər).</value></data>
+  <data name="Connect_SavedExpired" xml:space="preserve"><value>Saxlanılmış giriş artıq etibarlı deyil və silindi. Yenidən daxil olun.</value></data>
+  <data name="Connect_MissingScope" xml:space="preserve"><value>Token-də write:public_key scope-u yoxdur, ona görə SSH key əlavə edə bilməz.</value></data>
+  <data name="Connect_KeyInUse" xml:space="preserve"><value>GitHub bu key-in artıq istifadədə olduğunu bildirir. Bir key yalnız bir hesaba aid ola bilər — çox güman ki, o başqa hesabda və ya repo deploy key-i kimi qeydiyyatdadır. Bu profil üçün yeni key yaradın.</value></data>
+  <data name="Connect_Failed" xml:space="preserve"><value>GitHub ilə əlaqə alınmadı: {0}</value></data>
 </root>

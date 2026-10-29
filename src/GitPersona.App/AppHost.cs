@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Net.Http;
 using GitPersona.App.Platform;
 using GitPersona.App.Services;
 using GitPersona.App.Tray;
@@ -7,13 +8,16 @@ using GitPersona.App.ViewModels;
 using GitPersona.App.Views;
 using GitPersona.Core.ConfigFiles;
 using GitPersona.Core.Git;
+using GitPersona.Core.GitHub;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Infrastructure.Processes;
 using GitPersona.Core.Profiles;
+using GitPersona.Core.Security;
 using GitPersona.Core.Settings;
 using GitPersona.Core.Ssh;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 
@@ -54,10 +58,15 @@ internal static class AppHost
         services.AddSingleton<ConfigPlanner>();
         services.AddSingleton<ProfileStore>();
         services.AddSingleton<SettingsStore>();
+        services.AddSingleton<CredentialStore>();
+        services.AddSingleton<GitHubTokenStore>();
+        services.AddSingleton(_ => new HttpClient { Timeout = TimeSpan.FromSeconds(30) });
+        services.AddSingleton(sp => new GitHubApiService(sp.GetRequiredService<HttpClient>(), sp.GetRequiredService<ILogger<GitHubApiService>>()));
 
         // App
         services.AddSingleton<SettingsService>();
         services.AddSingleton<ProfilesService>();
+        services.AddSingleton<EditorServices>();
         services.AddSingleton<ConfigReviewService>();
         services.AddSingleton<DialogService>();
         services.AddSingleton<StartupService>();

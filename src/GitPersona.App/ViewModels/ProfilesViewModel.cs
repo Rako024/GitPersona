@@ -4,9 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GitPersona.App.Localization;
 using GitPersona.App.Services;
-using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Models;
-using GitPersona.Core.Ssh;
 using Microsoft.Extensions.Logging;
 using Wpf.Ui.Controls;
 
@@ -36,29 +34,21 @@ public sealed class ProfileListItem(Profile profile) : LocalizedObject
 
 public sealed partial class ProfilesViewModel : LocalizedObject
 {
+    private readonly EditorServices _services;
     private readonly ProfilesService _profiles;
     private readonly ConfigReviewService _review;
-    private readonly SshKeyService _keys;
     private readonly DialogService _dialogs;
-    private readonly UserPaths _paths;
     private readonly ILogger<ProfilesViewModel> _logger;
     private bool _suppressSelection;
 
-    public ProfilesViewModel(
-        ProfilesService profiles,
-        ConfigReviewService review,
-        SshKeyService keys,
-        DialogService dialogs,
-        UserPaths paths,
-        ILogger<ProfilesViewModel> logger)
+    public ProfilesViewModel(EditorServices services, ConfigReviewService review, ILogger<ProfilesViewModel> logger)
     {
-        _profiles = profiles;
+        _services = services;
+        _profiles = services.Profiles;
         _review = review;
-        _keys = keys;
-        _dialogs = dialogs;
-        _paths = paths;
+        _dialogs = services.Dialogs;
         _logger = logger;
-        profiles.Changed += (_, _) => RefreshList();
+        _profiles.Changed += (_, _) => RefreshList();
         RefreshList();
         RefreshPlanSummary();
     }
@@ -156,7 +146,7 @@ public sealed partial class ProfilesViewModel : LocalizedObject
             old.Deleted -= OnEditorDeleted;
         }
 
-        Editor = new ProfileEditorViewModel(profile, _profiles, _keys, _dialogs, _paths, _logger);
+        Editor = new ProfileEditorViewModel(profile, _services, _logger);
         Editor.Saved += OnEditorSaved;
         Editor.Deleted += OnEditorDeleted;
         StatusMessage = null;

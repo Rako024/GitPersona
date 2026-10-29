@@ -1,0 +1,131 @@
+<ui:FluentWindow x:Class="GitPersona.App.Views.GitHubConnectWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:l="clr-namespace:GitPersona.App.Localization"
+                 xmlns:vm="clr-namespace:GitPersona.App.ViewModels"
+                 mc:Ignorable="d"
+                 d:DataContext="{d:DesignInstance Type=vm:GitHubConnectViewModel}"
+                 Title="{l:Loc Connect_Title}"
+                 Width="580"
+                 SizeToContent="Height"
+                 ResizeMode="NoResize"
+                 WindowStartupLocation="CenterOwner"
+                 ShowInTaskbar="False"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica">
+    <StackPanel>
+        <ui:TitleBar Title="{l:Loc Connect_Title}" ShowMaximize="False" ShowMinimize="False" />
+
+        <StackPanel Margin="24,8,24,0">
+            <TextBlock Margin="0,0,0,16" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{l:Loc Connect_Intro}" />
+
+            <!-- Choose how to sign in -->
+            <StackPanel Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=ChooseMethod}">
+                <ui:Button Margin="0,0,0,8" HorizontalAlignment="Stretch" Appearance="Primary" Icon="{ui:SymbolIcon PersonAvailable24}"
+                           Command="{Binding UseSavedSignInCommand}" Content="{Binding SavedLoginText}"
+                           Visibility="{Binding HasSavedLogin, Converter={StaticResource Presence}}" />
+                <ui:Button HorizontalAlignment="Stretch" Icon="{ui:SymbolIcon Globe24}"
+                           Command="{Binding SignInWithBrowserCommand}" Content="{l:Loc Connect_SignIn}" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Connect_NoClientId}"
+                           Visibility="{Binding HasClientId, Converter={StaticResource Absence}}" />
+                <ui:Button Margin="0,8,0,0" HorizontalAlignment="Stretch" Icon="{ui:SymbolIcon Key24}"
+                           Command="{Binding UseTokenCommand}" Content="{l:Loc Connect_UsePat}" />
+                <CheckBox Margin="0,16,0,0" IsChecked="{Binding RememberToken}" Content="{l:Loc Connect_Remember}" />
+            </StackPanel>
+
+            <!-- Device code -->
+            <StackPanel Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=DeviceCode}">
+                <TextBlock Style="{StaticResource FieldLabelStyle}" FontSize="13" Text="{l:Loc Connect_EnterCode}" />
+                <TextBox Margin="0,4,0,12"
+                         HorizontalAlignment="Left"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         FontFamily="Cascadia Mono, Consolas"
+                         FontSize="34"
+                         FontWeight="SemiBold"
+                         AutomationProperties.Name="{l:Loc Connect_EnterCode}"
+                         Text="{Binding UserCode, Mode=OneWay}" />
+                <ui:Button Appearance="Primary" Icon="{ui:SymbolIcon Open24}" Command="{Binding OpenVerificationPageCommand}" Content="{l:Loc Connect_CopyAndOpen}" />
+                <Border Margin="0,12,0,0" Padding="12,8" CornerRadius="6" Background="{DynamicResource SubtleFillColorSecondaryBrush}">
+                    <DockPanel>
+                        <ui:SymbolIcon DockPanel.Dock="Left" Margin="0,0,8,0" VerticalAlignment="Top" FontSize="16"
+                                       Foreground="{DynamicResource SystemFillColorCautionBrush}" Symbol="Warning24" />
+                        <TextBlock TextWrapping="Wrap" FontSize="13" Text="{Binding AccountTip}" />
+                    </DockPanel>
+                </Border>
+                <StackPanel Margin="0,16,0,0" Orientation="Horizontal">
+                    <ui:ProgressRing Width="20" Height="20" IsIndeterminate="True" />
+                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{l:Loc Connect_Waiting}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Personal access token -->
+            <StackPanel Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=Token}">
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Connect_TokenLabel}" />
+                <ui:PasswordBox x:Name="TokenBox" AutomationProperties.Name="{l:Loc Connect_TokenLabel}" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Connect_TokenHelp}" />
+                <ui:Button Margin="0,8,0,0" Appearance="Transparent" Icon="{ui:SymbolIcon Open24}" Command="{Binding OpenTokenPageCommand}" Content="{l:Loc Connect_CreateToken}" />
+                <CheckBox Margin="0,8,0,0" IsChecked="{Binding RememberToken}" Content="{l:Loc Connect_Remember}" />
+                <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+                    <ui:Button Appearance="Primary" Click="OnSubmitTokenClick" Content="{l:Loc Connect_Continue}" />
+                    <ui:Button Margin="8,0,0,0" Command="{Binding BackToStartCommand}" Content="{l:Loc Connect_Back}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Working -->
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=Working}">
+                <ui:ProgressRing Width="20" Height="20" IsIndeterminate="True" />
+                <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" FontSize="13" Text="{Binding StatusText}" />
+            </StackPanel>
+
+            <!-- Signed in to a different account than the profile expects -->
+            <StackPanel Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=Mismatch}">
+                <Border Padding="12,10" CornerRadius="6" Background="{DynamicResource SubtleFillColorSecondaryBrush}">
+                    <DockPanel>
+                        <ui:SymbolIcon DockPanel.Dock="Left" Margin="0,0,10,0" VerticalAlignment="Top" FontSize="20"
+                                       Foreground="{DynamicResource SystemFillColorCriticalBrush}" Symbol="PersonWarning24" />
+                        <TextBlock TextWrapping="Wrap" FontSize="13" Text="{Binding MismatchText}" />
+                    </DockPanel>
+                </Border>
+                <StackPanel Margin="0,12,0,0" Orientation="Horizontal">
+                    <ui:Button Appearance="Primary" Command="{Binding BackToStartCommand}" Content="{l:Loc Connect_SignInAgain}" />
+                    <ui:Button Margin="8,0,0,0" Command="{Binding AcceptOtherAccountCommand}" Content="{Binding UseThisAccountText}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Done -->
+            <StackPanel Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=Done}">
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon FontSize="22" Foreground="{DynamicResource SystemFillColorSuccessBrush}" Symbol="CheckmarkCircle24" />
+                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{Binding SignedInText}" />
+                </StackPanel>
+                <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" FontSize="13" Text="{Binding KeyStatus}" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Connect_SsoNote}" />
+                <TextBlock Margin="0,16,0,4" Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Connect_EmailLabel}" />
+                <ComboBox AutomationProperties.Name="{l:Loc Connect_EmailLabel}"
+                          ItemsSource="{Binding Emails}"
+                          SelectedItem="{Binding SelectedEmail}"
+                          DisplayMemberPath="Label" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" Text="{Binding EmailNote}"
+                           Visibility="{Binding EmailNote, Converter={StaticResource Presence}}" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                           Text="{Binding WarningText}" Visibility="{Binding WarningText, Converter={StaticResource Presence}}" />
+            </StackPanel>
+
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource ErrorTextStyle}" Text="{Binding ErrorText}"
+                       Visibility="{Binding ErrorText, Converter={StaticResource Presence}}" />
+        </StackPanel>
+
+        <DockPanel Margin="24,20,24,20" LastChildFill="False">
+            <ui:Button DockPanel.Dock="Right" MinWidth="96" Margin="8,0,0,0" Appearance="Primary" Icon="{ui:SymbolIcon Checkmark24}"
+                       Command="{Binding DoneCommand}" Content="{l:Loc Connect_Done}"
+                       Visibility="{Binding Step, Converter={StaticResource WhenEquals}, ConverterParameter=Done}" />
+            <!-- IsCancel closes the dialog (also on Esc); OnClosing then stops any pending sign-in. -->
+            <ui:Button DockPanel.Dock="Right" MinWidth="96" IsCancel="True" Content="{l:Loc Common_Cancel}" />
+        </DockPanel>
+    </StackPanel>
+</ui:FluentWindow>

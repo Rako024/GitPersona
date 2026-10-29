@@ -93,7 +93,13 @@
                             <ui:Button Margin="0,0,8,8" Icon="{ui:SymbolIcon KeyMultiple24}" Command="{Binding GenerateKeyCommand}" Content="{l:Loc Key_Generate}" />
                             <ui:Button Margin="0,0,8,8" Icon="{ui:SymbolIcon FolderOpen24}" Command="{Binding ChooseKeyCommand}" Content="{l:Loc Key_Choose}" />
                             <ui:Button Margin="0,0,8,8" Icon="{ui:SymbolIcon Copy24}" Command="{Binding CopyPublicKeyCommand}" Content="{l:Loc Key_CopyPublic}" />
+                            <ui:Button Margin="0,0,8,8" Appearance="Primary" Icon="{ui:SymbolIcon CloudArrowUp24}" Command="{Binding ConnectGitHubCommand}" Content="{l:Loc Key_ConnectGitHub}" />
                         </WrapPanel>
+                        <DockPanel Margin="0,0,0,6" Visibility="{Binding GitHubStatus, Converter={StaticResource Presence}}">
+                            <ui:Button DockPanel.Dock="Right" Appearance="Transparent" Icon="{ui:SymbolIcon PersonDelete24}" Command="{Binding ForgetGitHubCommand}" Content="{l:Loc Editor_ForgetGitHub}" />
+                            <ui:SymbolIcon DockPanel.Dock="Left" Margin="0,0,6,0" FontSize="16" Foreground="{DynamicResource SystemFillColorSuccessBrush}" Symbol="ShieldCheckmark24" />
+                            <TextBlock VerticalAlignment="Center" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding GitHubStatus}" />
+                        </DockPanel>
                         <TextBlock Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding KeyMessage}"
                                    Visibility="{Binding KeyMessage, Converter={StaticResource Presence}}" />
                     </StackPanel>

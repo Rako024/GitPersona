@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using GitPersona.App.Localization;
 using GitPersona.App.Platform;
 using GitPersona.App.Services;
+using GitPersona.Core.GitHub;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Models;
 using Microsoft.Extensions.Logging;
@@ -41,8 +42,24 @@ public sealed partial class SettingsViewModel : LocalizedObject
         Theme = settings.Current.Theme;
         Language = settings.Current.Language;
         StartWithWindows = startup.IsEnabled;
+        GitHubOAuthClientId = settings.Current.GitHubOAuthClientId ?? string.Empty;
         _syncing = false;
     }
+
+    [ObservableProperty]
+    public partial string GitHubOAuthClientId { get; set; }
+
+    partial void OnGitHubOAuthClientIdChanged(string value)
+    {
+        if (!_syncing)
+        {
+            _settings.Update(s => s with { GitHubOAuthClientId = string.IsNullOrWhiteSpace(value) ? null : value.Trim() });
+        }
+    }
+
+    [RelayCommand]
+    private void RegisterOAuthApp() =>
+        Process.Start(new ProcessStartInfo(GitHubEndpoints.For(Profile.DefaultHost).NewOAuthAppPage.AbsoluteUri) { UseShellExecute = true })?.Dispose();
 
     public IReadOnlyList<LocalizedOption<ThemePreference>> ThemeOptions { get; } =
     [

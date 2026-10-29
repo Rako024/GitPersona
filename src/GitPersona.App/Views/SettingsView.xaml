@@ -51,6 +51,22 @@
                 <ui:ToggleSwitch IsChecked="{Binding StartWithWindows}" />
             </ui:CardControl>
 
+            <TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{l:Loc Settings_GitHub}" />
+            <Border Style="{StaticResource SectionCardStyle}" Margin="0">
+                <StackPanel>
+                    <TextBlock FontSize="14" Text="{l:Loc Settings_ClientId}" />
+                    <TextBlock Margin="0,2,0,10" Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Settings_ClientId_Description}" />
+                    <DockPanel>
+                        <ui:Button DockPanel.Dock="Right" Margin="8,0,0,0" Icon="{ui:SymbolIcon Open24}"
+                                   Command="{Binding RegisterOAuthAppCommand}" Content="{l:Loc Settings_RegisterApp}" />
+                        <ui:TextBox AutomationProperties.Name="{l:Loc Settings_ClientId}"
+                                    FontFamily="Cascadia Mono, Consolas"
+                                    PlaceholderText="Ov23li…"
+                                    Text="{Binding GitHubOAuthClientId, UpdateSourceTrigger=LostFocus}" />
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+
             <TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{l:Loc Settings_Data}" />
             <ui:CardControl Icon="{ui:SymbolIcon FolderOpen24}">
                 <ui:CardControl.Header>

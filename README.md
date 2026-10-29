@@ -2,7 +2,7 @@
 
 GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
 
-> **Status:** 1-ci (skelet) və 2-ci (profillər, SSH key, config yazılması) mərhələlər hazırdır. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+> **Status:** 1–3-cü mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
 
 ## Tələblər
 
@@ -44,21 +44,43 @@ dotnet run --project src/GitPersona.App
 4. **Qovluqlar** bölməsinə əlavə etdiyiniz qovluqlardakı bütün repo-lar bu identity ilə commit edir. **Owner-lər** isə 4-cü mərhələdəki ağıllı clone üçündür.
 5. **Yadda saxla** basın. GitPersona yazacağı faylların diff-ini göstərir. **Tətbiq et** düyməsinə basmasanız, heç bir fayl dəyişmir.
 
+### GitHub OAuth App (bir dəfəlik)
+
+"GitHub ilə daxil ol" funksiyası öz OAuth App-inizdən istifadə edir. Onu bir dəfə yaratmaq kifayətdir, bütün hesablarınız üçün işləyir — hər hesab tətbiqi ayrıca təsdiqləyir.
+
+1. Ayarlar → GitHub → **OAuth App qeydiyyatı…** düyməsini basın (və ya <https://github.com/settings/applications/new> səhifəsini açın).
+2. Sahələri doldurun:
+   - **Application name:** `GitPersona`
+   - **Homepage URL:** istənilən ünvan, məsələn `https://github.com/<username>`
+   - **Authorization callback URL:** `http://127.0.0.1`. Device Flow bu ünvanı istifadə etmir, amma sahəni boş qoymaq olmur.
+3. **Register application** basın, açılan səhifədə **Enable Device Flow** seçimini işarələyin və **Update application** basın.
+4. **Client ID**-ni kopyalayıb GitPersona → Ayarlar → GitHub → *OAuth App client ID* sahəsinə yapışdırın. **Client secret yaratmayın**, o lazım deyil.
+
 ### Key-i GitHub-a yükləmək
 
-Avtomatik yükləmə 3-cü mərhələdə əlavə olunacaq. Hələlik bunu əl ilə edin:
+1. Profildə **GitHub-a yüklə…** → **GitHub ilə daxil ol** seçin.
+2. **Kodu kopyala və GitHub-ı aç** basın, kodu brauzerdə daxil edib təsdiqləyin.
 
-1. **Public key-i kopyala** düyməsinə basın.
-2. Kopyalanan key-i GitHub → Settings → SSH and GPG keys bölməsinə əlavə edin.
-3. Yoxlayın:
+   > Brauzerdə **profilin aid olduğu hesabla** daxil olmalısınız. Başqa hesab açıqdırsa, linki gizli (private) pəncərədə açın. GitPersona daxil olunan hesabı profilin GitHub istifadəçi adı ilə müqayisə edir və uyğun deyilsə dayanır.
+3. Key hesaba yüklənir. Key hesabda artıq varsa, ikinci dəfə yüklənmir.
+4. Hesabın təsdiqlənmiş email-lərindən və ya `noreply` ünvanından birini commit email-i kimi seçin. **Hazırdır** basın, sonra profildə **Yadda saxla** basın.
 
-   ```powershell
-   ssh -T git@github-<id>
-   ```
+Brauzer əvəzinə personal access token da istifadə edə bilərsiniz. Lazım olan icazələr:
 
-   Cavabda `Hi <username>!` görünməlidir.
+- **classic token:** `write:public_key` və `user:email` scope-ları;
+- **fine-grained token:** *Git SSH keys: Read and write* və *Email addresses: Read-only* icazələri.
 
-Bundan sonra remote-u `git@github-<id>:owner/repo.git` olan istənilən repo, harada yerləşməsindən asılı olmayaraq, avtomatik bu profilin email-i ilə commit edəcək.
+Token yalnız Windows Credential Manager-də `GitPersona:github.com:<login>` adı ilə saxlanılır (İdarəetmə paneli → Credential Manager → Windows Credentials). Onu redaktordakı **Girişi unut** düyməsi ilə silə bilərsiniz.
+
+Təşkilatınız SAML SSO istifadə edirsə, key-i GitHub-da *Settings → SSH and GPG keys → Configure SSO* bölməsində həmin təşkilat üçün ayrıca təsdiqləməlisiniz.
+
+Qoşulmanı yoxlayın:
+
+```powershell
+ssh -T git@github-<id>
+```
+
+Cavabda `Hi <username>!` görünməlidir. Bundan sonra remote-u `git@github-<id>:owner/repo.git` olan istənilən repo, harada yerləşməsindən asılı olmayaraq, bu profilin email-i ilə commit edəcək.
 
 ## Publish (tək `.exe`)
 
@@ -93,5 +115,6 @@ Hər dəyişiklikdən əvvəl diff göstərilir və faylın yanında `.yyyyMMdd-
 |---|---|
 | `src/GitPersona.Core` | UI-dan asılı olmayan məntiq: fayl yazma, proseslər, profillər |
 | `src/GitPersona.App` | WPF tətbiqi (MVVM, WPF-UI, tray) |
-| `tests/GitPersona.Core.Tests` | xUnit testləri |
+| `tests/GitPersona.Core.Tests` | Core üçün xUnit testləri (temp qovluqda real git/ssh ilə inteqrasiya testləri daxil) |
+| `tests/GitPersona.App.Tests` | ViewModel məntiqinin testləri (məs. GitHub qoşulma axını) |
 | `tools/New-AppIcon.ps1` | Tətbiq ikonunu yenidən yaradır |

@@ -192,4 +192,68 @@ Files written before it have backups next to them.</value></data>
   <data name="KeyGen_Mismatch" xml:space="preserve"><value>The passphrases do not match.</value></data>
   <data name="KeyGen_Exists" xml:space="preserve"><value>{0} already exists. Choose another file name.</value></data>
   <data name="KeyGen_Failed" xml:space="preserve"><value>Key generation failed: {0}</value></data>
+
+  <!-- Settings: GitHub -->
+  <data name="Settings_GitHub" xml:space="preserve"><value>GitHub</value></data>
+  <data name="Settings_ClientId" xml:space="preserve"><value>OAuth App client ID</value></data>
+  <data name="Settings_ClientId_Description" xml:space="preserve"><value>Needed for "Sign in with GitHub". Register your own OAuth App with Device Flow enabled (see README); no client secret is needed.</value></data>
+  <data name="Settings_RegisterApp" xml:space="preserve"><value>Register OAuth App…</value></data>
+
+  <!-- Profile editor: GitHub -->
+  <data name="Key_ConnectGitHub" xml:space="preserve"><value>Upload to GitHub…</value></data>
+  <data name="Editor_GitHubSignedIn" xml:space="preserve"><value>GitHub sign-in for {0} is saved in Windows Credential Manager.</value></data>
+  <data name="Editor_ForgetGitHub" xml:space="preserve"><value>Forget sign-in</value></data>
+
+  <!-- Connect dialog -->
+  <data name="Connect_Title" xml:space="preserve"><value>Connect GitHub account</value></data>
+  <data name="Connect_Intro" xml:space="preserve"><value>Uploads this profile's public key to your GitHub account and suggests the matching commit email.</value></data>
+  <data name="Connect_UseSaved" xml:space="preserve"><value>Continue as {0} (saved sign-in)</value></data>
+  <data name="Connect_SignIn" xml:space="preserve"><value>Sign in with GitHub</value></data>
+  <data name="Connect_NoClientId" xml:space="preserve"><value>Add your OAuth App client ID under Settings → GitHub to sign in through the browser.</value></data>
+  <data name="Connect_UsePat" xml:space="preserve"><value>Use a personal access token instead</value></data>
+  <data name="Connect_Remember" xml:space="preserve"><value>Remember the sign-in in Windows Credential Manager</value></data>
+  <data name="Connect_EnterCode" xml:space="preserve"><value>Enter this code on GitHub:</value></data>
+  <data name="Connect_CopyAndOpen" xml:space="preserve"><value>Copy code and open GitHub</value></data>
+  <data name="Connect_AccountTip" xml:space="preserve"><value>Make sure the browser is signed in to the right account ({0}). If another account is signed in, open the link in a private window.</value></data>
+  <data name="Connect_AccountTipAny" xml:space="preserve"><value>Make sure the browser is signed in to the account this profile is for. If another account is signed in, open the link in a private window.</value></data>
+  <data name="Connect_Waiting" xml:space="preserve"><value>Waiting for you to authorize GitPersona in the browser…</value></data>
+  <data name="Connect_Starting" xml:space="preserve"><value>Contacting GitHub…</value></data>
+  <data name="Connect_CheckingAccount" xml:space="preserve"><value>Checking the account…</value></data>
+  <data name="Connect_CheckingKeys" xml:space="preserve"><value>Checking the account's SSH keys…</value></data>
+  <data name="Connect_Uploading" xml:space="preserve"><value>Uploading the public key…</value></data>
+  <data name="Connect_ReadingEmails" xml:space="preserve"><value>Reading the account's email addresses…</value></data>
+  <data name="Connect_TokenLabel" xml:space="preserve"><value>Personal access token</value></data>
+  <data name="Connect_TokenHelp" xml:space="preserve"><value>Classic token with the write:public_key and user:email scopes, or a fine-grained token with the account permissions "Git SSH keys: Read and write" and "Email addresses: Read-only".</value></data>
+  <data name="Connect_CreateToken" xml:space="preserve"><value>Create a token on GitHub…</value></data>
+  <data name="Connect_Continue" xml:space="preserve"><value>Continue</value></data>
+  <data name="Connect_Back" xml:space="preserve"><value>Back</value></data>
+  <data name="Connect_Mismatch" xml:space="preserve"><value>You signed in as {0}, but this profile is for {1}.
+
+This is exactly how commits and pushes end up on the wrong account. Sign out of {0} in the browser (or use a private window) and sign in again, or use {0} for this profile.</value></data>
+  <data name="Connect_UseThisAccount" xml:space="preserve"><value>Use {0} for this profile</value></data>
+  <data name="Connect_SignInAgain" xml:space="preserve"><value>Sign in again</value></data>
+  <data name="Connect_KeyUploaded" xml:space="preserve"><value>The public key was added to {0}.</value></data>
+  <data name="Connect_KeyAlreadyPresent" xml:space="preserve"><value>{0} already has this public key.</value></data>
+  <data name="Connect_SsoNote" xml:space="preserve"><value>If an organization uses SAML single sign-on, authorize the key for it on GitHub under Settings → SSH and GPG keys → Configure SSO.</value></data>
+  <data name="Connect_EmailLabel" xml:space="preserve"><value>Commit email for this profile</value></data>
+  <data name="Connect_EmailPrimary" xml:space="preserve"><value>{0} — primary</value></data>
+  <data name="Connect_EmailVerified" xml:space="preserve"><value>{0} — verified</value></data>
+  <data name="Connect_EmailNoReply" xml:space="preserve"><value>{0} — private (noreply)</value></data>
+  <data name="Connect_EmailKeep" xml:space="preserve"><value>{0} — keep current</value></data>
+  <data name="Connect_EmailNotOnAccount" xml:space="preserve"><value>The profile's current email {0} is not a verified address of {1}; commits with it will not be linked to the account.</value></data>
+  <data name="Connect_EmailsUnavailable" xml:space="preserve"><value>The token cannot read email addresses (missing user:email); only the noreply address is offered.</value></data>
+  <data name="Connect_Done" xml:space="preserve"><value>Done</value></data>
+  <data name="Connect_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Connect_SignedInAs" xml:space="preserve"><value>Signed in as {0}</value></data>
+  <data name="Connect_TokenNotSaved" xml:space="preserve"><value>The sign-in could not be saved in Windows Credential Manager: {0}</value></data>
+  <data name="Connect_Device_Expired" xml:space="preserve"><value>The code expired before it was entered. Start again.</value></data>
+  <data name="Connect_Device_AccessDenied" xml:space="preserve"><value>The authorization was declined in the browser.</value></data>
+  <data name="Connect_Device_DeviceFlowDisabled" xml:space="preserve"><value>Device Flow is not enabled for this OAuth App. Enable it in the app's settings on GitHub.</value></data>
+  <data name="Connect_Device_InvalidClient" xml:space="preserve"><value>GitHub does not recognize the OAuth App client ID. Check it under Settings → GitHub.</value></data>
+  <data name="Connect_Device_Unknown" xml:space="preserve"><value>GitHub ended the sign-in: {0}</value></data>
+  <data name="Connect_TokenInvalid" xml:space="preserve"><value>GitHub rejected the token (it may be wrong, expired or revoked).</value></data>
+  <data name="Connect_SavedExpired" xml:space="preserve"><value>The saved sign-in is no longer valid and was removed. Sign in again.</value></data>
+  <data name="Connect_MissingScope" xml:space="preserve"><value>The token lacks the write:public_key scope, so it cannot add SSH keys.</value></data>
+  <data name="Connect_KeyInUse" xml:space="preserve"><value>GitHub says this key is already in use. A key can belong to only one account — it is probably registered on another account or as a repository deploy key. Generate a new key for this profile.</value></data>
+  <data name="Connect_Failed" xml:space="preserve"><value>Talking to GitHub failed: {0}</value></data>
 </root>

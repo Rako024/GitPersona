@@ -18,6 +18,7 @@
             <conv:PresenceToVisibilityConverter x:Key="Presence" />
             <conv:PresenceToVisibilityConverter x:Key="Absence" Invert="True" />
             <conv:InverseBooleanConverter x:Key="Not" />
+            <conv:EqualsToVisibilityConverter x:Key="WhenEquals" />
 
             <!-- Page view model -> view -->
             <DataTemplate DataType="{x:Type vm:PlaceholderPageViewModel}">
