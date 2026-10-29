@@ -101,6 +101,19 @@
                 </StackPanel>
             </ui:CardControl>
 
+            <ui:CardControl Margin="0,4,0,0" Icon="{ui:SymbolIcon DeleteDismiss24}">
+                <ui:CardControl.Header>
+                    <StackPanel Margin="0,0,16,0">
+                        <TextBlock FontSize="14" Text="{l:Loc Settings_Remove}" />
+                        <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Settings_Remove_Description}" />
+                        <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" FontSize="13"
+                                   Foreground="{DynamicResource SystemFillColorSuccessBrush}" Text="{Binding RemovalMessage}"
+                                   Visibility="{Binding RemovalMessage, Converter={StaticResource Presence}}" />
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:Button Appearance="Danger" Command="{Binding RemoveConfigurationCommand}" Content="{l:Loc Settings_Remove_Button}" />
+            </ui:CardControl>
+
             <TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{l:Loc Settings_About}" />
             <ui:CardControl Icon="{ui:SymbolIcon Info24}">
                 <ui:CardControl.Header>

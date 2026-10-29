@@ -427,6 +427,15 @@ HTTPS remote-lu repo-lar sizdən yenidən daxil olmağınızı istəyəcək.</va
   <data name="Settings_WindowsSsh" xml:space="preserve"><value>git Windows OpenSSH istifadə etsin</value></data>
   <data name="Settings_WindowsSsh_Description" xml:space="preserve"><value>core.sshCommand-ı Windows OpenSSH klientinə yönəldir; o, passphrase-li key-lər üçün Windows ssh-agent servisindən istifadə edə bilir. Söndürülü olanda git öz ssh-ını işlədir.</value></data>
 
+  <!-- Ayarlar: silmə -->
+  <data name="Settings_Remove" xml:space="preserve"><value>GitPersona konfiqurasiyasını sil</value></data>
+  <data name="Settings_Remove_Description" xml:space="preserve"><value>GitPersona bloklarını ~/.ssh/config və ~/.gitconfig-dən çıxarır, onun ~/.gitconfig-&lt;profil&gt; fayllarını və commit qoruyucusu hook-larını silir, saxlanılmış GitHub girişlərini unudur. Profillər və SSH key-lər qalır. Tətbiqi silməzdən əvvəl istifadə edin.</value></data>
+  <data name="Settings_Remove_Button" xml:space="preserve"><value>Sil…</value></data>
+  <data name="Settings_Remove_Confirm" xml:space="preserve"><value>GitPersona-nın git və ssh konfiqurasiyanıza əlavə etdiyi hər şey silinsin?
+
+Növbəti addımda dəqiq dəyişikliklərə baxacaqsınız. Profilləriniz və SSH key-lər qalır; saxlanılmış GitHub girişləri silinir.</value></data>
+  <data name="Settings_Removed" xml:space="preserve"><value>GitPersona konfiqurasiyası silindi. Onu geri qaytarmaq üçün Profillər səhifəsində konfiqurasiyanı tətbiq edin.</value></data>
+
   <!-- Tray: gh -->
   <data name="Tray_GhAccount" xml:space="preserve"><value>GitHub CLI hesabı</value></data>
   <data name="Tray_GhLoading" xml:space="preserve"><value>Yüklənir…</value></data>

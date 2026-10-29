@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,12 +8,26 @@ namespace GitPersona.Core.Security;
 /// <summary>An entry in Windows Credential Manager (secret not included).</summary>
 public sealed record StoredCredential(string TargetName, string? UserName, DateTimeOffset LastWritten);
 
+/// <summary>Where GitPersona keeps secrets; <see cref="CredentialStore"/> is the only real implementation.</summary>
+public interface ICredentialStore
+{
+    void Save(string targetName, string userName, string secret);
+
+    /// <returns>The user name and secret, or <see langword="null"/> when there is no such entry.</returns>
+    (string? UserName, string Secret)? Read(string targetName);
+
+    /// <returns><see langword="false"/> when the entry did not exist.</returns>
+    bool Delete(string targetName);
+
+    /// <param name="filter">Target name prefix with a trailing <c>*</c>, e.g. <c>git:https://github.com*</c>.</param>
+    IReadOnlyList<StoredCredential> Enumerate(string filter);
+}
+
 /// <summary>
 /// Generic credentials in Windows Credential Manager (the "Windows Credentials" list), protected by DPAPI
 /// with the user's logon. This is the only place GitPersona keeps secrets.
 /// </summary>
-[SuppressMessage("Performance", "CA1822", Justification = "Injected service; callers depend on an instance.")]
-public sealed partial class CredentialStore
+public sealed partial class CredentialStore : ICredentialStore
 {
     private const uint CredTypeGeneric = 1;
     private const uint CredPersistLocalMachine = 2;
@@ -170,7 +183,7 @@ public sealed partial class CredentialStore
 }
 
 /// <summary>GitHub tokens per account: <c>GitPersona:github.com:octocat</c>.</summary>
-public sealed class GitHubTokenStore(CredentialStore store)
+public sealed class GitHubTokenStore(ICredentialStore store)
 {
     public const string Prefix = "GitPersona:";
 

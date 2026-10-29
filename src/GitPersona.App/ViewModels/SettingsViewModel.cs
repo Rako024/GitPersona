@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -10,6 +11,7 @@ using GitPersona.App.Services;
 using GitPersona.Core.GitHub;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Models;
+using GitPersona.Core.Security;
 using Microsoft.Extensions.Logging;
 
 namespace GitPersona.App.ViewModels;
@@ -22,6 +24,8 @@ public sealed partial class SettingsViewModel : LocalizedObject
     private readonly AppPaths _paths;
     private readonly CommitGuardService _guard;
     private readonly ConfigReviewService _review;
+    private readonly DialogService _dialogs;
+    private readonly ICredentialStore _credentials;
     private readonly ILogger<SettingsViewModel> _logger;
 
     // Suppresses the side effects of the On...Changed handlers while values are loaded or re-synced.
@@ -34,6 +38,8 @@ public sealed partial class SettingsViewModel : LocalizedObject
         AppPaths paths,
         CommitGuardService guard,
         ConfigReviewService review,
+        DialogService dialogs,
+        ICredentialStore credentials,
         ILogger<SettingsViewModel> logger)
     {
         _settings = settings;
@@ -42,6 +48,8 @@ public sealed partial class SettingsViewModel : LocalizedObject
         _paths = paths;
         _guard = guard;
         _review = review;
+        _dialogs = dialogs;
+        _credentials = credentials;
         _logger = logger;
 
         _syncing = true;
@@ -54,11 +62,61 @@ public sealed partial class SettingsViewModel : LocalizedObject
         _syncing = false;
         settings.Changed += (_, current) =>
         {
-            // Diagnostics can turn this on too; keep the toggle in step.
+            // Diagnostics and "Remove configuration" change these too; keep the toggles in step.
             _syncing = true;
             UseWindowsOpenSsh = current.UseWindowsOpenSsh;
+            CommitGuardEnabled = current.CommitGuardEnabled;
             _syncing = false;
         };
+    }
+
+    [ObservableProperty]
+    public partial string? RemovalMessage { get; set; }
+
+    /// <summary>Everything GitPersona added to git/ssh goes, after review; profiles and keys stay.</summary>
+    [RelayCommand]
+    private async Task RemoveConfigurationAsync()
+    {
+        RemovalMessage = null;
+        var choice = await _dialogs.AskAsync(Loc["Settings_Remove"], Loc["Settings_Remove_Confirm"], Loc["Settings_Remove_Button"],
+            primaryAppearance: Wpf.Ui.Controls.ControlAppearance.Danger);
+        if (choice != DialogChoice.Primary)
+        {
+            return;
+        }
+
+        var previous = _settings.Current;
+        _settings.Update(s => s with { CommitGuardEnabled = false, UseWindowsOpenSsh = false });
+        IReadOnlyList<Core.ConfigFiles.AppliedChange>? applied = null;
+        try
+        {
+            applied = _review.ReviewRemoval(Application.Current.MainWindow);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogError(ex, "Planning the removal failed");
+        }
+
+        if (applied is null)
+        {
+            _settings.Update(_ => previous);
+            return;
+        }
+
+        await _guard.SyncAsync();
+        try
+        {
+            foreach (var token in _credentials.Enumerate(GitHubTokenStore.Prefix + "*"))
+            {
+                _credentials.Delete(token.TargetName);
+            }
+        }
+        catch (Win32Exception ex)
+        {
+            _logger.LogWarning(ex, "Could not remove saved GitHub sign-ins");
+        }
+
+        RemovalMessage = Loc["Settings_Removed"];
     }
 
     [ObservableProperty]

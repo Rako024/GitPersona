@@ -113,7 +113,7 @@ public sealed partial class DiagnosticsViewModel : LocalizedObject, IPageActivat
     private readonly DiagnosticsService _diagnostics;
     private readonly SshConnectionTester _tester;
     private readonly KnownHostsService _knownHosts;
-    private readonly CredentialStore _credentials;
+    private readonly ICredentialStore _credentials;
     private readonly SettingsService _settings;
     private readonly ConfigReviewService _review;
     private readonly DialogService _dialogs;
@@ -125,7 +125,7 @@ public sealed partial class DiagnosticsViewModel : LocalizedObject, IPageActivat
         DiagnosticsService diagnostics,
         SshConnectionTester tester,
         KnownHostsService knownHosts,
-        CredentialStore credentials,
+        ICredentialStore credentials,
         SettingsService settings,
         ConfigReviewService review,
         DialogService dialogs,

@@ -4,11 +4,25 @@ namespace GitPersona.Core.Tests.Integration;
 
 /// <summary>
 /// Uses the real Windows Credential Manager with uniquely named entries that each test removes again.
+/// These are the only tests that write there: when another process writes at the same moment, Credential
+/// Manager can bring back an entry that was already deleted, which the constructor's purge then picks up.
 /// </summary>
 public sealed class CredentialStoreTests : IDisposable
 {
+    private const string Root = "GitPersona.Tests:";
+
     private readonly CredentialStore _store = new();
-    private readonly string _prefix = $"GitPersona.Tests:{Guid.NewGuid():N}:";
+    private readonly string _prefix = $"{Root}{Guid.NewGuid():N}:";
+
+    public CredentialStoreTests()
+    {
+        // An interrupted earlier run can leave its entries behind; nothing else uses this prefix,
+        // and a live run only keeps its entries for milliseconds, so anything older is stale.
+        foreach (var stale in _store.Enumerate(Root + "*").Where(e => DateTimeOffset.Now - e.LastWritten > TimeSpan.FromMinutes(10)))
+        {
+            _store.Delete(stale.TargetName);
+        }
+    }
 
     public void Dispose()
     {

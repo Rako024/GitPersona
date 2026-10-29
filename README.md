@@ -1,52 +1,59 @@
 # GitPersona
 
-GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
+GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə edir. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesab avtomatik seçilir, siz heç nə xatırlamalı olmursunuz.
 
-> **Status:** 1–7-ci mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu; repo skaneri; tray və diaqnostika. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+Tətbiq admin hüququ istəmir. `~/.ssh/config` və `~/.gitconfig` fayllarında yalnız öz bloklarını dəyişir və hər dəyişiklikdən əvvəl diff göstərib təsdiq istəyir. Arxitektura və qərarlar [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylındadır.
 
-## Tələblər
+## Xüsusiyyətlər
 
-- Windows 10 və ya 11
-- Build üçün [.NET 10 SDK](https://dotnet.microsoft.com/download). Hazır exe-ni işlətmək üçün .NET lazım deyil.
-- [Git for Windows](https://git-scm.com/download/win)
+- **Profillər:** hər hesab üçün git identity, SSH key, SSH alias (`github-work`), qovluqlar və GitHub owner-ləri saxlanılır.
+- **SSH key-lər:** ed25519 key generasiya edilir və ya mövcud key seçilir. GitHub-a OAuth Device Flow və ya PAT ilə yüklənir. Brauzerdə səhv hesab açıqdırsa, proses dayanır.
+- **Avtomatik identity:** `includeIf` qaydaları ilə profil qovluğundakı və profilin alias-ını istifadə edən hər repo düzgün email ilə commit edir.
+- **Ağıllı clone:** URL yapışdırılır, profil owner-ə görə seçilir, alias URL-i və qovluq avtomatik hazırlanır.
+- **Commit qoruyucusu:** səhv email ilə edilən commit-i bloklayır, repo-ların öz hook-larını isə işlətməyə davam edir.
+- **Repo skaneri:** HTTPS və ya alias-sız remote-ları, səhv email-ləri tapır və bir kliklə düzəldir.
+- **Diaqnostika:** profil üzrə `ssh -T` testi aparır. Windows-a xas problemləri də yoxlayır: known_hosts, key icazələri, ssh-agent, ssh ziddiyyəti, köhnə Credential Manager girişləri.
+- **Tray:** profillər, clone, skan və `gh auth switch` ilə hesab dəyişmə. İstəyə görə tətbiq Windows ilə birlikdə açıla bilər.
+- **İnterfeys:** Azərbaycanca və İngiliscə, açıq və tünd mövzu.
 
-## Build, test və işə salma
+## Quraşdırma
 
-```powershell
-dotnet build GitPersona.slnx
-dotnet test GitPersona.slnx
-dotnet run --project src/GitPersona.App
-```
+**Tələblər:**
 
-Əlavə arqumentlər:
+- Windows 10 və ya 11 (x64);
+- [Git for Windows](https://git-scm.com/download/win);
+- istəyə görə [GitHub CLI](https://cli.github.com/) (tray-də hesab dəyişmək üçün).
 
-- `--minimized` tətbiqi pəncərəsiz, yalnız tray-də açır. "Windows ilə açılsın" seçimi də bu arqumentdən istifadə edir.
+**İki variant var:**
 
-Testlərin bir hissəsi temp qovluqda real Git for Windows və OpenSSH ilə işləyir. Bu testlər sizin öz konfiqurasiyanızı nə oxuyur, nə də dəyişir.
+- **Installer:** `GitPersona-Setup-<versiya>.exe` faylını işə salın. Proqram `%LOCALAPPDATA%\Programs\GitPersona` qovluğuna, yalnız sizin istifadəçiniz üçün quraşdırılır, admin hüququ istəmir.
+- **Portativ:** `GitPersona.exe` faylını istənilən qovluğa qoyub işə salın. .NET runtime faylın içindədir.
 
-### Sandbox-da sınaq
+Hər iki halda tətbiq bağlananda tray-də qalır. Tamamilə çıxmaq üçün tray menyusunda **Çıxış** seçin.
 
-Tətbiqi real `~/.ssh` və `~/.gitconfig` fayllarınıza toxunmadan sınamaq üçün iki environment dəyişəni var:
+## İlk addımlar
 
-```powershell
-$env:GITPERSONA_HOME_DIR = "$env:TEMP\gp-sandbox\home"   # ~/.ssh və ~/.gitconfig əvəzinə
-$env:GITPERSONA_DATA_DIR = "$env:TEMP\gp-sandbox\data"   # %APPDATA%\GitPersona əvəzinə
-dotnet run --project src/GitPersona.App
-```
+1. **Profillər → Yeni profil** seçin, ad, `user.name`, `user.email` və GitHub istifadəçi adını daxil edin.
+2. **Yeni key yarat…** basın.
+3. **GitHub-a yüklə…** basın. Bunun üçün əvvəlcə [OAuth App](#github-oauth-app-bir-dəfəlik) lazımdır, və ya PAT istifadə edə bilərsiniz.
+4. Profilə **qovluq** və **owner** əlavə edin, **Yadda saxla** basın. Göstərilən diff-i nəzərdən keçirib **Tətbiq et** basın.
+5. **Diaqnostika** səhifəsində profilinizi **Yoxla** ilə test edin. Lazım olsa, **GitHub key-lərini əlavə et** ilə known_hosts-u düzəldin.
+6. Köhnə repo-lar üçün **Repo skaneri → Skan et** seçin. Yeni repo-lar üçün **Clone** səhifəsindən istifadə edin.
+7. İstəyə görə **Ayarlar → Commit qoruyucusu** və **Windows ilə açılsın** seçimlərini aktiv edin.
 
 ## İstifadə
 
-### Profil yaratmaq
+### Profillər
 
-1. **Profillər → Yeni profil** seçin. Göstərilən addan profil ID-si (`is-hesabi`) və SSH alias (`github-is-hesabi`) avtomatik törədilir, onları dəyişə bilərsiniz.
-2. Git `user.name`, `user.email` və GitHub istifadəçi adını daxil edin.
-3. **Yeni key yarat…** düyməsi ilə `~/.ssh/id_ed25519_<id>` faylını yaradın, və ya **Mövcud key-i seç…** ilə əvvəlki key-i seçin.
-4. **Qovluqlar** bölməsinə əlavə etdiyiniz qovluqlardakı bütün repo-lar bu identity ilə commit edir. **Owner-lər** isə 4-cü mərhələdəki ağıllı clone üçündür.
-5. **Yadda saxla** basın. GitPersona yazacağı faylların diff-ini göstərir. **Tətbiq et** düyməsinə basmasanız, heç bir fayl dəyişmir.
+- **ID və alias:** göstərilən addan profil ID-si (`is-hesabi`) və SSH alias (`github-is-hesabi`) avtomatik törədilir, onları dəyişə bilərsiniz.
+- **Qovluqlar:** bu qovluqlardakı repo-lar profilin identity-si ilə commit edir. Qovluqlar iç-içə ola bilər, belə halda ən dərin qovluğun profili keçərlidir.
+- **Remote alias:** remote-u `git@<alias>:owner/repo.git` olan repo, harada yerləşməsindən asılı olmayaraq, profilin email-ini istifadə edir. Alias qaydası qovluq qaydasını üstələyir, çünki push-u həmin alias-ın key-i edir.
+- **Owner-lər:** ağıllı clone zamanı profili seçmək üçün istifadə olunur.
+- **Yadda saxla:** profili saxlayır. Konfiqurasiya fayllarına isə yalnız diff baxışında **Tətbiq et** basandan sonra yazılır.
 
 ### GitHub OAuth App (bir dəfəlik)
 
-"GitHub ilə daxil ol" funksiyası öz OAuth App-inizdən istifadə edir. Onu bir dəfə yaratmaq kifayətdir, bütün hesablarınız üçün işləyir — hər hesab tətbiqi ayrıca təsdiqləyir.
+"GitHub ilə daxil ol" funksiyası öz OAuth App-inizdən istifadə edir. Onu bir dəfə yaratmaq kifayətdir və bütün hesablarınız üçün işləyir. Hər hesab tətbiqi ayrıca təsdiqləyir.
 
 1. Ayarlar → GitHub → **OAuth App qeydiyyatı…** düyməsini basın (və ya <https://github.com/settings/applications/new> səhifəsini açın).
 2. Sahələri doldurun:
@@ -70,17 +77,9 @@ Brauzer əvəzinə personal access token da istifadə edə bilərsiniz. Lazım o
 - **classic token:** `write:public_key` və `user:email` scope-ları;
 - **fine-grained token:** *Git SSH keys: Read and write* və *Email addresses: Read-only* icazələri.
 
-Token yalnız Windows Credential Manager-də `GitPersona:github.com:<login>` adı ilə saxlanılır (İdarəetmə paneli → Credential Manager → Windows Credentials). Onu redaktordakı **Girişi unut** düyməsi ilə silə bilərsiniz.
+Token yalnız Windows Credential Manager-də `GitPersona:github.com:<login>` adı ilə saxlanılır. Onu redaktordakı **Girişi unut** düyməsi ilə silə bilərsiniz.
 
 Təşkilatınız SAML SSO istifadə edirsə, key-i GitHub-da *Settings → SSH and GPG keys → Configure SSO* bölməsində həmin təşkilat üçün ayrıca təsdiqləməlisiniz.
-
-Qoşulmanı yoxlayın:
-
-```powershell
-ssh -T git@github-<id>
-```
-
-Cavabda `Hi <username>!` görünməlidir. Bundan sonra remote-u `git@github-<id>:owner/repo.git` olan istənilən repo, harada yerləşməsindən asılı olmayaraq, bu profilin email-i ilə commit edəcək.
 
 ### Ağıllı clone
 
@@ -120,7 +119,7 @@ Qeydlər:
 - **Repo-ların öz hook-ları** (`.git/hooks/*`: husky v4, pre-commit, Git LFS, əl ilə yazılmış hook-lar) işləməyə davam edir. GitPersona onları eyni arqumentlər və stdin ilə çağırır.
   - Bu, client-side hook-lara aiddir. `reference-transaction`, `post-index-change` və server-side hook-lar sürət səbəbindən zəncirlənmir.
   - Əvvəlcədən global `core.hooksPath` qurmuşdunuzsa, həmin qovluğun hook-ları da çağırılır.
-- **Öz `core.hooksPath`-ı olan repo-lar** (husky v5+) yoxlanmır, çünki lokal ayar global ayarı üstələyir.
+- **Öz `core.hooksPath`-ı olan repo-lar** (husky v5+) yoxlanmır, çünki lokal ayar global ayarı üstələyir. Skaner belə repo-ları göstərir.
 - **Python pre-commit framework** `core.hooksPath` qurulu olanda `pre-commit install` əmrindən imtina edir. Onu Git Bash-də belə quraşdırın:
 
   ```bash
@@ -129,7 +128,7 @@ Qeydlər:
 
   Quraşdırılmış hook GitPersona vasitəsilə işləyəcək.
 - **Sürət:** Windows-da qoruyucu hər commit-ə təxminən 0,3 s əlavə edir.
-- **Mesajların dili:** qoruyucunun mesajları interfeysin dilindədir.
+- **Mesajların dili:** qoruyucunun mesajları interfeysin dilindədir. Qoruyucu GitPersona bağlı olanda da işləyir.
 
 ### Repo skaneri
 
@@ -173,24 +172,21 @@ Tray menyusunda bunlar var:
 - **GitHub CLI hesabı** — yalnız `gh` quraşdırılıbsa görünür. Aktiv hesab işarələnir, başqa hesabı seçəndə `gh auth switch` işlədilir;
 - **Çıxış**.
 
-## Publish (tək `.exe`)
-
-```powershell
-dotnet publish src/GitPersona.App -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -o publish
-```
-
-Nəticə `publish\GitPersona.exe` faylıdır (~62 MB, .NET runtime içindədir). Tətbiq admin hüququ tələb etmir.
-
-## Məlumatlar harada saxlanılır
+## GitPersona nəyi dəyişir və harada saxlayır
 
 | Nə | Harada |
 |---|---|
-| Profillər | `%APPDATA%\GitPersona\profiles.json` |
-| Ayarlar | `%APPDATA%\GitPersona\settings.json` |
-| Loglar (14 gün saxlanılır) | `%APPDATA%\GitPersona\logs\` |
+| Profillər, ayarlar | `%APPDATA%\GitPersona\profiles.json`, `settings.json` |
+| Loglar (14 gün saxlanılır, token-lər yazılmır) | `%APPDATA%\GitPersona\logs\` |
+| Commit qoruyucusu hook-ları | `%APPDATA%\GitPersona\hooks\` |
+| GitHub token-ləri | Windows Credential Manager → `GitPersona:<host>:<login>` |
+| SSH Host blokları | `~/.ssh/config`, faylın əvvəlində GitPersona bloku |
+| `includeIf` qaydaları, `core.hooksPath`, `core.sshCommand` | `~/.gitconfig`, faylın sonunda GitPersona bloku |
+| Profilin git identity-si | `~/.gitconfig-<profil>` (tamamilə GitPersona-ya məxsusdur) |
+| GitHub host key-ləri (yalnız Diaqnostikadan düzəliş edəndə) | `~/.ssh/known_hosts` |
 | "Windows ilə açılsın" | `HKCU\Software\Microsoft\Windows\CurrentVersion\Run\GitPersona` |
 
-Token-lər yalnız Windows Credential Manager-də saxlanılır. GitPersona `~/.ssh/config` və `~/.gitconfig` fayllarında yalnız öz marker blokunu dəyişir:
+GitPersona öz marker blokundan kənardakı məzmuna toxunmur:
 
 ```
 # >>> GitPersona managed >>>
@@ -198,14 +194,82 @@ Token-lər yalnız Windows Credential Manager-də saxlanılır. GitPersona `~/.s
 # <<< GitPersona managed <<<
 ```
 
-Hər dəyişiklikdən əvvəl diff göstərilir və faylın yanında `.yyyyMMdd-HHmmss.bak` backup-ı yaradılır.
+Konfiqurasiya fayllarına yazmazdan əvvəl həmişə diff göstərilir. Fayl preview-dan sonra dəyişibsə, yazma dayandırılır. Hər dəyişdirilən faylın yanında `<ad>.yyyyMMdd-HHmmss.bak` backup-ı yaradılır, hər fayl üçün son 20 backup saxlanılır. Private key-lər `~/.ssh`-da qalır və heç yerə köçürülmür.
 
-## Layihənin quruluşu
+## Silmək
+
+1. **Ayarlar → GitPersona konfiqurasiyasını sil** seçin. Bu, aşağıdakıları edir (diff baxışından sonra):
+   - `~/.ssh/config` və `~/.gitconfig`-dən GitPersona bloklarını çıxarır;
+   - `~/.gitconfig-<profil>` fayllarını və commit qoruyucusu hook-larını silir;
+   - saxlanılmış GitHub girişlərini silir.
+
+   Profillər və SSH key-lər qalır.
+2. **Tətbiqi silin.** Installer ilə quraşdırmısınızsa, Windows → Proqramlar bölməsindən silin. Portativ variantda exe-ni silmək kifayətdir.
+3. Lazım olsa, `%APPDATA%\GitPersona` qovluğunu əl ilə silin.
+
+Birinci addımı etmədən tətbiqi silsəniz, yazılmış konfiqurasiya işləməyə davam edir. Commit qoruyucusu da tətbiqsiz işləyir.
+
+## Problemlərin həlli
+
+| Simptom | Səbəb və həll |
+|---|---|
+| `Host key verification failed` | `known_hosts`-da GitHub-ın key-i yoxdur. Diaqnostika → **GitHub key-lərini əlavə et** |
+| `Permission denied (publickey)` | Key hesaba yüklənməyib. Profil → **GitHub-a yüklə…** |
+| `ERROR: Repository not found` (repo mövcuddur) | Repo-ya girişi olmayan hesabın key-i istifadə olunur. Clone səhifəsində düzgün profili seçin, ya da Skanerdə remote-u düzəldin |
+| `Could not resolve hostname github-<id>` | Alias hələ `~/.ssh/config`-də yoxdur. Profillər → **Konfiqurasiyanı tətbiq et** |
+| Commit-lər hələ də köhnə email ilə gedir | Repo-da lokal `user.email` var və ya remote HTTPS-dir. Skaner hər ikisini göstərir və düzəldir |
+| Push zamanı passphrase soruşulur | Passphrase-li key-lər üçün Windows ssh-agent və Windows OpenSSH lazımdır. Diaqnostikadakı addımlara baxın |
+| `UNPROTECTED PRIVATE KEY FILE` | Key faylını başqaları oxuya bilir. Diaqnostika → **Girişi məhdudlaşdır** |
+| HTTPS remote-lar səhv hesabla push edir | Credential Manager-də köhnə `git:https://github.com` girişi var. Repo-ları SSH-a keçirin (Skaner), sonra girişi Diaqnostikadan silin |
+
+## İnkişaf
+
+**Tələblər:** [.NET 10 SDK](https://dotnet.microsoft.com/download) və Git for Windows.
+
+```powershell
+dotnet build GitPersona.slnx
+dotnet test GitPersona.slnx
+dotnet run --project src/GitPersona.App
+```
+
+- `--minimized` tətbiqi pəncərəsiz, yalnız tray-də açır. "Windows ilə açılsın" seçimi bu arqumentdən istifadə edir.
+- Testlərin bir hissəsi temp qovluqda real Git for Windows, OpenSSH, `ssh-keygen` və Windows Credential Manager ilə işləyir. Credential Manager-də unikal adlı qeydlər yaradılır və test bitəndə silinir. Testlər sizin öz git və ssh konfiqurasiyanızı nə oxuyur, nə də dəyişir.
+
+### Sandbox-da sınaq
+
+Tətbiqi real fayllarınıza toxunmadan sınamaq üçün:
+
+```powershell
+$env:GITPERSONA_HOME_DIR = "$env:TEMP\gp-sandbox\home"   # ~/.ssh və ~/.gitconfig əvəzinə
+$env:GITPERSONA_DATA_DIR = "$env:TEMP\gp-sandbox\data"   # %APPDATA%\GitPersona əvəzinə
+$env:HOME = $env:GITPERSONA_HOME_DIR                      # git də sandbox konfiqurasiyasını oxusun
+dotnet run --project src/GitPersona.App
+```
+
+### Publish və installer
+
+```powershell
+powershell -ExecutionPolicy Bypass -File build/publish.ps1              # testlər + publish\GitPersona.exe
+powershell -ExecutionPolicy Bypass -File build/publish.ps1 -Installer   # + installer\Output\GitPersona-Setup-1.0.0.exe
+```
+
+Skript spesifikasiyadakı əmri işlədir:
+
+```powershell
+dotnet publish src/GitPersona.App -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -o publish
+```
+
+Nəticə tək `GitPersona.exe` faylıdır (~62 MB, .NET runtime içindədir). Installer üçün [Inno Setup 6.3+](https://jrsoftware.org/isdl.php) quraşdırılmalıdır, skript `installer/GitPersona.iss` faylındadır.
+
+### Layihənin quruluşu
 
 | Qovluq | Məzmun |
 |---|---|
-| `src/GitPersona.Core` | UI-dan asılı olmayan məntiq: fayl yazma, proseslər, profillər |
-| `src/GitPersona.App` | WPF tətbiqi (MVVM, WPF-UI, tray) |
-| `tests/GitPersona.Core.Tests` | Core üçün xUnit testləri (temp qovluqda real git/ssh ilə inteqrasiya testləri daxil) |
-| `tests/GitPersona.App.Tests` | ViewModel məntiqinin testləri (məs. GitHub qoşulma axını) |
+| `src/GitPersona.Core` | UI-dan asılı olmayan məntiq: config planı və yazılması, git/ssh/gh, GitHub API, hook-lar, skaner, diaqnostika |
+| `src/GitPersona.App` | WPF tətbiqi (MVVM, WPF-UI, tray, AZ/EN resurslar) |
+| `tests/GitPersona.Core.Tests` | Core testləri, o cümlədən real git/ssh ilə inteqrasiya testləri |
+| `tests/GitPersona.App.Tests` | ViewModel məntiqinin testləri (məsələn GitHub qoşulma axını) |
+| `build/publish.ps1` | Test, publish və installer |
+| `installer/GitPersona.iss` | Inno Setup skripti (per-user, admin-siz) |
 | `tools/New-AppIcon.ps1` | Tətbiq ikonunu yenidən yaradır |
+| `docs/ARCHITECTURE.md` | Arxitektura və qərarlar |

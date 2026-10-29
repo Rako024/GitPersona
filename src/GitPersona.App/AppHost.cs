@@ -71,7 +71,7 @@ internal static class AppHost
         services.AddSingleton<ConfigPlanner>();
         services.AddSingleton<ProfileStore>();
         services.AddSingleton<SettingsStore>();
-        services.AddSingleton<CredentialStore>();
+        services.AddSingleton<ICredentialStore, CredentialStore>();
         services.AddSingleton<GitHubTokenStore>();
         services.AddSingleton(_ => new HttpClient { Timeout = TimeSpan.FromSeconds(30) });
         services.AddSingleton(sp => new GitHubApiService(sp.GetRequiredService<HttpClient>(), sp.GetRequiredService<ILogger<GitHubApiService>>()));

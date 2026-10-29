@@ -27,9 +27,14 @@ public sealed class ConfigReviewService(
         settings.Current.UseWindowsOpenSsh ? tools.WindowsOpenSsh("ssh") : null);
 
     /// <returns>The files written, or <see langword="null"/> when the user cancelled.</returns>
-    public IReadOnlyList<AppliedChange>? Review(Window? owner)
+    public IReadOnlyList<AppliedChange>? Review(Window? owner) => Show(Plan(), owner);
+
+    /// <summary>Reviews taking out everything GitPersona wrote, as if there were no profiles and no options.</summary>
+    public IReadOnlyList<AppliedChange>? ReviewRemoval(Window? owner) => Show(planner.Plan([]), owner);
+
+    private IReadOnlyList<AppliedChange>? Show(ConfigPlan plan, Window? owner)
     {
-        var viewModel = new DiffPreviewViewModel(Plan(), writer, logger);
+        var viewModel = new DiffPreviewViewModel(plan, writer, logger);
         var window = new DiffPreviewWindow(viewModel) { Owner = owner };
         if (window.ShowDialog() != true)
         {

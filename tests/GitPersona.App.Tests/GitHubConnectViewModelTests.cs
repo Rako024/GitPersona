@@ -10,8 +10,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace GitPersona.App.Tests;
 
 /// <summary>
-/// Drives the connect dialog's logic against a scripted GitHub. Tokens go to the real Credential Manager under
-/// a host that cannot exist (<c>*.invalid</c>), and every test removes what it stored.
+/// Drives the connect dialog's logic against a scripted GitHub. Tokens stay in memory: the Core tests write to
+/// the real Credential Manager at the same time, and two processes writing there at once can bring back entries
+/// the other one deleted.
 /// </summary>
 public sealed class GitHubConnectViewModelTests : IDisposable
 {
@@ -19,7 +20,7 @@ public sealed class GitHubConnectViewModelTests : IDisposable
     private readonly string _host = $"gp-{Guid.NewGuid():N}.invalid";
     private readonly ScriptedGitHub _github = new();
     private readonly HttpClient _http;
-    private readonly GitHubTokenStore _tokens = new(new CredentialStore());
+    private readonly GitHubTokenStore _tokens = new(new MemoryCredentialStore());
     private readonly GitHubApiService _api;
 
     public GitHubConnectViewModelTests()
@@ -28,15 +29,7 @@ public sealed class GitHubConnectViewModelTests : IDisposable
         _api = new GitHubApiService(_http, NullLogger<GitHubApiService>.Instance, (_, _) => Task.CompletedTask);
     }
 
-    public void Dispose()
-    {
-        foreach (var login in new[] { "work-account", "personal-account" })
-        {
-            _tokens.Delete(_host, login);
-        }
-
-        _http.Dispose();
-    }
+    public void Dispose() => _http.Dispose();
 
     private static LocalizationManager Loc => LocalizationManager.Instance;
 
@@ -198,5 +191,22 @@ public sealed class GitHubConnectViewModelTests : IDisposable
 
             return response;
         }
+    }
+
+    private sealed class MemoryCredentialStore : ICredentialStore
+    {
+        private readonly Dictionary<string, (string UserName, string Secret)> _entries = new(StringComparer.OrdinalIgnoreCase);
+
+        public void Save(string targetName, string userName, string secret) => _entries[targetName] = (userName, secret);
+
+        public (string? UserName, string Secret)? Read(string targetName) =>
+            _entries.TryGetValue(targetName, out var entry) ? (entry.UserName, entry.Secret) : null;
+
+        public bool Delete(string targetName) => _entries.Remove(targetName);
+
+        public IReadOnlyList<StoredCredential> Enumerate(string filter) =>
+            [.. _entries
+                .Where(e => e.Key.StartsWith(filter.TrimEnd('*'), StringComparison.OrdinalIgnoreCase))
+                .Select(e => new StoredCredential(e.Key, e.Value.UserName, DateTimeOffset.Now))];
     }
 }

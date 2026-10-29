@@ -70,7 +70,7 @@ public sealed class DiagnosticsService(
     KnownHostsService knownHosts,
     SshAgentProbe agent,
     SshKeyService keys,
-    CredentialStore credentials,
+    ICredentialStore credentials,
     UserPaths paths,
     ILogger<DiagnosticsService> logger)
 {

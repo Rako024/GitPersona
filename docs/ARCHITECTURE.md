@@ -117,3 +117,10 @@ docs/
 | 6 | Skaner | Repo skaneri və "Düzəlt" düyməsi |
 | 7 | Tray + Diaqnostika | `gh auth switch`, ssh-agent, ssh ziddiyyəti, köhnə Credential Manager girişləri |
 | 8 | Paylama | Single-file publish, Inno Setup, README, "GitPersona konfiqurasiyasını sil" funksiyası |
+
+Bütün 8 mərhələ tamamlanıb (versiya 1.0.0). Sonrakı mərhələ üçün nəzərdə tutulanlar:
+
+- clipboard izləmə;
+- Explorer kontekst menyusu;
+- profil üzrə SSH commit signing;
+- konfiqurasiyanın export/import edilməsi.

@@ -427,6 +427,15 @@ Repositories with HTTPS remotes will ask you to sign in again.</value></data>
   <data name="Settings_WindowsSsh" xml:space="preserve"><value>Let git use Windows OpenSSH</value></data>
   <data name="Settings_WindowsSsh_Description" xml:space="preserve"><value>Sets core.sshCommand to the Windows OpenSSH client, which can use the Windows ssh-agent service for passphrase-protected keys. Off: git uses its bundled ssh.</value></data>
 
+  <!-- Settings: removal -->
+  <data name="Settings_Remove" xml:space="preserve"><value>Remove GitPersona's configuration</value></data>
+  <data name="Settings_Remove_Description" xml:space="preserve"><value>Takes GitPersona's blocks out of ~/.ssh/config and ~/.gitconfig, deletes its ~/.gitconfig-&lt;profile&gt; files and commit guard hooks, and forgets saved GitHub sign-ins. Profiles and SSH keys stay. Use it before uninstalling.</value></data>
+  <data name="Settings_Remove_Button" xml:space="preserve"><value>Remove…</value></data>
+  <data name="Settings_Remove_Confirm" xml:space="preserve"><value>Remove everything GitPersona added to your git and ssh configuration?
+
+You review the exact changes next. Your profiles and SSH keys stay; saved GitHub sign-ins are deleted.</value></data>
+  <data name="Settings_Removed" xml:space="preserve"><value>GitPersona's configuration was removed. Apply the configuration on the Profiles page to bring it back.</value></data>
+
   <!-- Tray: gh -->
   <data name="Tray_GhAccount" xml:space="preserve"><value>GitHub CLI account</value></data>
   <data name="Tray_GhLoading" xml:space="preserve"><value>Loading…</value></data>
