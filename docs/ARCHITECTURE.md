@@ -7,7 +7,7 @@
 | Stack | C# / **.NET 10 LTS** + WPF, MVVM (CommunityToolkit.Mvvm). .NET 8-in dəstəyi 10.11.2026-da bitir. |
 | UI | WPF-UI (Fluent görünüş, light/dark), H.NotifyIcon.Wpf (tray) |
 | Çıxış | self-contained single-file `GitPersona.exe` (win-x64), admin tələb etmir |
-| GitHub auth | OAuth Device Flow (OAuth App-i istifadəçi yaradır, `client_id` Settings-də daxil edilir). PAT ehtiyat variantdır |
+| GitHub auth | OAuth Device Flow. github.com üçün GitPersona-nın öz OAuth App-i daxildir (`GitHubOAuthApp.BuiltInClientId`). İstifadəçi Settings-də öz `client_id`-sini yaza bilər, GitHub Enterprise Server üçün bu mütləqdir. PAT ehtiyat variantdır |
 | SSH key | ed25519, default olaraq passphrase-siz, istəyə görə passphrase |
 | Uyğunsuz repo | Heç bir profilə uyğun gəlməyən repo-ya qarışılmır, orada global identity işləyir |
 

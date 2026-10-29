@@ -10,6 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 using GitPersona.App.Localization;
 using GitPersona.App.Services;
 using GitPersona.App.Views;
+using GitPersona.Core.GitHub;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Infrastructure.Processes;
 using GitPersona.Core.Models;
@@ -368,7 +369,7 @@ public sealed partial class ProfileEditorViewModel : LocalizedObject
             _keyInfo.PublicKey,
             Id.Trim(),
             GitUserEmail.Trim(),
-            _services.Settings.Current.GitHubOAuthClientId);
+            GitHubOAuthApp.ClientIdFor(EffectiveHost, _services.Settings.Current.GitHubOAuthClientId));
         var window = new GitHubConnectWindow(viewModel) { Owner = DialogService.ActiveWindow };
         if (window.ShowDialog() != true || viewModel.Result is not { } result)
         {

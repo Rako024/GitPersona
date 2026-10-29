@@ -8,6 +8,7 @@ installer/Output/
 ## IDE
 .vs/
 .idea/
+.vscode/
 *.user
 *.suo
 *.DotSettings.user
@@ -15,3 +16,35 @@ installer/Output/
 ## Test results
 TestResults/
 coverage*/
+
+## Secrets: SSH keys, certificates, tokens (never commit these)
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.pem
+*.ppk
+*.key
+*.pfx
+*.p12
+*.snk
+.env
+.env.*
+*.secret*
+
+## Personal config and backups that GitPersona or git can leave behind
+.gitconfig*
+*.bak
+
+## Local AI-assistant / tooling state
+ruvector.db
+.claude/
+.claude-flow/
+.swarm/
+.hive-mind/
+CLAUDE.local.md
+
+## OS
+Thumbs.db
+desktop.ini
+.DS_Store

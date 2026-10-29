@@ -193,7 +193,8 @@ Files written before it have backups next to them.</value></data>
   <!-- Settings: GitHub -->
   <data name="Settings_GitHub" xml:space="preserve"><value>GitHub</value></data>
   <data name="Settings_ClientId" xml:space="preserve"><value>OAuth App client ID</value></data>
-  <data name="Settings_ClientId_Description" xml:space="preserve"><value>Needed for "Sign in with GitHub". Register your own OAuth App with Device Flow enabled (see README); no client secret is needed.</value></data>
+  <data name="Settings_ClientId_Description" xml:space="preserve"><value>Optional. When empty, "Sign in with GitHub" uses GitPersona's own OAuth App on github.com. Enter the client ID of your own OAuth App with Device Flow enabled to use it instead (required for GitHub Enterprise Server); no client secret is needed.</value></data>
+  <data name="Settings_ClientId_Placeholder" xml:space="preserve"><value>GitPersona's own app</value></data>
   <data name="Settings_RegisterApp" xml:space="preserve"><value>Register OAuth App…</value></data>
 
   <!-- Profile editor: GitHub -->
@@ -206,7 +207,7 @@ Files written before it have backups next to them.</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>Uploads this profile's public key to your GitHub account and suggests the matching commit email.</value></data>
   <data name="Connect_UseSaved" xml:space="preserve"><value>Continue as {0} (saved sign-in)</value></data>
   <data name="Connect_SignIn" xml:space="preserve"><value>Sign in with GitHub</value></data>
-  <data name="Connect_NoClientId" xml:space="preserve"><value>Add your OAuth App client ID under Settings → GitHub to sign in through the browser.</value></data>
+  <data name="Connect_NoClientId" xml:space="preserve"><value>To sign in through the browser on this server, add the client ID of an OAuth App registered there under Settings → GitHub.</value></data>
   <data name="Connect_UsePat" xml:space="preserve"><value>Use a personal access token instead</value></data>
   <data name="Connect_Remember" xml:space="preserve"><value>Remember the sign-in in Windows Credential Manager</value></data>
   <data name="Connect_EnterCode" xml:space="preserve"><value>Enter this code on GitHub:</value></data>

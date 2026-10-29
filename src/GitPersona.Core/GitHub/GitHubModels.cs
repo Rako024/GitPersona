@@ -23,6 +23,25 @@ public sealed record GitHubEndpoints(Uri Web, Uri Api)
     public Uri NewOAuthAppPage => new(Web, "settings/applications/new");
 }
 
+/// <summary>The OAuth App the device flow signs in with.</summary>
+public static class GitHubOAuthApp
+{
+    /// <summary>
+    /// GitPersona's own OAuth App on github.com (device flow enabled). A client ID is not a secret: the
+    /// device flow uses no client secret.
+    /// </summary>
+    public const string BuiltInClientId = "Ov23li0ri4pypxL7BeCi";
+
+    /// <returns>
+    /// The client ID from the settings; otherwise the built-in one on github.com, and <see langword="null"/>
+    /// on other hosts, where an OAuth App has to be registered on that server first.
+    /// </returns>
+    public static string? ClientIdFor(string host, string? configured) =>
+        !string.IsNullOrWhiteSpace(configured) ? configured.Trim()
+        : host.Trim().Equals("github.com", StringComparison.OrdinalIgnoreCase) ? BuiltInClientId
+        : null;
+}
+
 /// <param name="Interval">Minimum seconds between polls.</param>
 public sealed record DeviceCode(string Code, string UserCode, Uri VerificationUri, int ExpiresIn, int Interval);
 

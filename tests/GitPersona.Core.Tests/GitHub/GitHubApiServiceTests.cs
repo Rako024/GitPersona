@@ -179,6 +179,17 @@ public sealed class GitHubApiServiceTests : IDisposable
         Assert.Equal("https://api.github.com/user/keys", new Uri(GitHubEndpoints.For("GitHub.com").Api, "user/keys").ToString());
     }
 
+    [Theory]
+    [InlineData("github.com", null, GitHubOAuthApp.BuiltInClientId)]
+    [InlineData(" GitHub.com ", "  ", GitHubOAuthApp.BuiltInClientId)]
+    [InlineData("github.com", " Ov23own ", "Ov23own")]
+    [InlineData("git.acme.example", null, null)]
+    [InlineData("git.acme.example", "Ov23acme", "Ov23acme")]
+    public void Uses_the_configured_client_id_or_the_built_in_one_on_github_com(string host, string? configured, string? expected)
+    {
+        Assert.Equal(expected, GitHubOAuthApp.ClientIdFor(host, configured));
+    }
+
     [Fact]
     public void Keys_compare_by_type_and_body_only()
     {

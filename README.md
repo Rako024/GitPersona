@@ -24,18 +24,20 @@ Tətbiq admin hüququ istəmir. `~/.ssh/config` və `~/.gitconfig` fayllarında 
 - [Git for Windows](https://git-scm.com/download/win);
 - istəyə görə [GitHub CLI](https://cli.github.com/) (tray-də hesab dəyişmək üçün).
 
-**İki variant var:**
+Son versiyanı [Releases](https://github.com/Rako024/GitPersona/releases) səhifəsindən yükləyin. **İki variant var:**
 
 - **Installer:** `GitPersona-Setup-<versiya>.exe` faylını işə salın. Proqram `%LOCALAPPDATA%\Programs\GitPersona` qovluğuna, yalnız sizin istifadəçiniz üçün quraşdırılır, admin hüququ istəmir.
 - **Portativ:** `GitPersona.exe` faylını istənilən qovluğa qoyub işə salın. .NET runtime faylın içindədir.
 
 Hər iki halda tətbiq bağlananda tray-də qalır. Tamamilə çıxmaq üçün tray menyusunda **Çıxış** seçin.
 
+Exe rəqəmsal imza ilə imzalanmayıb. Ona görə ilk açılışda Windows SmartScreen "Windows protected your PC" xəbərdarlığını göstərə bilər. Faylı bu repo-nun Releases səhifəsindən yükləmisinizsə, **More info → Run anyway** seçin. Və ya mənbə kodundan özünüz build edin (aşağıdakı **İnkişaf** bölməsinə baxın).
+
 ## İlk addımlar
 
 1. **Profillər → Yeni profil** seçin, ad, `user.name`, `user.email` və GitHub istifadəçi adını daxil edin.
 2. **Yeni key yarat…** basın.
-3. **GitHub-a yüklə…** basın. Bunun üçün əvvəlcə [OAuth App](#github-oauth-app-bir-dəfəlik) lazımdır, və ya PAT istifadə edə bilərsiniz.
+3. **GitHub-a yüklə…** basın və brauzerdə GitHub ilə daxil olun. Bunun üçün heç nə qurmaq lazım deyil. İstəsəniz, PAT da istifadə edə bilərsiniz.
 4. Profilə **qovluq** və **owner** əlavə edin, **Yadda saxla** basın. Göstərilən diff-i nəzərdən keçirib **Tətbiq et** basın.
 5. **Diaqnostika** səhifəsində profilinizi **Yoxla** ilə test edin. Lazım olsa, **GitHub key-lərini əlavə et** ilə known_hosts-u düzəldin.
 6. Köhnə repo-lar üçün **Repo skaneri → Skan et** seçin. Yeni repo-lar üçün **Clone** səhifəsindən istifadə edin.
@@ -51,9 +53,11 @@ Hər iki halda tətbiq bağlananda tray-də qalır. Tamamilə çıxmaq üçün t
 - **Owner-lər:** ağıllı clone zamanı profili seçmək üçün istifadə olunur.
 - **Yadda saxla:** profili saxlayır. Konfiqurasiya fayllarına isə yalnız diff baxışında **Tətbiq et** basandan sonra yazılır.
 
-### GitHub OAuth App (bir dəfəlik)
+### Öz OAuth App-iniz (istəyə bağlı)
 
-"GitHub ilə daxil ol" funksiyası öz OAuth App-inizdən istifadə edir. Onu bir dəfə yaratmaq kifayətdir və bütün hesablarınız üçün işləyir. Hər hesab tətbiqi ayrıca təsdiqləyir.
+"GitHub ilə daxil ol" funksiyası github.com-da GitPersona-nın öz OAuth App-indən istifadə edir, ona görə heç nə qurmaq lazım deyil. Hər hesab tətbiqi brauzerdə ayrıca təsdiqləyir. Token yalnız sizin kompüterinizdə qalır. Device Flow-da client secret işlədilmir, ona görə tətbiqin sahibi bu token-ləri görə bilmir.
+
+Öz OAuth App-inizi iki halda yaratmalısınız: əgər onu istifadə etmək istəyirsinizsə, ya da GitHub Enterprise Server işlədirsinizsə (orada GitPersona-nın tətbiqi yoxdur). Bunun üçün:
 
 1. Ayarlar → GitHub → **OAuth App qeydiyyatı…** düyməsini basın (və ya <https://github.com/settings/applications/new> səhifəsini açın).
 2. Sahələri doldurun:
@@ -61,7 +65,7 @@ Hər iki halda tətbiq bağlananda tray-də qalır. Tamamilə çıxmaq üçün t
    - **Homepage URL:** istənilən ünvan, məsələn `https://github.com/<username>`
    - **Authorization callback URL:** `http://127.0.0.1`. Device Flow bu ünvanı istifadə etmir, amma sahəni boş qoymaq olmur.
 3. **Register application** basın, açılan səhifədə **Enable Device Flow** seçimini işarələyin və **Update application** basın.
-4. **Client ID**-ni kopyalayıb GitPersona → Ayarlar → GitHub → *OAuth App client ID* sahəsinə yapışdırın. **Client secret yaratmayın**, o lazım deyil.
+4. **Client ID**-ni kopyalayıb GitPersona → Ayarlar → GitHub → *OAuth App client ID* sahəsinə yapışdırın. **Client secret yaratmayın**, o lazım deyil. Sahəni boşaltsanız, yenidən GitPersona-nın öz tətbiqi istifadə olunur.
 
 ### Key-i GitHub-a yükləmək
 
@@ -273,3 +277,7 @@ Nəticə tək `GitPersona.exe` faylıdır (~62 MB, .NET runtime içindədir). In
 | `installer/GitPersona.iss` | Inno Setup skripti (per-user, admin-siz) |
 | `tools/New-AppIcon.ps1` | Tətbiq ikonunu yenidən yaradır |
 | `docs/ARCHITECTURE.md` | Arxitektura və qərarlar |
+
+## Lisenziya
+
+[MIT](LICENSE)

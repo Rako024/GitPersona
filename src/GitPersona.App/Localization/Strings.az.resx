@@ -193,7 +193,8 @@ Ondan əvvəl yazılmış faylların backup-ı yanlarındadır.</value></data>
   <!-- Ayarlar: GitHub -->
   <data name="Settings_GitHub" xml:space="preserve"><value>GitHub</value></data>
   <data name="Settings_ClientId" xml:space="preserve"><value>OAuth App client ID</value></data>
-  <data name="Settings_ClientId_Description" xml:space="preserve"><value>"GitHub ilə daxil ol" üçün lazımdır. Device Flow aktiv olan öz OAuth App-inizi qeydiyyatdan keçirin (README-yə baxın); client secret lazım deyil.</value></data>
+  <data name="Settings_ClientId_Description" xml:space="preserve"><value>İstəyə bağlıdır. Boş qalanda "GitHub ilə daxil ol" github.com-da GitPersona-nın öz OAuth App-ini istifadə edir. Əvəzinə Device Flow aktiv olan öz OAuth App-inizi işlətmək üçün onun client ID-sini yazın (GitHub Enterprise Server üçün mütləqdir); client secret lazım deyil.</value></data>
+  <data name="Settings_ClientId_Placeholder" xml:space="preserve"><value>GitPersona-nın öz tətbiqi</value></data>
   <data name="Settings_RegisterApp" xml:space="preserve"><value>OAuth App qeydiyyatı…</value></data>
 
   <!-- Profil redaktoru: GitHub -->
@@ -206,7 +207,7 @@ Ondan əvvəl yazılmış faylların backup-ı yanlarındadır.</value></data>
   <data name="Connect_Intro" xml:space="preserve"><value>Bu profilin public key-ini GitHub hesabınıza yükləyir və uyğun commit email-ini təklif edir.</value></data>
   <data name="Connect_UseSaved" xml:space="preserve"><value>{0} kimi davam et (saxlanılmış giriş)</value></data>
   <data name="Connect_SignIn" xml:space="preserve"><value>GitHub ilə daxil ol</value></data>
-  <data name="Connect_NoClientId" xml:space="preserve"><value>Brauzer vasitəsilə daxil olmaq üçün OAuth App client ID-ni Ayarlar → GitHub bölməsində daxil edin.</value></data>
+  <data name="Connect_NoClientId" xml:space="preserve"><value>Bu serverdə brauzer vasitəsilə daxil olmaq üçün orada qeydiyyatdan keçmiş OAuth App-in client ID-ni Ayarlar → GitHub bölməsində daxil edin.</value></data>
   <data name="Connect_UsePat" xml:space="preserve"><value>Bunun əvəzinə personal access token istifadə et</value></data>
   <data name="Connect_Remember" xml:space="preserve"><value>Girişi Windows Credential Manager-də yadda saxla</value></data>
   <data name="Connect_EnterCode" xml:space="preserve"><value>Bu kodu GitHub-da daxil edin:</value></data>

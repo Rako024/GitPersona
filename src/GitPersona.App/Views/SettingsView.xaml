@@ -84,7 +84,7 @@
                                    Command="{Binding RegisterOAuthAppCommand}" Content="{l:Loc Settings_RegisterApp}" />
                         <ui:TextBox AutomationProperties.Name="{l:Loc Settings_ClientId}"
                                     FontFamily="Cascadia Mono, Consolas"
-                                    PlaceholderText="Ov23li…"
+                                    PlaceholderText="{l:Loc Settings_ClientId_Placeholder}"
                                     Text="{Binding GitHubOAuthClientId, UpdateSourceTrigger=LostFocus}" />
                     </DockPanel>
                 </StackPanel>

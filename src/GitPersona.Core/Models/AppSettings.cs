@@ -27,7 +27,10 @@ public sealed record AppSettings
     /// <summary>Installs the global pre-commit identity check (<c>core.hooksPath</c>).</summary>
     public bool CommitGuardEnabled { get; init; }
 
-    /// <summary>Client ID of the user's own GitHub OAuth App, used for the device flow.</summary>
+    /// <summary>
+    /// Client ID of the user's own GitHub OAuth App for the device flow; when empty, github.com uses
+    /// <see cref="GitHub.GitHubOAuthApp.BuiltInClientId"/>.
+    /// </summary>
     public string? GitHubOAuthClientId { get; init; }
 
     public int ScanMaxDepth { get; init; } = 5;
