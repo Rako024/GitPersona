@@ -45,7 +45,8 @@ public sealed record ConfigPlan(ConfigChangeSet Changes, IReadOnlyList<PlanIssue
 public sealed class ConfigPlanner(UserPaths paths)
 {
     /// <param name="hooksPath">GitPersona's hooks folder while the commit guard is enabled.</param>
-    public ConfigPlan Plan(IReadOnlyList<Profile> profiles, string? hooksPath = null)
+    /// <param name="sshCommand">The ssh git should use, when GitPersona sets core.sshCommand.</param>
+    public ConfigPlan Plan(IReadOnlyList<Profile> profiles, string? hooksPath = null, string? sshCommand = null)
     {
         ArgumentNullException.ThrowIfNull(profiles);
         var changes = new List<ConfigChange>();
@@ -75,7 +76,7 @@ public sealed class ConfigPlanner(UserPaths paths)
             }
         }
 
-        var globalGitConfig = PlanBlock(paths.GlobalGitConfigFile, GitConfigBuilder.GlobalBlock(profiles, paths, hooksPath), BlockPlacement.Bottom, ConfigFileRole.GlobalGitConfig, issues);
+        var globalGitConfig = PlanBlock(paths.GlobalGitConfigFile, GitConfigBuilder.GlobalBlock(profiles, paths, hooksPath, sshCommand), BlockPlacement.Bottom, ConfigFileRole.GlobalGitConfig, issues);
         if (globalGitConfig is not null)
         {
             changes.Add(globalGitConfig);

@@ -21,12 +21,9 @@
   <data name="Nav_Settings" xml:space="preserve"><value>Ayarlar</value></data>
 
   <!-- Sonrakı mərhələlərdə gələcək səhifələr -->
-  <data name="Profiles_Description" xml:space="preserve"><value>Git identity-ləri, SSH key-lər və hər birinin aid olduğu qovluqlar və GitHub owner-ləri.</value></data>
   <data name="Clone_Description" xml:space="preserve"><value>GitHub URL-i yapışdırın — uyğun profil, SSH alias və qovluq avtomatik seçiləcək.</value></data>
   <data name="Scanner_Description" xml:space="preserve"><value>HTTPS remote-u, səhv SSH alias-ı və ya səhv email-i olan repo-ları tapın və düzəldin.</value></data>
   <data name="Diagnostics_Description" xml:space="preserve"><value>Hər profil üçün SSH girişini yoxlayın və Windows-a xas ziddiyyətləri aşkarlayın.</value></data>
-  <data name="Placeholder_Phase" xml:space="preserve"><value>Bu bölmə növbəti versiyalarda əlavə olunacaq (mərhələ {0}).</value></data>
-  <data name="Placeholder_Title" xml:space="preserve"><value>Hazırlanır</value></data>
 
   <!-- Ayarlar -->
   <data name="Settings_Description" xml:space="preserve"><value>Görünüş, dil və GitPersona-nın necə açılması.</value></data>
@@ -349,4 +346,90 @@ Hər repo-nun .git/config faylının əvvəlcə backup-ı yaradılır.</value></
   <data name="Issue_Repo_OwnHooksPath" xml:space="preserve"><value>Öz core.hooksPath-ı var ({0}), ona görə commit qoruyucusu bu repo-nu yoxlamır.</value></data>
   <data name="Issue_Repo_NoProfile" xml:space="preserve"><value>Bu GitHub repo-su heç bir profilə aid deyil.</value></data>
   <data name="Issue_Repo_GitError" xml:space="preserve"><value>git onu oxuya bilmədi: {0}</value></data>
+
+  <!-- Diaqnostika -->
+  <data name="Diag_Profiles" xml:space="preserve"><value>Profil üzrə SSH qoşulması</value></data>
+  <data name="Diag_ProfilesHint" xml:space="preserve"><value>git-in istifadə etdiyi ssh ilə ssh -T git@&lt;alias&gt; işlədir.</value></data>
+  <data name="Diag_Test" xml:space="preserve"><value>Yoxla</value></data>
+  <data name="Diag_TestAll" xml:space="preserve"><value>Hamısını yoxla</value></data>
+  <data name="Diag_Testing" xml:space="preserve"><value>Yoxlanılır…</value></data>
+  <data name="Diag_NotTested" xml:space="preserve"><value>Hələ yoxlanmayıb</value></data>
+  <data name="Diag_NoProfiles" xml:space="preserve"><value>SSH qoşulmasını yoxlamaq üçün profil yaradın.</value></data>
+  <data name="Diag_Checks" xml:space="preserve"><value>Windows yoxlamaları</value></data>
+  <data name="Diag_RunChecks" xml:space="preserve"><value>Yenidən yoxla</value></data>
+  <data name="Diag_Copied" xml:space="preserve"><value>Əmr buferə kopyalandı.</value></data>
+  <data name="Diag_Done" xml:space="preserve"><value>Hazırdır.</value></data>
+  <data name="Diag_ActionFailed" xml:space="preserve"><value>Alınmadı: {0}</value></data>
+  <data name="SshTest_Authenticated" xml:space="preserve"><value>GitHub key-i {0} kimi tanıyır.</value></data>
+  <data name="SshTest_WrongAccount" xml:space="preserve"><value>GitHub key-i {0} kimi tanıyır, amma profil {1} üçündür: bu key başqa hesaba aiddir.</value></data>
+  <data name="SshTest_PermissionDenied" xml:space="preserve"><value>GitHub key-i qəbul etmədi. Onu hesaba yükləyin (Profillər → GitHub-a yüklə…).</value></data>
+  <data name="SshTest_KeyFileMissing" xml:space="preserve"><value>Profilin private key faylı mövcud deyil; Profillər səhifəsində key yaradın və ya seçin.</value></data>
+  <data name="SshTest_HostKeyUnknown" xml:space="preserve"><value>GitHub-ın host key-inə hələ etibar edilmir; aşağıdakı known_hosts düzəlişindən istifadə edin.</value></data>
+  <data name="SshTest_HostKeyChanged" xml:space="preserve"><value>known_hosts-da GitHub üçün başqa key var; aşağıdakı known_hosts düzəlişindən istifadə edin.</value></data>
+  <data name="SshTest_HostNotResolved" xml:space="preserve"><value>{2} alias-ı hələ tanınmır. Əvvəlcə konfiqurasiyanı tətbiq edin.</value></data>
+  <data name="SshTest_ConnectionFailed" xml:space="preserve"><value>GitHub-a qoşulmaq olmadı (şəbəkə, proxy və ya firewall).</value></data>
+  <data name="SshTest_Other" xml:space="preserve"><value>ssh alınmadı; onun çıxışına baxın.</value></data>
+  <data name="SshSource_GitBundled" xml:space="preserve"><value>Git for Windows-un öz OpenSSH-ı (default)</value></data>
+  <data name="SshSource_WindowsOpenSsh" xml:space="preserve"><value>Windows OpenSSH</value></data>
+  <data name="SshSource_CoreSshCommand" xml:space="preserve"><value>core.sshCommand ilə təyin olunub</value></data>
+  <data name="SshSource_GitSshCommandVariable" xml:space="preserve"><value>GIT_SSH_COMMAND dəyişəni ilə təyin olunub</value></data>
+  <data name="SshSource_GitSshVariable" xml:space="preserve"><value>GIT_SSH dəyişəni ilə təyin olunub</value></data>
+  <data name="Diag_GitMissing_Title" xml:space="preserve"><value>Git for Windows tapılmadı</value></data>
+  <data name="Diag_GitMissing_Text" xml:space="preserve"><value>Git for Windows quraşdırın; GitPersona-ya git və onun alətləri lazımdır.</value></data>
+  <data name="Diag_GitVersion_Title" xml:space="preserve"><value>Git</value></data>
+  <data name="Diag_GitVersion_Text" xml:space="preserve"><value>{1}</value></data>
+  <data name="Diag_SshUsedByGit_Title" xml:space="preserve"><value>git-in istifadə etdiyi ssh</value></data>
+  <data name="Diag_SshUsedByGit_Text" xml:space="preserve"><value>{0} — {1}, {2}</value></data>
+  <data name="Diag_HomeVariable_Title" xml:space="preserve"><value>HOME istifadəçi profilinizdən fərqlidir</value></data>
+  <data name="Diag_HomeVariable_Text" xml:space="preserve"><value>HOME {0} göstərir, amma Windows OpenSSH və GitPersona {1} istifadə edir. Git for Windows ~/.gitconfig və ~/.ssh-ı HOME-dan oxuyur, ona görə GitPersona-nın konfiqurasiyası nəzərə alınmaya bilər. HOME dəyişənini silin və ya {1} edin.</value></data>
+  <data name="Diag_SshVariable_Title" xml:space="preserve"><value>{0} təyin olunub</value></data>
+  <data name="Diag_SshVariable_Text" xml:space="preserve"><value>{0} = {1} git-in hansı ssh-ı işlətdiyini müəyyən edir və core.sshCommand-ı üstələyir.</value></data>
+  <data name="Diag_KnownHostsMissing_Title" xml:space="preserve"><value>GitHub-ın host key-inə hələ etibar edilmir</value></data>
+  <data name="Diag_KnownHostsMissing_Text" xml:space="preserve"><value>{0} faylında github.com üçün qeyd yoxdur, ona görə terminalsız ilk SSH qoşulması (məsələn GitPersona-dan clone) "Host key verification failed" xətası ilə dayanır.</value></data>
+  <data name="Diag_KnownHostsCurrent_Title" xml:space="preserve"><value>GitHub-ın host key-ləri aktualdır</value></data>
+  <data name="Diag_KnownHostsCurrent_Text" xml:space="preserve"><value>{0} yalnız GitHub-ın dərc etdiyi key-ləri saxlayır.</value></data>
+  <data name="Diag_KnownHostsMismatch_Title" xml:space="preserve"><value>known_hosts-da gözlənilməz github.com key-i</value></data>
+  <data name="Diag_KnownHostsMismatch_Text" xml:space="preserve"><value>{0} faylında GitHub-ın dərc etmədiyi github.com key-i var ({1}). Bu, GitHub-ın 2023-cü ilin martında dəyişdirdiyi RSA key-i ola bilər — və ya nəsə qoşulmaları ələ keçirir.</value></data>
+  <data name="Diag_AgentNotNeeded_Title" xml:space="preserve"><value>ssh-agent lazım deyil</value></data>
+  <data name="Diag_AgentNotNeeded_Text" xml:space="preserve"><value>Profil key-lərinin heç birində passphrase yoxdur.</value></data>
+  <data name="Diag_AgentUnavailable_Title" xml:space="preserve"><value>ssh-agent işləmir</value></data>
+  <data name="Diag_AgentUnavailable_Text" xml:space="preserve"><value>Bəzi profil key-lərində passphrase var, amma Windows ssh-agent servisi işləmir (başlanğıc rejimi: {0}). Onu bir dəfə administrator PowerShell-də aktiv edin:
+{1}</value></data>
+  <data name="Diag_AgentKeyNotLoaded_Title" xml:space="preserve"><value>{0} profilinin key-i ssh-agent-də deyil</value></data>
+  <data name="Diag_AgentKeyNotLoaded_Text" xml:space="preserve"><value>Onu terminalda bir dəfə yükləyin (passphrase soruşulacaq):
+{1}</value></data>
+  <data name="Diag_AgentReady_Title" xml:space="preserve"><value>ssh-agent qorunan key-ləri saxlayır</value></data>
+  <data name="Diag_AgentReady_Text" xml:space="preserve"><value>Passphrase-li bütün profil key-ləri yüklənib.</value></data>
+  <data name="Diag_BundledSshIgnoresAgent_Title" xml:space="preserve"><value>git-in ssh-ı Windows ssh-agent-dən istifadə edə bilmir</value></data>
+  <data name="Diag_BundledSshIgnoresAgent_Text" xml:space="preserve"><value>git {0} işlədir, o isə Windows ssh-agent servisi ilə işləmir, ona görə passphrase soruşacaq. git-in əvəzinə Windows OpenSSH istifadə etməsinə icazə verin (core.sshCommand təyin olunur).</value></data>
+  <data name="Diag_KeyMissing_Title" xml:space="preserve"><value>{0} profilinin key faylı yoxdur</value></data>
+  <data name="Diag_KeyMissing_Text" xml:space="preserve"><value>{1} mövcud deyil.</value></data>
+  <data name="Diag_KeyPermissions_Title" xml:space="preserve"><value>Private key başqaları tərəfindən oxuna bilir</value></data>
+  <data name="Diag_KeyPermissions_Text" xml:space="preserve"><value>{0} faylını {1} oxuya bilir. Windows OpenSSH belə key-ləri qəbul etmir ("UNPROTECTED PRIVATE KEY FILE").</value></data>
+  <data name="Diag_StaleCredential_Title" xml:space="preserve"><value>Saxlanılmış HTTPS girişi: {0}</value></data>
+  <data name="Diag_StaleCredential_Text" xml:space="preserve"><value>Git Credential Manager burada bir giriş ({1}) saxlayır və bu sayt üçün bütün HTTPS remote-lar, repo hansı profilə aid olmasından asılı olmayaraq, ondan istifadə edir. Həmin repo-lar SSH-a keçəndən sonra onu silin.</value></data>
+  <data name="DiagAction_InstallGitHubHostKeys" xml:space="preserve"><value>GitHub key-lərini əlavə et</value></data>
+  <data name="DiagAction_RestrictKeyFile" xml:space="preserve"><value>Girişi məhdudlaşdır</value></data>
+  <data name="DiagAction_DeleteCredential" xml:space="preserve"><value>Sil</value></data>
+  <data name="DiagAction_UseWindowsOpenSsh" xml:space="preserve"><value>Windows OpenSSH istifadə et</value></data>
+  <data name="DiagAction_CopyCommand" xml:space="preserve"><value>Əmri kopyala</value></data>
+  <data name="DiagConfirm_InstallGitHubHostKeys" xml:space="preserve"><value>GitHub-ın SSH host key-ləri api.github.com-dan götürülsün, GitHub-ın dərc etdiyi barmaq izləri ilə yoxlanılsın və {0} faylına yazılsın?
+
+Mövcud github.com qeydləri əvəz olunur, digər host-lar qalır. Əvvəlcə backup yaradılır.</value></data>
+  <data name="DiagConfirm_RestrictKeyFile" xml:space="preserve"><value>{0} faylına giriş yalnız sizə, SYSTEM və Administrators-a məhdudlaşdırılsın?</value></data>
+  <data name="DiagConfirm_DeleteCredential" xml:space="preserve"><value>{0} saxlanılmış girişi Windows Credential Manager-dən silinsin?
+
+HTTPS remote-lu repo-lar sizdən yenidən daxil olmağınızı istəyəcək.</value></data>
+  <data name="Diag_Unknown" xml:space="preserve"><value>(naməlum)</value></data>
+
+  <!-- Ayarlar: ssh -->
+  <data name="Settings_Ssh" xml:space="preserve"><value>SSH</value></data>
+  <data name="Settings_WindowsSsh" xml:space="preserve"><value>git Windows OpenSSH istifadə etsin</value></data>
+  <data name="Settings_WindowsSsh_Description" xml:space="preserve"><value>core.sshCommand-ı Windows OpenSSH klientinə yönəldir; o, passphrase-li key-lər üçün Windows ssh-agent servisindən istifadə edə bilir. Söndürülü olanda git öz ssh-ını işlədir.</value></data>
+
+  <!-- Tray: gh -->
+  <data name="Tray_GhAccount" xml:space="preserve"><value>GitHub CLI hesabı</value></data>
+  <data name="Tray_GhLoading" xml:space="preserve"><value>Yüklənir…</value></data>
+  <data name="Tray_GhNone" xml:space="preserve"><value>gh-də giriş yoxdur</value></data>
+  <data name="Tray_GhSwitched" xml:space="preserve"><value>gh indi {0} hesabını istifadə edir.</value></data>
 </root>

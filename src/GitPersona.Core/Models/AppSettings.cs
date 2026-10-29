@@ -37,4 +37,10 @@ public sealed record AppSettings
 
     /// <summary>Whether the "still running in the tray" notification was already shown once.</summary>
     public bool TrayHintShown { get; init; }
+
+    /// <summary>
+    /// Sets core.sshCommand to the Windows OpenSSH client, which (unlike Git's bundled ssh) can use the
+    /// Windows ssh-agent service for passphrase-protected keys.
+    /// </summary>
+    public bool UseWindowsOpenSsh { get; init; }
 }

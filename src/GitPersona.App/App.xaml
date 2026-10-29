@@ -21,9 +21,6 @@
             <conv:EqualsToVisibilityConverter x:Key="WhenEquals" />
 
             <!-- Page view model -> view -->
-            <DataTemplate DataType="{x:Type vm:PlaceholderPageViewModel}">
-                <views:PlaceholderView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ProfilesViewModel}">
                 <views:ProfilesView />
             </DataTemplate>
@@ -35,6 +32,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ScannerViewModel}">
                 <views:ScannerView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DiagnosticsViewModel}">
+                <views:DiagnosticsView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <views:SettingsView />

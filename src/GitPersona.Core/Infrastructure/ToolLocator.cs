@@ -16,6 +16,7 @@ public sealed class ToolLocator
     private readonly string? _pathVariable;
     private readonly string _systemDirectory;
     private readonly Lazy<string?> _git;
+    private readonly Lazy<string?> _gh;
 
     public ToolLocator()
         : this(Environment.GetEnvironmentVariable("PATH"), Environment.SystemDirectory)
@@ -26,11 +27,15 @@ public sealed class ToolLocator
     {
         _pathVariable = pathVariable;
         _systemDirectory = systemDirectory;
-        _git = new Lazy<string?>(LocateGit);
+        _git = new Lazy<string?>(() => FindOnPath("git.exe") ?? InProgramFiles("Git", "cmd", "git.exe"));
+        _gh = new Lazy<string?>(() => FindOnPath("gh.exe") ?? InProgramFiles("GitHub CLI", "gh.exe"));
     }
 
     /// <summary>Full path of git.exe, or <see langword="null"/> when Git for Windows is not installed.</summary>
     public string? Git => _git.Value;
+
+    /// <summary>Full path of the GitHub CLI, or <see langword="null"/> when it is not installed.</summary>
+    public string? Gh => _gh.Value;
 
     /// <summary>Installation root of Git for Windows (the folder containing <c>cmd</c> and <c>usr</c>).</summary>
     public string? GitInstallRoot
@@ -65,13 +70,13 @@ public sealed class ToolLocator
     public string RequireSsh() =>
         WindowsOpenSsh("ssh") ?? GitBundledOpenSsh("ssh") ?? throw new ToolNotFoundException("ssh");
 
-    private string? LocateGit()
+    private string? FindOnPath(string executable)
     {
         foreach (var directory in (_pathVariable ?? string.Empty).Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
         {
             try
             {
-                if (ExistingFile(Path.Combine(directory.Trim('"'), "git.exe")) is { } found)
+                if (ExistingFile(Path.Combine(directory.Trim('"'), executable)) is { } found)
                 {
                     return found;
                 }
@@ -82,9 +87,11 @@ public sealed class ToolLocator
             }
         }
 
-        var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-        return ExistingFile(Path.Combine(programFiles, "Git", "cmd", "git.exe"));
+        return null;
     }
+
+    private static string? InProgramFiles(params string[] parts) =>
+        ExistingFile(Path.Combine([Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), .. parts]));
 
     private static string? ExistingFile(string path) => File.Exists(path) ? Path.GetFullPath(path) : null;
 }

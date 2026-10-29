@@ -21,12 +21,9 @@
   <data name="Nav_Settings" xml:space="preserve"><value>Settings</value></data>
 
   <!-- Pages that arrive in later phases -->
-  <data name="Profiles_Description" xml:space="preserve"><value>Git identities, SSH keys and the folders and GitHub owners each one applies to.</value></data>
   <data name="Clone_Description" xml:space="preserve"><value>Paste a GitHub URL and the right profile, SSH alias and folder are picked automatically.</value></data>
   <data name="Scanner_Description" xml:space="preserve"><value>Find repositories with HTTPS remotes, the wrong SSH alias or the wrong email, and fix them.</value></data>
   <data name="Diagnostics_Description" xml:space="preserve"><value>Test SSH access per profile and detect Windows-specific conflicts.</value></data>
-  <data name="Placeholder_Phase" xml:space="preserve"><value>This section is added in a later build (phase {0}).</value></data>
-  <data name="Placeholder_Title" xml:space="preserve"><value>Under construction</value></data>
 
   <!-- Settings -->
   <data name="Settings_Description" xml:space="preserve"><value>Appearance, language and how GitPersona starts.</value></data>
@@ -349,4 +346,90 @@ Each repository's .git/config is backed up first.</value></data>
   <data name="Issue_Repo_OwnHooksPath" xml:space="preserve"><value>Has its own core.hooksPath ({0}), so the commit guard does not check this repository.</value></data>
   <data name="Issue_Repo_NoProfile" xml:space="preserve"><value>No profile claims this GitHub repository.</value></data>
   <data name="Issue_Repo_GitError" xml:space="preserve"><value>git could not read it: {0}</value></data>
+
+  <!-- Diagnostics -->
+  <data name="Diag_Profiles" xml:space="preserve"><value>SSH connection per profile</value></data>
+  <data name="Diag_ProfilesHint" xml:space="preserve"><value>Runs ssh -T git@&lt;alias&gt; with the ssh that git uses.</value></data>
+  <data name="Diag_Test" xml:space="preserve"><value>Test</value></data>
+  <data name="Diag_TestAll" xml:space="preserve"><value>Test all</value></data>
+  <data name="Diag_Testing" xml:space="preserve"><value>Testing…</value></data>
+  <data name="Diag_NotTested" xml:space="preserve"><value>Not tested yet</value></data>
+  <data name="Diag_NoProfiles" xml:space="preserve"><value>Create a profile to test its SSH connection.</value></data>
+  <data name="Diag_Checks" xml:space="preserve"><value>Windows checks</value></data>
+  <data name="Diag_RunChecks" xml:space="preserve"><value>Check again</value></data>
+  <data name="Diag_Copied" xml:space="preserve"><value>Command copied to the clipboard.</value></data>
+  <data name="Diag_Done" xml:space="preserve"><value>Done.</value></data>
+  <data name="Diag_ActionFailed" xml:space="preserve"><value>That did not work: {0}</value></data>
+  <data name="SshTest_Authenticated" xml:space="preserve"><value>GitHub recognises the key as {0}.</value></data>
+  <data name="SshTest_WrongAccount" xml:space="preserve"><value>GitHub recognises the key as {0}, but the profile is for {1}: this key belongs to another account.</value></data>
+  <data name="SshTest_PermissionDenied" xml:space="preserve"><value>GitHub rejected the key. Upload it to the account (Profiles → Upload to GitHub…).</value></data>
+  <data name="SshTest_KeyFileMissing" xml:space="preserve"><value>The profile's private key file does not exist; generate or choose a key on the Profiles page.</value></data>
+  <data name="SshTest_HostKeyUnknown" xml:space="preserve"><value>GitHub's host key is not trusted yet; use the known_hosts fix below.</value></data>
+  <data name="SshTest_HostKeyChanged" xml:space="preserve"><value>known_hosts has a different key for GitHub; use the known_hosts fix below.</value></data>
+  <data name="SshTest_HostNotResolved" xml:space="preserve"><value>The alias {2} is not known yet. Apply the configuration first.</value></data>
+  <data name="SshTest_ConnectionFailed" xml:space="preserve"><value>Could not reach GitHub (network, proxy or firewall).</value></data>
+  <data name="SshTest_Other" xml:space="preserve"><value>ssh failed; see its output.</value></data>
+  <data name="SshSource_GitBundled" xml:space="preserve"><value>Git for Windows' bundled OpenSSH (default)</value></data>
+  <data name="SshSource_WindowsOpenSsh" xml:space="preserve"><value>Windows OpenSSH</value></data>
+  <data name="SshSource_CoreSshCommand" xml:space="preserve"><value>set by core.sshCommand</value></data>
+  <data name="SshSource_GitSshCommandVariable" xml:space="preserve"><value>set by the GIT_SSH_COMMAND variable</value></data>
+  <data name="SshSource_GitSshVariable" xml:space="preserve"><value>set by the GIT_SSH variable</value></data>
+  <data name="Diag_GitMissing_Title" xml:space="preserve"><value>Git for Windows not found</value></data>
+  <data name="Diag_GitMissing_Text" xml:space="preserve"><value>Install Git for Windows; GitPersona needs git and its tools.</value></data>
+  <data name="Diag_GitVersion_Title" xml:space="preserve"><value>Git</value></data>
+  <data name="Diag_GitVersion_Text" xml:space="preserve"><value>{1}</value></data>
+  <data name="Diag_SshUsedByGit_Title" xml:space="preserve"><value>ssh used by git</value></data>
+  <data name="Diag_SshUsedByGit_Text" xml:space="preserve"><value>{0} — {1}, {2}</value></data>
+  <data name="Diag_HomeVariable_Title" xml:space="preserve"><value>HOME differs from your user profile</value></data>
+  <data name="Diag_HomeVariable_Text" xml:space="preserve"><value>HOME is {0}, but Windows OpenSSH and GitPersona use {1}. Git for Windows reads ~/.gitconfig and ~/.ssh from HOME, so GitPersona's configuration may be ignored. Remove the HOME variable or set it to {1}.</value></data>
+  <data name="Diag_SshVariable_Title" xml:space="preserve"><value>{0} is set</value></data>
+  <data name="Diag_SshVariable_Text" xml:space="preserve"><value>{0} = {1} decides which ssh git runs, overriding core.sshCommand.</value></data>
+  <data name="Diag_KnownHostsMissing_Title" xml:space="preserve"><value>GitHub's host key is not trusted yet</value></data>
+  <data name="Diag_KnownHostsMissing_Text" xml:space="preserve"><value>{0} has no entry for github.com, so a first SSH connection without a terminal (for example a clone from GitPersona) fails with "Host key verification failed".</value></data>
+  <data name="Diag_KnownHostsCurrent_Title" xml:space="preserve"><value>GitHub's host keys are current</value></data>
+  <data name="Diag_KnownHostsCurrent_Text" xml:space="preserve"><value>{0} contains only the keys GitHub publishes.</value></data>
+  <data name="Diag_KnownHostsMismatch_Title" xml:space="preserve"><value>Unexpected github.com key in known_hosts</value></data>
+  <data name="Diag_KnownHostsMismatch_Text" xml:space="preserve"><value>{0} has a github.com key that GitHub does not publish ({1}). It may be the RSA key GitHub replaced in March 2023 — or something is intercepting connections.</value></data>
+  <data name="Diag_AgentNotNeeded_Title" xml:space="preserve"><value>ssh-agent not needed</value></data>
+  <data name="Diag_AgentNotNeeded_Text" xml:space="preserve"><value>None of the profile keys has a passphrase.</value></data>
+  <data name="Diag_AgentUnavailable_Title" xml:space="preserve"><value>ssh-agent is not running</value></data>
+  <data name="Diag_AgentUnavailable_Text" xml:space="preserve"><value>Some profile keys have a passphrase, but the Windows ssh-agent service is not running (start mode: {0}). Enable it once in an administrator PowerShell:
+{1}</value></data>
+  <data name="Diag_AgentKeyNotLoaded_Title" xml:space="preserve"><value>The key of {0} is not in ssh-agent</value></data>
+  <data name="Diag_AgentKeyNotLoaded_Text" xml:space="preserve"><value>Load it once in a terminal (it asks for the passphrase):
+{1}</value></data>
+  <data name="Diag_AgentReady_Title" xml:space="preserve"><value>ssh-agent has the protected keys</value></data>
+  <data name="Diag_AgentReady_Text" xml:space="preserve"><value>Every passphrase-protected profile key is loaded.</value></data>
+  <data name="Diag_BundledSshIgnoresAgent_Title" xml:space="preserve"><value>git's ssh cannot use the Windows ssh-agent</value></data>
+  <data name="Diag_BundledSshIgnoresAgent_Text" xml:space="preserve"><value>git runs {0}, which does not talk to the Windows ssh-agent service, so it would ask for passphrases. Let git use Windows OpenSSH instead (sets core.sshCommand).</value></data>
+  <data name="Diag_KeyMissing_Title" xml:space="preserve"><value>The key file of {0} is missing</value></data>
+  <data name="Diag_KeyMissing_Text" xml:space="preserve"><value>{1} does not exist.</value></data>
+  <data name="Diag_KeyPermissions_Title" xml:space="preserve"><value>Private key readable by others</value></data>
+  <data name="Diag_KeyPermissions_Text" xml:space="preserve"><value>{0} can be read by {1}. Windows OpenSSH refuses such keys ("UNPROTECTED PRIVATE KEY FILE").</value></data>
+  <data name="Diag_StaleCredential_Title" xml:space="preserve"><value>Saved HTTPS login: {0}</value></data>
+  <data name="Diag_StaleCredential_Text" xml:space="preserve"><value>Git Credential Manager keeps a login ({1}) here, and every HTTPS remote for this site uses it, whatever profile the repository belongs to. Delete it once those repositories use SSH.</value></data>
+  <data name="DiagAction_InstallGitHubHostKeys" xml:space="preserve"><value>Add GitHub's keys</value></data>
+  <data name="DiagAction_RestrictKeyFile" xml:space="preserve"><value>Restrict access</value></data>
+  <data name="DiagAction_DeleteCredential" xml:space="preserve"><value>Delete</value></data>
+  <data name="DiagAction_UseWindowsOpenSsh" xml:space="preserve"><value>Use Windows OpenSSH</value></data>
+  <data name="DiagAction_CopyCommand" xml:space="preserve"><value>Copy command</value></data>
+  <data name="DiagConfirm_InstallGitHubHostKeys" xml:space="preserve"><value>Fetch GitHub's SSH host keys from api.github.com, check them against GitHub's published fingerprints and write them to {0}?
+
+Existing github.com entries are replaced, other hosts stay. A backup is made first.</value></data>
+  <data name="DiagConfirm_RestrictKeyFile" xml:space="preserve"><value>Limit access to {0} to you, SYSTEM and Administrators?</value></data>
+  <data name="DiagConfirm_DeleteCredential" xml:space="preserve"><value>Delete the saved login {0} from Windows Credential Manager?
+
+Repositories with HTTPS remotes will ask you to sign in again.</value></data>
+  <data name="Diag_Unknown" xml:space="preserve"><value>(unknown)</value></data>
+
+  <!-- Settings: ssh -->
+  <data name="Settings_Ssh" xml:space="preserve"><value>SSH</value></data>
+  <data name="Settings_WindowsSsh" xml:space="preserve"><value>Let git use Windows OpenSSH</value></data>
+  <data name="Settings_WindowsSsh_Description" xml:space="preserve"><value>Sets core.sshCommand to the Windows OpenSSH client, which can use the Windows ssh-agent service for passphrase-protected keys. Off: git uses its bundled ssh.</value></data>
+
+  <!-- Tray: gh -->
+  <data name="Tray_GhAccount" xml:space="preserve"><value>GitHub CLI account</value></data>
+  <data name="Tray_GhLoading" xml:space="preserve"><value>Loading…</value></data>
+  <data name="Tray_GhNone" xml:space="preserve"><value>gh is not signed in</value></data>
+  <data name="Tray_GhSwitched" xml:space="preserve"><value>gh now uses {0}.</value></data>
 </root>

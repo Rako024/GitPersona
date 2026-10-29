@@ -17,7 +17,8 @@ public static class GitConfigBuilder
     /// remote-alias rules come last (the identity always matches the account whose key pushes).
     /// </summary>
     /// <param name="hooksPath">GitPersona's hooks folder when the commit guard is on; set last so it wins.</param>
-    public static IReadOnlyList<string> GlobalBlock(IReadOnlyList<Profile> profiles, UserPaths paths, string? hooksPath = null)
+    /// <param name="sshCommand">The ssh git should run (Windows OpenSSH, for its agent), if any.</param>
+    public static IReadOnlyList<string> GlobalBlock(IReadOnlyList<Profile> profiles, UserPaths paths, string? hooksPath = null, string? sshCommand = null)
     {
         ArgumentNullException.ThrowIfNull(profiles);
         ArgumentNullException.ThrowIfNull(paths);
@@ -54,11 +55,21 @@ public static class GitConfigBuilder
             }
         }
 
+        if (hooksPath is not null || sshCommand is not null)
+        {
+            lines.Add("[core]");
+        }
+
         if (hooksPath is not null)
         {
-            lines.Add("# Commit guard: checks the identity before each commit, then runs the repository's own hooks");
-            lines.Add("[core]");
+            lines.Add("\t# Commit guard: checks the identity before each commit, then runs the repository's own hooks");
             lines.Add($"\thooksPath = {Value(ToGitPath(hooksPath))}");
+        }
+
+        if (sshCommand is not null)
+        {
+            lines.Add("\t# Windows OpenSSH, so passphrase-protected keys can come from the Windows ssh-agent");
+            lines.Add($"\tsshCommand = {Value(sshCommand.Replace('\\', '/'))}");
         }
 
         return lines;

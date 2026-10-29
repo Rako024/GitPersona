@@ -4,14 +4,18 @@ using CommunityToolkit.Mvvm.Input;
 using GitPersona.App.Localization;
 using GitPersona.App.Services;
 using GitPersona.App.ViewModels;
+using GitPersona.Core.GitHub;
+using GitPersona.Core.Infrastructure;
+using GitPersona.Core.Infrastructure.Processes;
 using H.NotifyIcon;
+using Microsoft.Extensions.Logging;
 using Wpf.Ui.Controls;
 using MenuItem = System.Windows.Controls.MenuItem;
 
 namespace GitPersona.App.Tray;
 
 /// <summary>The notification-area icon and its menu.</summary>
-public sealed class TrayService(AppShell shell, ProfilesService profiles) : IDisposable
+public sealed class TrayService(AppShell shell, ProfilesService profiles, GhCliService gh, ILogger<TrayService> logger) : IDisposable
 {
     private static LocalizationManager Loc => LocalizationManager.Instance;
 
@@ -75,9 +79,69 @@ public sealed class TrayService(AppShell shell, ProfilesService profiles) : IDis
 
         menu.Items.Add(Item("Tray_CloneFromUrl", SymbolRegular.ArrowDownload24, shell.ShowClone));
         menu.Items.Add(Item("Tray_Scan", SymbolRegular.FolderSearch24, shell.ShowScanner));
+
+        if (gh.IsInstalled)
+        {
+            menu.Items.Add(new Separator());
+            menu.Items.Add(GhMenu());
+        }
+
         menu.Items.Add(new Separator());
         menu.Items.Add(Item("Tray_Exit", SymbolRegular.Power24, shell.Exit));
         return menu;
+    }
+
+    /// <summary>gh's accounts, read when the submenu opens so the tray never waits for gh.</summary>
+    private MenuItem GhMenu()
+    {
+        var root = new MenuItem { Header = Loc["Tray_GhAccount"], Icon = new SymbolIcon(SymbolRegular.PersonSwap24) };
+        root.Items.Add(new MenuItem { Header = Loc["Tray_GhLoading"], IsEnabled = false });
+        root.SubmenuOpened += async (_, e) =>
+        {
+            if (e.OriginalSource != root)
+            {
+                return;
+            }
+
+            var accounts = await gh.ListAccountsAsync();
+            root.Items.Clear();
+            foreach (var account in accounts)
+            {
+                var entry = new MenuItem
+                {
+                    Header = account.Host == "github.com" ? account.Login : $"{account.Login}  ·  {account.Host}",
+                    IsCheckable = false,
+                    IsChecked = account.Active,
+                };
+                entry.Click += async (_, _) => await SwitchAsync(account);
+                root.Items.Add(entry);
+            }
+
+            if (root.Items.Count == 0)
+            {
+                root.Items.Add(new MenuItem { Header = Loc["Tray_GhNone"], IsEnabled = false });
+            }
+        };
+        return root;
+    }
+
+    private async Task SwitchAsync(GhAccount account)
+    {
+        if (account.Active)
+        {
+            return;
+        }
+
+        try
+        {
+            await gh.SwitchAsync(account);
+            ShowNotification("GitPersona", Loc.Format("Tray_GhSwitched", account.Login));
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or ProcessRunException or ToolNotFoundException)
+        {
+            logger.LogError(ex, "gh auth switch to {Login} failed", account.Login);
+            ShowNotification("GitPersona", ex.Message);
+        }
     }
 
     private static MenuItem Item(string key, SymbolRegular icon, Action action)

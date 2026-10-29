@@ -2,7 +2,7 @@
 
 GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
 
-> **Status:** 1–6-cı mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu; repo skaneri. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+> **Status:** 1–7-ci mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu; repo skaneri; tray və diaqnostika. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
 
 ## Tələblər
 
@@ -147,6 +147,31 @@ Qeydlər:
   - səhv və ya təyin olunmamış email.
 - **Düzəliş:** **Düzəlt** düyməsi dəqiq dəyişikliyi göstərib təsdiq istəyir, sonra `git remote set-url` əmrini işlədir və ya repo daxilindəki `user.email`-i silir. Hər düzəlişdən əvvəl repo-nun `.git/config` faylının backup-ı yaradılır. **Hamısını düzəlt** düyməsi bütün düzəlişləri bir dəfəyə tətbiq edir.
 - **Toxunulmayan repo-lar:** yalnız əsas (`origin`) remote yoxlanılır. Fork-ların HTTPS `upstream`-inə və GitHub olmayan remote-lara (TFS, GitLab) toxunulmur.
+
+### Diaqnostika
+
+**Profil üzrə SSH testi.** git-in həqiqətən istifadə etdiyi ssh ilə `ssh -T git@<alias>` işlədir. ssh belə müəyyən edilir: `GIT_SSH_COMMAND` → `core.sshCommand` → `GIT_SSH` → Git-in öz ssh-ı. GitHub-ın salamladığı hesab profilin istifadəçi adı ilə müqayisə olunur. Fərqli hesab çıxırsa, bu key başqa hesaba aiddir.
+
+**Windows yoxlamaları.** Hər birində düzəliş varsa, tətbiq etməzdən əvvəl təsdiq istənilir:
+
+| Yoxlama | Düzəliş |
+|---|---|
+| `known_hosts`-da GitHub-ın host key-i yoxdur və ya gözlənilməz key var. Key yoxdursa, terminalsız ilk clone "Host key verification failed" xətası ilə dayanır | GitHub-ın key-ləri `api.github.com/meta`-dan götürülür, dərc olunmuş barmaq izləri ilə yoxlanılır və köhnə github.com qeydləri əvəz olunur. Digər host-lar olduğu kimi qalır |
+| Private key-i başqaları da oxuya bilir (Windows OpenSSH belə key-i qəbul etmir) | Faylı yalnız siz, SYSTEM və Administrators oxuya biləcək |
+| Passphrase-li key var, amma `ssh-agent` işləmir və ya key agent-ə yüklənməyib | Lazım olan administrator əmri kopyalanır, siz onu özünüz işlədirsiniz (GitPersona admin hüququ istəmir) |
+| git-in öz ssh-ı Windows `ssh-agent` ilə işləyə bilmir | `core.sshCommand` Windows OpenSSH-a yönəldilir (Ayarlar → SSH, diff baxışından keçir) |
+| `HOME` dəyişəni istifadəçi profilindən fərqlidir, və ya `GIT_SSH` / `GIT_SSH_COMMAND` təyin olunub | Yalnız məlumat verilir |
+| Credential Manager-də köhnə `git:https://github.com` girişləri var | Yalnız siz istəsəniz silinir. `gh:` girişlərinə toxunulmur |
+
+### Tray
+
+Tray menyusunda bunlar var:
+
+- profillər;
+- **URL-dən clone et…**;
+- **Repo-ları skan et**;
+- **GitHub CLI hesabı** — yalnız `gh` quraşdırılıbsa görünür. Aktiv hesab işarələnir, başqa hesabı seçəndə `gh auth switch` işlədilir;
+- **Çıxış**.
 
 ## Publish (tək `.exe`)
 

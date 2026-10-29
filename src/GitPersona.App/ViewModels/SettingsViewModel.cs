@@ -50,7 +50,40 @@ public sealed partial class SettingsViewModel : LocalizedObject
         StartWithWindows = startup.IsEnabled;
         GitHubOAuthClientId = settings.Current.GitHubOAuthClientId ?? string.Empty;
         CommitGuardEnabled = settings.Current.CommitGuardEnabled;
+        UseWindowsOpenSsh = settings.Current.UseWindowsOpenSsh;
         _syncing = false;
+        settings.Changed += (_, current) =>
+        {
+            // Diagnostics can turn this on too; keep the toggle in step.
+            _syncing = true;
+            UseWindowsOpenSsh = current.UseWindowsOpenSsh;
+            _syncing = false;
+        };
+    }
+
+    [ObservableProperty]
+    public partial bool UseWindowsOpenSsh { get; set; }
+
+    partial void OnUseWindowsOpenSshChanged(bool value)
+    {
+        if (!_syncing)
+        {
+            _ = ApplyWindowsOpenSshAsync(value);
+        }
+    }
+
+    private async Task ApplyWindowsOpenSshAsync(bool enabled)
+    {
+        await Task.Yield();
+        _settings.Update(s => s with { UseWindowsOpenSsh = enabled });
+        try
+        {
+            _review.Review(Application.Current.MainWindow);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogError(ex, "Planning the configuration failed");
+        }
     }
 
     [ObservableProperty]

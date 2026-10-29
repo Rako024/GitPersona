@@ -3,6 +3,7 @@ using GitPersona.App.ViewModels;
 using GitPersona.App.Views;
 using GitPersona.Core.ConfigFiles;
 using GitPersona.Core.Hooks;
+using GitPersona.Core.Infrastructure;
 using Microsoft.Extensions.Logging;
 
 namespace GitPersona.App.Services;
@@ -14,13 +15,16 @@ public sealed class ConfigReviewService(
     ProfilesService profiles,
     SettingsService settings,
     HookService hooks,
+    ToolLocator tools,
     ILogger<ConfigReviewService> logger)
 {
     /// <summary>Raised after the user applied a reviewed plan.</summary>
     public event EventHandler? Applied;
 
-    public ConfigPlan Plan() =>
-        planner.Plan(profiles.Profiles, settings.Current.CommitGuardEnabled ? hooks.HooksDirectory : null);
+    public ConfigPlan Plan() => planner.Plan(
+        profiles.Profiles,
+        settings.Current.CommitGuardEnabled ? hooks.HooksDirectory : null,
+        settings.Current.UseWindowsOpenSsh ? tools.WindowsOpenSsh("ssh") : null);
 
     /// <returns>The files written, or <see langword="null"/> when the user cancelled.</returns>
     public IReadOnlyList<AppliedChange>? Review(Window? owner)

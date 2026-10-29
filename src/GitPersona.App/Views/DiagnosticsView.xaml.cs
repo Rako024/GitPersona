@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace GitPersona.App.Views;
 
-public partial class PlaceholderView : UserControl
+public partial class DiagnosticsView : UserControl
 {
-    public PlaceholderView()
+    public DiagnosticsView()
     {
         InitializeComponent();
     }

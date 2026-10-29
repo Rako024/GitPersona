@@ -63,6 +63,17 @@
                 <ui:ToggleSwitch AutomationProperties.Name="{l:Loc Settings_Guard_Toggle}" IsChecked="{Binding CommitGuardEnabled}" />
             </ui:CardControl>
 
+            <TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{l:Loc Settings_Ssh}" />
+            <ui:CardControl Icon="{ui:SymbolIcon Key24}">
+                <ui:CardControl.Header>
+                    <StackPanel Margin="0,0,16,0">
+                        <TextBlock FontSize="14" Text="{l:Loc Settings_WindowsSsh}" />
+                        <TextBlock Style="{StaticResource SecondaryTextStyle}" Text="{l:Loc Settings_WindowsSsh_Description}" />
+                    </StackPanel>
+                </ui:CardControl.Header>
+                <ui:ToggleSwitch AutomationProperties.Name="{l:Loc Settings_WindowsSsh}" IsChecked="{Binding UseWindowsOpenSsh}" />
+            </ui:CardControl>
+
             <TextBlock Style="{StaticResource SectionHeaderStyle}" Text="{l:Loc Settings_GitHub}" />
             <Border Style="{StaticResource SectionCardStyle}" Margin="0">
                 <StackPanel>

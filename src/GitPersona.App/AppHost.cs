@@ -7,6 +7,7 @@ using GitPersona.App.Tray;
 using GitPersona.App.ViewModels;
 using GitPersona.App.Views;
 using GitPersona.Core.ConfigFiles;
+using GitPersona.Core.Diagnostics;
 using GitPersona.Core.Git;
 using GitPersona.Core.GitHub;
 using GitPersona.Core.Hooks;
@@ -58,6 +59,12 @@ internal static class AppHost
         services.AddSingleton<HookService>();
         services.AddSingleton<RepoScanner>();
         services.AddSingleton<RepoFixer>();
+        services.AddSingleton<GhCliService>();
+        services.AddSingleton<GitSshResolver>();
+        services.AddSingleton<SshConnectionTester>();
+        services.AddSingleton<KnownHostsService>();
+        services.AddSingleton<SshAgentProbe>();
+        services.AddSingleton<DiagnosticsService>();
         services.AddSingleton<SshKeyService>();
         services.AddSingleton(_ => new BackupManager());
         services.AddSingleton<ConfigWriter>();
@@ -84,6 +91,7 @@ internal static class AppHost
         services.AddSingleton<ProfilesViewModel>();
         services.AddSingleton<CloneViewModel>();
         services.AddSingleton<ScannerViewModel>();
+        services.AddSingleton<DiagnosticsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<MainWindow>();
 
