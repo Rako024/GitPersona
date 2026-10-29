@@ -16,7 +16,8 @@ public static class GitConfigBuilder
     /// folder rules come first, shallow before deep (a nested folder's profile wins over its parent's);
     /// remote-alias rules come last (the identity always matches the account whose key pushes).
     /// </summary>
-    public static IReadOnlyList<string> GlobalBlock(IReadOnlyList<Profile> profiles, UserPaths paths)
+    /// <param name="hooksPath">GitPersona's hooks folder when the commit guard is on; set last so it wins.</param>
+    public static IReadOnlyList<string> GlobalBlock(IReadOnlyList<Profile> profiles, UserPaths paths, string? hooksPath = null)
     {
         ArgumentNullException.ThrowIfNull(profiles);
         ArgumentNullException.ThrowIfNull(paths);
@@ -51,6 +52,13 @@ public static class GitConfigBuilder
             {
                 AddInclude(lines, $"hasconfig:remote.*.url:{pattern}", profile, paths);
             }
+        }
+
+        if (hooksPath is not null)
+        {
+            lines.Add("# Commit guard: checks the identity before each commit, then runs the repository's own hooks");
+            lines.Add("[core]");
+            lines.Add($"\thooksPath = {Value(ToGitPath(hooksPath))}");
         }
 
         return lines;

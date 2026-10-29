@@ -292,4 +292,18 @@ Commit və push-ların səhv hesaba getməsi məhz belə baş verir. Brauzerdə 
   <data name="Clone_Failed_HostNotResolved" xml:space="preserve"><value>{0} SSH alias-ı hələ tanınmır. Əvvəlcə konfiqurasiyanı tətbiq edin.</value></data>
   <data name="Clone_Failed_TargetNotEmpty" xml:space="preserve"><value>{0} artıq mövcuddur və boş deyil.</value></data>
   <data name="Clone_Failed_Other" xml:space="preserve"><value>git clone alınmadı: {1}</value></data>
+
+  <!-- Commit qoruyucusu -->
+  <data name="Settings_Guard" xml:space="preserve"><value>Commit qoruyucusu</value></data>
+  <data name="Settings_Guard_Toggle" xml:space="preserve"><value>Səhv identity ilə edilən commit-ləri blokla</value></data>
+  <data name="Settings_Guard_Description" xml:space="preserve"><value>Hər commit-dən əvvəl müəllif email-inin repo-nun profilinə (remote SSH alias-a, o olmasa qovluğa görə) uyğun olduğunu yoxlayır. Profillərinizdən kənar repo-lar yoxlanmır.</value></data>
+  <data name="Settings_Guard_Note" xml:space="preserve"><value>Global core.hooksPath istifadə edir və hər repo-nun öz hook-larını (husky v4, pre-commit, Git LFS) işlətməyə davam edir. Öz core.hooksPath-ı olan repo-lar (husky v5+) yoxlanmır. Windows-da hər commit-ə təxminən 0,3 s əlavə edir. Yoxlamanı bir dəfəlik keçmək üçün: git commit --no-verify.</value></data>
+  <data name="Guard_Blocked" xml:space="preserve"><value>GitPersona: commit bloklandı — müəllif email-i bu repo-nun profilinə uyğun deyil.</value></data>
+  <data name="Guard_Profile" xml:space="preserve"><value>Profil:</value></data>
+  <data name="Guard_Expected" xml:space="preserve"><value>Gözlənilən email:</value></data>
+  <data name="Guard_Current" xml:space="preserve"><value>Cari email:</value></data>
+  <data name="Guard_NotSet" xml:space="preserve"><value>(təyin olunmayıb)</value></data>
+  <data name="Guard_Fix" xml:space="preserve"><value>GitPersona-da düzəldin (Profillər → Konfiqurasiyanı tətbiq et), və ya bu repo üçün email-i təyin edin:</value></data>
+  <data name="Guard_Bypass" xml:space="preserve"><value>Və ya bir dəfəlik yoxlamasız commit edin:</value></data>
+  <data name="Guard_Conflict" xml:space="preserve"><value>qeyd: bu qovluğun profili remote alias-ın profilindən fərqlidir; alias-ın identity-si istifadə olunur.</value></data>
 </root>

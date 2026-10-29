@@ -20,6 +20,8 @@ public sealed partial class SettingsViewModel : LocalizedObject
     private readonly StartupService _startup;
     private readonly ThemeService _theme;
     private readonly AppPaths _paths;
+    private readonly CommitGuardService _guard;
+    private readonly ConfigReviewService _review;
     private readonly ILogger<SettingsViewModel> _logger;
 
     // Suppresses the side effects of the On...Changed handlers while values are loaded or re-synced.
@@ -30,12 +32,16 @@ public sealed partial class SettingsViewModel : LocalizedObject
         StartupService startup,
         ThemeService theme,
         AppPaths paths,
+        CommitGuardService guard,
+        ConfigReviewService review,
         ILogger<SettingsViewModel> logger)
     {
         _settings = settings;
         _startup = startup;
         _theme = theme;
         _paths = paths;
+        _guard = guard;
+        _review = review;
         _logger = logger;
 
         _syncing = true;
@@ -43,7 +49,36 @@ public sealed partial class SettingsViewModel : LocalizedObject
         Language = settings.Current.Language;
         StartWithWindows = startup.IsEnabled;
         GitHubOAuthClientId = settings.Current.GitHubOAuthClientId ?? string.Empty;
+        CommitGuardEnabled = settings.Current.CommitGuardEnabled;
         _syncing = false;
+    }
+
+    [ObservableProperty]
+    public partial bool CommitGuardEnabled { get; set; }
+
+    partial void OnCommitGuardEnabledChanged(bool value)
+    {
+        if (!_syncing)
+        {
+            _ = ApplyCommitGuardAsync(value);
+        }
+    }
+
+    /// <summary>Hooks first, then the reviewed core.hooksPath change, so git never points at a missing folder.</summary>
+    private async Task ApplyCommitGuardAsync(bool enabled)
+    {
+        // Let the toggle's binding update finish before a modal dialog opens.
+        await Task.Yield();
+        _settings.Update(s => s with { CommitGuardEnabled = enabled });
+        await _guard.SyncAsync();
+        try
+        {
+            _review.Review(Application.Current.MainWindow);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            _logger.LogError(ex, "Planning the configuration failed");
+        }
     }
 
     [ObservableProperty]

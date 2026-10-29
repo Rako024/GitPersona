@@ -292,4 +292,18 @@ This is exactly how commits and pushes end up on the wrong account. Sign out of 
   <data name="Clone_Failed_HostNotResolved" xml:space="preserve"><value>The SSH alias {0} is not known yet. Apply the configuration first.</value></data>
   <data name="Clone_Failed_TargetNotEmpty" xml:space="preserve"><value>{0} already exists and is not empty.</value></data>
   <data name="Clone_Failed_Other" xml:space="preserve"><value>git clone failed: {1}</value></data>
+
+  <!-- Commit guard -->
+  <data name="Settings_Guard" xml:space="preserve"><value>Commit guard</value></data>
+  <data name="Settings_Guard_Toggle" xml:space="preserve"><value>Block commits made with the wrong identity</value></data>
+  <data name="Settings_Guard_Description" xml:space="preserve"><value>Before each commit, checks that the author email matches the repository's profile (by remote SSH alias, otherwise by folder). Repositories outside your profiles are not checked.</value></data>
+  <data name="Settings_Guard_Note" xml:space="preserve"><value>Uses a global core.hooksPath and keeps running each repository's own hooks (husky v4, pre-commit, Git LFS). Repositories that set their own core.hooksPath (husky v5+) are not checked. Adds about 0.3 s per commit on Windows. Skip the check once with git commit --no-verify.</value></data>
+  <data name="Guard_Blocked" xml:space="preserve"><value>GitPersona: commit blocked — the author email does not match this repository's profile.</value></data>
+  <data name="Guard_Profile" xml:space="preserve"><value>Profile:</value></data>
+  <data name="Guard_Expected" xml:space="preserve"><value>Expected email:</value></data>
+  <data name="Guard_Current" xml:space="preserve"><value>Current email:</value></data>
+  <data name="Guard_NotSet" xml:space="preserve"><value>(not set)</value></data>
+  <data name="Guard_Fix" xml:space="preserve"><value>Fix it in GitPersona (Profiles → Apply configuration), or set the email for this repository:</value></data>
+  <data name="Guard_Bypass" xml:space="preserve"><value>Or commit once without the check:</value></data>
+  <data name="Guard_Conflict" xml:space="preserve"><value>note: this folder's profile differs from the remote alias's profile; the alias's identity is used.</value></data>
 </root>

@@ -6,7 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace GitPersona.App.ViewModels;
 
-public sealed record DiffLineViewModel(DiffLineKind Kind, string Text);
+public sealed record DiffLineViewModel(DiffLineKind Kind, string Text)
+{
+    /// <summary>What screen readers and UI Automation announce for the line.</summary>
+    public override string ToString() => Text;
+}
 
 public sealed class FileDiffViewModel
 {

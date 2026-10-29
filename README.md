@@ -2,7 +2,7 @@
 
 GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
 
-> **Status:** 1–4-cü mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+> **Status:** 1–5-ci mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
 
 ## Tələblər
 
@@ -100,6 +100,36 @@ Profil bu ardıcıllıqla seçilir:
 4. Heç biri uyğun gəlmirsə, profil avtomatik seçilmir. Siz seçirsiniz və **"<owner> üçün həmişə bu profildən istifadə et"** seçimi ilə qaydanı yadda saxlaya bilərsiniz.
 
 Repo `git@<alias>:owner/repo.git` ünvanından profilin default qovluğuna (və ya seçdiyiniz qovluğa) clone edilir. Clone bitəndən sonra GitPersona repo-da effektiv `user.email`-in profilin email-i olduğunu yoxlayır. Uğursuz və ya dayandırılmış clone yarımçıq qovluq qoymur.
+
+### Commit qoruyucusu
+
+**Ayarlar → Commit qoruyucusu** bölməsində aktiv edilir. GitPersona `~/.gitconfig`-ə `core.hooksPath` yazmazdan əvvəl diff göstərir. Aktiv olanda hər `git commit`-dən əvvəl yoxlanılır:
+
+1. Repo-nun profili belə müəyyən edilir: remote-un SSH alias-ı, alias yoxdursa repo-nu əhatə edən ən dərin profil qovluğu.
+2. git-in istifadə edəcəyi müəllif email-i həmin profilin email-i deyilsə, commit dayandırılır və həll yolu göstərilir.
+3. Profillərinizdən kənar repo-lar yoxlanmır.
+
+Bir dəfəlik yoxlamasız commit etmək üçün:
+
+```bash
+git commit --no-verify
+```
+
+Qeydlər:
+
+- **Repo-ların öz hook-ları** (`.git/hooks/*`: husky v4, pre-commit, Git LFS, əl ilə yazılmış hook-lar) işləməyə davam edir. GitPersona onları eyni arqumentlər və stdin ilə çağırır.
+  - Bu, client-side hook-lara aiddir. `reference-transaction`, `post-index-change` və server-side hook-lar sürət səbəbindən zəncirlənmir.
+  - Əvvəlcədən global `core.hooksPath` qurmuşdunuzsa, həmin qovluğun hook-ları da çağırılır.
+- **Öz `core.hooksPath`-ı olan repo-lar** (husky v5+) yoxlanmır, çünki lokal ayar global ayarı üstələyir.
+- **Python pre-commit framework** `core.hooksPath` qurulu olanda `pre-commit install` əmrindən imtina edir. Onu Git Bash-də belə quraşdırın:
+
+  ```bash
+  GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.hooksPath GIT_CONFIG_VALUE_0= pre-commit install
+  ```
+
+  Quraşdırılmış hook GitPersona vasitəsilə işləyəcək.
+- **Sürət:** Windows-da qoruyucu hər commit-ə təxminən 0,3 s əlavə edir.
+- **Mesajların dili:** qoruyucunun mesajları interfeysin dilindədir.
 
 ## Publish (tək `.exe`)
 

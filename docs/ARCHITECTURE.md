@@ -76,12 +76,17 @@ docs/
 
 ## Commit qoruyucusu
 
-- Global `core.hooksPath` lokal hook-ların **hamısını** söndürür. Ona görə `%APPDATA%\GitPersona\hooks\` qovluğunda bütün git hook adları üçün stub olur.
-- Hər stub ortaq `dispatch.sh`-ı çağırır:
+- Global `core.hooksPath` lokal hook-ların **hamısını** söndürür. Ona görə `%APPDATA%\GitPersona\hooks\` qovluğunda client-side hook-lar üçün stub olur.
+  - Stub qoyulmayan hook-lar: tez-tez çağırılan `reference-transaction` və `post-index-change`, server-side hook-lar və p4 hook-ları.
+  - Səbəb: Windows-da hər stub hər çağırışda bir `sh` başladır. 27 stub ilə commit 3,8 s çəkirdi, indiki 15 stub ilə ~0,45 s çəkir (hook-suz ~0,12 s).
+- Hər stub ortaq `dispatch.sh`-ı source edir. Ikinci `sh` açılmır, adi yol yalnız builtin-lərlə işləyir. Dispatcher:
   1. `pre-commit` üçün identity yoxlanılır.
   2. `$(git rev-parse --git-common-dir)/hooks/<ad>` faylı mövcuddursa, eyni arqumentlər və stdin ilə `exec` edilir.
   3. Guard aktiv edilməzdən əvvəl global `hooksPath` varıdısa, ona da ötürülür.
-- Yoxlama yalnız `sh` və tətbiqin yaratdığı `rules.tsv` ilə işləyir, ona görə tətbiq bağlı olanda da işləyir.
+- Yoxlama yalnız `sh` və tətbiqin yaratdığı `rules.tsv` ilə işləyir, ona görə tətbiq bağlı olanda da işləyir. Bir `git config` və bir `awk` çağırışı ilə git-in müəllif email prioritetini tətbiq edir: `GIT_AUTHOR_EMAIL` → `author.email` → `user.email` → `EMAIL`.
+- Qovluqlar `rules.tsv`-də uzun yol formasında saxlanılır (`GetLongPathName`), çünki Git Bash-in `pwd -W` əmri 8.3 qısa adları açır.
+- Guard söndürüləndə `~/.gitconfig` hələ `core.hooksPath`-a istinad edirsə, stub-lar yoxlamasız saxlanılır. Belə olanda repo-lar öz hook-larını itirmir. İstinad silinəndən sonra fayllar da silinir.
+- Git LFS: repo-da öz LFS hook-u yoxdursa, `pre-push`, `post-checkout`, `post-commit` və `post-merge` hook-ları `git lfs <hook>` əmrini çağırır.
 - Gözlənilən profil remote alias-ın profilidir, alias yoxdursa qovluğun profili götürülür:
   - effektiv `user.email` profilin email-inə uyğun deyilsə, commit bloklanır;
   - profil tapılmırsa, commit keçir.

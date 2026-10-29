@@ -44,7 +44,8 @@ public sealed record ConfigPlan(ConfigChangeSet Changes, IReadOnlyList<PlanIssue
 /// <summary>Computes the desired state of every file GitPersona manages from the saved profiles.</summary>
 public sealed class ConfigPlanner(UserPaths paths)
 {
-    public ConfigPlan Plan(IReadOnlyList<Profile> profiles)
+    /// <param name="hooksPath">GitPersona's hooks folder while the commit guard is enabled.</param>
+    public ConfigPlan Plan(IReadOnlyList<Profile> profiles, string? hooksPath = null)
     {
         ArgumentNullException.ThrowIfNull(profiles);
         var changes = new List<ConfigChange>();
@@ -74,7 +75,7 @@ public sealed class ConfigPlanner(UserPaths paths)
             }
         }
 
-        var globalGitConfig = PlanBlock(paths.GlobalGitConfigFile, GitConfigBuilder.GlobalBlock(profiles, paths), BlockPlacement.Bottom, ConfigFileRole.GlobalGitConfig, issues);
+        var globalGitConfig = PlanBlock(paths.GlobalGitConfigFile, GitConfigBuilder.GlobalBlock(profiles, paths, hooksPath), BlockPlacement.Bottom, ConfigFileRole.GlobalGitConfig, issues);
         if (globalGitConfig is not null)
         {
             changes.Add(globalGitConfig);

@@ -49,6 +49,7 @@ public partial class App : Application
         MainWindow = window;
         services.GetRequiredService<ThemeService>().Apply(settings.Theme, window);
         services.GetRequiredService<TrayService>().Initialize();
+        services.GetRequiredService<CommitGuardService>().Initialize();
 
         var shell = services.GetRequiredService<AppShell>();
         _singleInstance.ListenForActivation(() => Dispatcher.BeginInvoke(shell.ShowMainWindow));
