@@ -256,4 +256,40 @@ This is exactly how commits and pushes end up on the wrong account. Sign out of 
   <data name="Connect_MissingScope" xml:space="preserve"><value>The token lacks the write:public_key scope, so it cannot add SSH keys.</value></data>
   <data name="Connect_KeyInUse" xml:space="preserve"><value>GitHub says this key is already in use. A key can belong to only one account — it is probably registered on another account or as a repository deploy key. Generate a new key for this profile.</value></data>
   <data name="Connect_Failed" xml:space="preserve"><value>Talking to GitHub failed: {0}</value></data>
+
+  <!-- Clone page -->
+  <data name="Clone_UrlLabel" xml:space="preserve"><value>Repository URL</value></data>
+  <data name="Clone_Paste" xml:space="preserve"><value>Paste</value></data>
+  <data name="Clone_NotRecognized" xml:space="preserve"><value>This is not a GitHub repository URL.</value></data>
+  <data name="Clone_Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="Clone_Match_Alias" xml:space="preserve"><value>Chosen because the URL already uses the alias {0}.</value></data>
+  <data name="Clone_Match_Owner" xml:space="preserve"><value>Chosen because {0} is one of this profile's owners.</value></data>
+  <data name="Clone_Match_Username" xml:space="preserve"><value>Chosen because {0} is this profile's GitHub username.</value></data>
+  <data name="Clone_Match_None" xml:space="preserve"><value>No profile is linked to {0} yet — choose one.</value></data>
+  <data name="Clone_RememberOwner" xml:space="preserve"><value>Always use this profile for {0}</value></data>
+  <data name="Clone_Target" xml:space="preserve"><value>Clone into</value></data>
+  <data name="Clone_RemoteUrl" xml:space="preserve"><value>Remote URL</value></data>
+  <data name="Clone_Start" xml:space="preserve"><value>Clone</value></data>
+  <data name="Clone_Stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="Clone_NoProfiles" xml:space="preserve"><value>Create a profile on the Profiles page first.</value></data>
+  <data name="Clone_PendingConfig" xml:space="preserve"><value>Your git/ssh configuration has changes that are not applied yet. Apply them first, otherwise the SSH alias may not work.</value></data>
+  <data name="Clone_Phase_Starting" xml:space="preserve"><value>Connecting…</value></data>
+  <data name="Clone_Phase_Counting" xml:space="preserve"><value>Counting objects</value></data>
+  <data name="Clone_Phase_Compressing" xml:space="preserve"><value>Compressing objects</value></data>
+  <data name="Clone_Phase_Receiving" xml:space="preserve"><value>Receiving objects</value></data>
+  <data name="Clone_Phase_Resolving" xml:space="preserve"><value>Resolving deltas</value></data>
+  <data name="Clone_Phase_Updating" xml:space="preserve"><value>Checking out files</value></data>
+  <data name="Clone_Succeeded" xml:space="preserve"><value>Cloned into {0}.</value></data>
+  <data name="Clone_EmailOk" xml:space="preserve"><value>Commits here will use {0}.</value></data>
+  <data name="Clone_EmailMismatch" xml:space="preserve"><value>Commits here would use {0} instead of {1}. Apply the configuration and check again.</value></data>
+  <data name="Clone_EmailMissing" xml:space="preserve"><value>This repository has no user.email yet. Apply the configuration so the profile's identity is used.</value></data>
+  <data name="Clone_OpenFolder" xml:space="preserve"><value>Open folder</value></data>
+  <data name="Clone_Cancelled" xml:space="preserve"><value>Cloning was stopped; the incomplete folder was removed.</value></data>
+  <data name="Clone_RememberFailed" xml:space="preserve"><value>Could not save the owner rule: {0}</value></data>
+  <data name="Clone_Failed_HostKeyVerification" xml:space="preserve"><value>SSH could not verify the server's host key. Run "ssh -T git@{0}" in a terminal once to review and accept it.</value></data>
+  <data name="Clone_Failed_PermissionDenied" xml:space="preserve"><value>The server rejected this profile's SSH key. Upload it to the account (Profiles → Upload to GitHub…).</value></data>
+  <data name="Clone_Failed_RepositoryNotFound" xml:space="preserve"><value>GitHub says the repository does not exist for the account of this key. It may be private and that account may lack access — or another profile is needed.</value></data>
+  <data name="Clone_Failed_HostNotResolved" xml:space="preserve"><value>The SSH alias {0} is not known yet. Apply the configuration first.</value></data>
+  <data name="Clone_Failed_TargetNotEmpty" xml:space="preserve"><value>{0} already exists and is not empty.</value></data>
+  <data name="Clone_Failed_Other" xml:space="preserve"><value>git clone failed: {1}</value></data>
 </root>

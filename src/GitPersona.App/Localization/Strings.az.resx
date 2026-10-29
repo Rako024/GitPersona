@@ -256,4 +256,40 @@ Commit və push-ların səhv hesaba getməsi məhz belə baş verir. Brauzerdə 
   <data name="Connect_MissingScope" xml:space="preserve"><value>Token-də write:public_key scope-u yoxdur, ona görə SSH key əlavə edə bilməz.</value></data>
   <data name="Connect_KeyInUse" xml:space="preserve"><value>GitHub bu key-in artıq istifadədə olduğunu bildirir. Bir key yalnız bir hesaba aid ola bilər — çox güman ki, o başqa hesabda və ya repo deploy key-i kimi qeydiyyatdadır. Bu profil üçün yeni key yaradın.</value></data>
   <data name="Connect_Failed" xml:space="preserve"><value>GitHub ilə əlaqə alınmadı: {0}</value></data>
+
+  <!-- Clone səhifəsi -->
+  <data name="Clone_UrlLabel" xml:space="preserve"><value>Repo URL-i</value></data>
+  <data name="Clone_Paste" xml:space="preserve"><value>Yapışdır</value></data>
+  <data name="Clone_NotRecognized" xml:space="preserve"><value>Bu GitHub repo URL-i deyil.</value></data>
+  <data name="Clone_Profile" xml:space="preserve"><value>Profil</value></data>
+  <data name="Clone_Match_Alias" xml:space="preserve"><value>URL artıq {0} alias-ını istifadə etdiyi üçün seçildi.</value></data>
+  <data name="Clone_Match_Owner" xml:space="preserve"><value>{0} bu profilin owner-lərindən biri olduğu üçün seçildi.</value></data>
+  <data name="Clone_Match_Username" xml:space="preserve"><value>{0} bu profilin GitHub istifadəçi adı olduğu üçün seçildi.</value></data>
+  <data name="Clone_Match_None" xml:space="preserve"><value>{0} hələ heç bir profilə bağlı deyil — profil seçin.</value></data>
+  <data name="Clone_RememberOwner" xml:space="preserve"><value>{0} üçün həmişə bu profildən istifadə et</value></data>
+  <data name="Clone_Target" xml:space="preserve"><value>Clone qovluğu</value></data>
+  <data name="Clone_RemoteUrl" xml:space="preserve"><value>Remote URL</value></data>
+  <data name="Clone_Start" xml:space="preserve"><value>Clone et</value></data>
+  <data name="Clone_Stop" xml:space="preserve"><value>Dayandır</value></data>
+  <data name="Clone_NoProfiles" xml:space="preserve"><value>Əvvəlcə Profillər səhifəsində profil yaradın.</value></data>
+  <data name="Clone_PendingConfig" xml:space="preserve"><value>git/ssh konfiqurasiyanızda hələ tətbiq olunmamış dəyişikliklər var. Əvvəlcə onları tətbiq edin, əks halda SSH alias işləməyə bilər.</value></data>
+  <data name="Clone_Phase_Starting" xml:space="preserve"><value>Qoşulur…</value></data>
+  <data name="Clone_Phase_Counting" xml:space="preserve"><value>Obyektlər sayılır</value></data>
+  <data name="Clone_Phase_Compressing" xml:space="preserve"><value>Obyektlər sıxılır</value></data>
+  <data name="Clone_Phase_Receiving" xml:space="preserve"><value>Obyektlər qəbul edilir</value></data>
+  <data name="Clone_Phase_Resolving" xml:space="preserve"><value>Delta-lar həll edilir</value></data>
+  <data name="Clone_Phase_Updating" xml:space="preserve"><value>Fayllar çıxarılır</value></data>
+  <data name="Clone_Succeeded" xml:space="preserve"><value>{0} qovluğuna clone edildi.</value></data>
+  <data name="Clone_EmailOk" xml:space="preserve"><value>Burada commit-lər {0} ilə ediləcək.</value></data>
+  <data name="Clone_EmailMismatch" xml:space="preserve"><value>Burada commit-lər {1} əvəzinə {0} ilə ediləcək. Konfiqurasiyanı tətbiq edib yenidən yoxlayın.</value></data>
+  <data name="Clone_EmailMissing" xml:space="preserve"><value>Bu repo üçün hələ user.email təyin olunmayıb. Profilin identity-sinin işləməsi üçün konfiqurasiyanı tətbiq edin.</value></data>
+  <data name="Clone_OpenFolder" xml:space="preserve"><value>Qovluğu aç</value></data>
+  <data name="Clone_Cancelled" xml:space="preserve"><value>Clone dayandırıldı; yarımçıq qovluq silindi.</value></data>
+  <data name="Clone_RememberFailed" xml:space="preserve"><value>Owner qaydası saxlanıla bilmədi: {0}</value></data>
+  <data name="Clone_Failed_HostKeyVerification" xml:space="preserve"><value>SSH serverin host key-ini yoxlaya bilmədi. Terminalda bir dəfə "ssh -T git@{0}" işlədib onu nəzərdən keçirin və qəbul edin.</value></data>
+  <data name="Clone_Failed_PermissionDenied" xml:space="preserve"><value>Server bu profilin SSH key-ini qəbul etmədi. Key-i hesaba yükləyin (Profillər → GitHub-a yüklə…).</value></data>
+  <data name="Clone_Failed_RepositoryNotFound" xml:space="preserve"><value>GitHub bu key-in aid olduğu hesab üçün belə repo olmadığını bildirir. Repo private ola bilər və həmin hesabın ona girişi olmaya bilər — və ya başqa profil lazımdır.</value></data>
+  <data name="Clone_Failed_HostNotResolved" xml:space="preserve"><value>{0} SSH alias-ı hələ tanınmır. Əvvəlcə konfiqurasiyanı tətbiq edin.</value></data>
+  <data name="Clone_Failed_TargetNotEmpty" xml:space="preserve"><value>{0} artıq mövcuddur və boş deyil.</value></data>
+  <data name="Clone_Failed_Other" xml:space="preserve"><value>git clone alınmadı: {1}</value></data>
 </root>

@@ -29,13 +29,12 @@ public sealed class NavigationItem(AppPage page, string titleKey, SymbolRegular 
 
 public sealed partial class MainWindowViewModel : ObservableObject
 {
-    public MainWindowViewModel(ProfilesViewModel profiles, SettingsViewModel settings)
+    public MainWindowViewModel(ProfilesViewModel profiles, CloneViewModel clone, SettingsViewModel settings)
     {
         Items =
         [
             new(AppPage.Profiles, "Nav_Profiles", SymbolRegular.People24, profiles),
-            new(AppPage.Clone, "Nav_Clone", SymbolRegular.ArrowDownload24,
-                new PlaceholderPageViewModel("Clone_Description", phase: 4)),
+            new(AppPage.Clone, "Nav_Clone", SymbolRegular.ArrowDownload24, clone),
             new(AppPage.Scanner, "Nav_Scanner", SymbolRegular.FolderSearch24,
                 new PlaceholderPageViewModel("Scanner_Description", phase: 6)),
             new(AppPage.Diagnostics, "Nav_Diagnostics", SymbolRegular.Stethoscope24,
@@ -51,4 +50,6 @@ public sealed partial class MainWindowViewModel : ObservableObject
     public partial NavigationItem? SelectedItem { get; set; }
 
     public void NavigateTo(AppPage page) => SelectedItem = Items.First(item => item.Page == page);
+
+    partial void OnSelectedItemChanged(NavigationItem? value) => (value?.Content as IPageActivation)?.OnNavigatedTo();
 }

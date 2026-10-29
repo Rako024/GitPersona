@@ -33,6 +33,13 @@ public sealed class AppShell(IServiceProvider services)
         ShowMainWindow();
     }
 
+    /// <summary>Opens the Clone page, taking a GitHub URL from the clipboard when there is one.</summary>
+    public void ShowClone()
+    {
+        Navigate(AppPage.Clone);
+        services.GetRequiredService<CloneViewModel>().PrefillFromClipboard();
+    }
+
     public void ShowProfile(string profileId)
     {
         Navigate(AppPage.Profiles);

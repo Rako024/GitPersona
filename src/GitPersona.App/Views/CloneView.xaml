@@ -1,0 +1,133 @@
+<UserControl x:Class="GitPersona.App.Views.CloneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:l="clr-namespace:GitPersona.App.Localization"
+             xmlns:vm="clr-namespace:GitPersona.App.ViewModels"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:CloneViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="860" Margin="0,0,12,32" HorizontalAlignment="Left">
+            <TextBlock Margin="0,0,0,16" FontSize="14" TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{l:Loc Clone_Description}" />
+
+            <!-- Configuration not applied -->
+            <Border Style="{StaticResource SectionCardStyle}" Visibility="{Binding ConfigPending, Converter={StaticResource Presence}}">
+                <DockPanel>
+                    <ui:Button DockPanel.Dock="Right" Margin="12,0,0,0" VerticalAlignment="Center" Icon="{ui:SymbolIcon ArrowSync24}"
+                               Command="{Binding ApplyConfigurationCommand}" Content="{l:Loc Profiles_Apply}" />
+                    <ui:SymbolIcon DockPanel.Dock="Left" Margin="0,0,10,0" VerticalAlignment="Top" FontSize="18"
+                                   Foreground="{DynamicResource SystemFillColorCautionBrush}" Symbol="Warning24" />
+                    <TextBlock VerticalAlignment="Center" TextWrapping="Wrap" FontSize="13" Text="{l:Loc Clone_PendingConfig}" />
+                </DockPanel>
+            </Border>
+
+            <Border Style="{StaticResource SectionCardStyle}" Visibility="{Binding HasProfiles, Converter={StaticResource Absence}}">
+                <TextBlock FontSize="13" Text="{l:Loc Clone_NoProfiles}" />
+            </Border>
+
+            <!-- URL -->
+            <Border Style="{StaticResource SectionCardStyle}" IsEnabled="{Binding IsCloning, Converter={StaticResource Not}}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Clone_UrlLabel}" />
+                    <DockPanel>
+                        <ui:Button DockPanel.Dock="Right" Margin="8,0,0,0" Icon="{ui:SymbolIcon ClipboardPaste24}" Command="{Binding PasteCommand}" Content="{l:Loc Clone_Paste}" />
+                        <ui:TextBox AutomationProperties.Name="{l:Loc Clone_UrlLabel}"
+                                    FontFamily="Cascadia Mono, Consolas"
+                                    PlaceholderText="https://github.com/owner/repo"
+                                    Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
+                    </DockPanel>
+                    <TextBlock Margin="0,6,0,0" Style="{StaticResource ErrorTextStyle}" Text="{Binding UrlError}"
+                               Visibility="{Binding UrlError, Converter={StaticResource Presence}}" />
+
+                    <!-- Everything derived from the URL -->
+                    <StackPanel Margin="0,16,0,0" Visibility="{Binding Repository, Converter={StaticResource Presence}}">
+                        <TextBlock FontSize="18" FontWeight="SemiBold">
+                            <Run Text="{Binding Repository.FullName, Mode=OneWay}" />
+                            <Run FontSize="13" FontWeight="Normal" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Repository.Host, Mode=OneWay, StringFormat='· {0}'}" />
+                        </TextBlock>
+
+                        <TextBlock Margin="0,14,0,4" Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Clone_Profile}" />
+                        <ComboBox AutomationProperties.Name="{l:Loc Clone_Profile}" ItemsSource="{Binding Profiles}" SelectedItem="{Binding SelectedProfile}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:ProfileListItem}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="22" Height="22" CornerRadius="11" Background="{Binding Color, Converter={StaticResource HexToBrush}}">
+                                            <ui:SymbolIcon FontSize="12" Foreground="White" Symbol="{Binding Icon}" />
+                                        </Border>
+                                        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" Text="{Binding DisplayName}" />
+                                        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Email}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding MatchText}" />
+                        <CheckBox Margin="0,8,0,0" IsChecked="{Binding RememberOwner}" Content="{Binding RememberOwnerText}"
+                                  Visibility="{Binding CanRememberOwner, Converter={StaticResource Presence}}" />
+
+                        <TextBlock Margin="0,14,0,4" Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Clone_Target}" />
+                        <DockPanel>
+                            <ui:Button DockPanel.Dock="Right" Margin="8,0,0,0" Command="{Binding BrowseTargetCommand}" Content="{l:Loc Common_Browse}" />
+                            <ui:TextBox AutomationProperties.Name="{l:Loc Clone_Target}" FontFamily="Cascadia Mono, Consolas"
+                                        Text="{Binding TargetFolder, UpdateSourceTrigger=PropertyChanged}" />
+                        </DockPanel>
+
+                        <TextBlock Margin="0,14,0,4" Style="{StaticResource FieldLabelStyle}" Text="{l:Loc Clone_RemoteUrl}" />
+                        <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" FontFamily="Cascadia Mono, Consolas" FontSize="13"
+                                 AutomationProperties.Name="{l:Loc Clone_RemoteUrl}" Text="{Binding RemoteUrl, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Actions and progress -->
+            <StackPanel Orientation="Horizontal">
+                <ui:Button Appearance="Primary" Icon="{ui:SymbolIcon ArrowDownload24}" Command="{Binding CloneCommand}" Content="{l:Loc Clone_Start}" />
+                <ui:Button Margin="8,0,0,0" Icon="{ui:SymbolIcon Stop24}" Command="{Binding StopCommand}" Content="{l:Loc Clone_Stop}"
+                           Visibility="{Binding IsCloning, Converter={StaticResource Presence}}" />
+            </StackPanel>
+            <StackPanel Margin="0,16,0,0" Visibility="{Binding IsCloning, Converter={StaticResource Presence}}">
+                <ProgressBar Height="4" Minimum="0" Maximum="100" Value="{Binding Progress}" />
+                <TextBlock Margin="0,6,0,0" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding PhaseText}" />
+            </StackPanel>
+            <Border Margin="0,12,0,0" Padding="12,8" CornerRadius="6" Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                    Visibility="{Binding Output.Count, Converter={StaticResource Presence}}">
+                <ItemsControl ItemsSource="{Binding Output}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource MonospaceTextStyle}" TextWrapping="Wrap" Text="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <!-- Result -->
+            <Border Margin="0,16,0,0" Style="{StaticResource SectionCardStyle}" Visibility="{Binding ResultText, Converter={StaticResource Presence}}">
+                <DockPanel>
+                    <ui:Button DockPanel.Dock="Right" Margin="12,0,0,0" VerticalAlignment="Center" Icon="{ui:SymbolIcon FolderOpen24}"
+                               Command="{Binding OpenClonedFolderCommand}" Content="{l:Loc Clone_OpenFolder}"
+                               Visibility="{Binding ClonedPath, Converter={StaticResource Presence}}" />
+                    <ui:SymbolIcon x:Name="ResultIcon" DockPanel.Dock="Left" Margin="0,0,10,0" VerticalAlignment="Top" FontSize="20">
+                        <ui:SymbolIcon.Style>
+                            <Style TargetType="ui:SymbolIcon">
+                                <Setter Property="Symbol" Value="CheckmarkCircle24" />
+                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ResultIsError}" Value="True">
+                                        <Setter Property="Symbol" Value="ErrorCircle24" />
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ui:SymbolIcon.Style>
+                    </ui:SymbolIcon>
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap" FontSize="14" Text="{Binding ResultText}" />
+                        <TextBlock Margin="0,4,0,0" Style="{StaticResource SecondaryTextStyle}" FontSize="13" Text="{Binding ResultDetail}"
+                                   Visibility="{Binding ResultDetail, Converter={StaticResource Presence}}" />
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

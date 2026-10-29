@@ -51,7 +51,8 @@ internal static class AppHost
         services.AddSingleton(UserPaths.ForCurrentUser());
         services.AddSingleton<IProcessRunner, ProcessRunner>();
         services.AddSingleton<ToolLocator>();
-        services.AddSingleton<GitService>();
+        services.AddSingleton(sp => new GitService(sp.GetRequiredService<IProcessRunner>(), sp.GetRequiredService<ToolLocator>()));
+        services.AddSingleton<CloneService>();
         services.AddSingleton<SshKeyService>();
         services.AddSingleton(_ => new BackupManager());
         services.AddSingleton<ConfigWriter>();
@@ -75,6 +76,7 @@ internal static class AppHost
         services.AddSingleton<TrayService>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<ProfilesViewModel>();
+        services.AddSingleton<CloneViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<MainWindow>();
 

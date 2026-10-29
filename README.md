@@ -2,7 +2,7 @@
 
 GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
 
-> **Status:** 1–3-cü mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+> **Status:** 1–4-cü mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
 
 ## Tələblər
 
@@ -81,6 +81,25 @@ ssh -T git@github-<id>
 ```
 
 Cavabda `Hi <username>!` görünməlidir. Bundan sonra remote-u `git@github-<id>:owner/repo.git` olan istənilən repo, harada yerləşməsindən asılı olmayaraq, bu profilin email-i ilə commit edəcək.
+
+### Ağıllı clone
+
+**Clone** səhifəsində və ya tray menyusundakı **URL-dən clone et…** ilə istifadə olunur. Tray bəndi buferdə GitHub URL-i varsa, onu avtomatik götürür. Aşağıdakı formatların hamısı qəbul olunur:
+
+- `https://github.com/owner/repo` (brauzerdən kopyalanan `/tree/main/...` linkləri də);
+- `git@github.com:owner/repo.git`;
+- `ssh://...`;
+- `owner/repo`;
+- `git clone ...` əmri.
+
+Profil bu ardıcıllıqla seçilir:
+
+1. URL artıq profilin alias-ını istifadə edirsə (`git@github-work:...`), həmin profil.
+2. Owner profilin **owner-lər** siyahısındadırsa, həmin profil.
+3. Owner profilin GitHub istifadəçi adıdırsa, həmin profil.
+4. Heç biri uyğun gəlmirsə, profil avtomatik seçilmir. Siz seçirsiniz və **"<owner> üçün həmişə bu profildən istifadə et"** seçimi ilə qaydanı yadda saxlaya bilərsiniz.
+
+Repo `git@<alias>:owner/repo.git` ünvanından profilin default qovluğuna (və ya seçdiyiniz qovluğa) clone edilir. Clone bitəndən sonra GitPersona repo-da effektiv `user.email`-in profilin email-i olduğunu yoxlayır. Uğursuz və ya dayandırılmış clone yarımçıq qovluq qoymur.
 
 ## Publish (tək `.exe`)
 

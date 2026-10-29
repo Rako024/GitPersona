@@ -4,7 +4,8 @@ using GitPersona.Core.Infrastructure.Processes;
 namespace GitPersona.Core.Git;
 
 /// <summary>Runs git non-interactively: it fails instead of waiting for a password prompt nobody can see.</summary>
-public sealed class GitService(IProcessRunner runner, ToolLocator tools)
+/// <param name="baseEnvironment">Applied to every call (tests use it to isolate git from the developer's config).</param>
+public sealed class GitService(IProcessRunner runner, ToolLocator tools, IReadOnlyDictionary<string, string?>? baseEnvironment = null)
 {
     public Task<ProcessResult> RunAsync(
         IReadOnlyList<string> arguments,
@@ -14,10 +15,13 @@ public sealed class GitService(IProcessRunner runner, ToolLocator tools)
         IProgress<string>? errorLines = null,
         CancellationToken cancellationToken = default)
     {
-        var variables = new Dictionary<string, string?>(environment ?? new Dictionary<string, string?>())
+        var variables = new Dictionary<string, string?>(baseEnvironment ?? new Dictionary<string, string?>());
+        foreach (var (name, value) in environment ?? new Dictionary<string, string?>())
         {
-            ["GIT_TERMINAL_PROMPT"] = "0",
-        };
+            variables[name] = value;
+        }
+
+        variables["GIT_TERMINAL_PROMPT"] = "0";
         var request = new ProcessRequest(tools.RequireGit(), arguments)
         {
             WorkingDirectory = workingDirectory,

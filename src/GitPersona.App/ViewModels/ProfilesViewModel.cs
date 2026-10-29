@@ -32,7 +32,7 @@ public sealed class ProfileListItem(Profile profile) : LocalizedObject
     public override string ToString() => DisplayName;
 }
 
-public sealed partial class ProfilesViewModel : LocalizedObject
+public sealed partial class ProfilesViewModel : LocalizedObject, IPageActivation
 {
     private readonly EditorServices _services;
     private readonly ProfilesService _profiles;
@@ -77,6 +77,9 @@ public sealed partial class ProfilesViewModel : LocalizedObject
 
     /// <summary>Opens a profile, e.g. from the tray menu.</summary>
     public void Select(string id) => SelectedItem = Items.FirstOrDefault(item => item.Id == id);
+
+    /// <summary>The files may have been edited outside GitPersona since the page was last shown.</summary>
+    public void OnNavigatedTo() => RefreshPlanSummary();
 
     protected override void OnLanguageChanged()
     {
