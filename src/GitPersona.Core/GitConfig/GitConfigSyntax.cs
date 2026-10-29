@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using GitPersona.Core.Infrastructure;
 
 namespace GitPersona.Core.GitConfig;
 
@@ -39,7 +40,11 @@ public static partial class GitConfigSyntax
     /// <c>gitdir/i:C:/Users/me/work/</c> — case-insensitive (Windows paths) and, thanks to the trailing slash,
     /// matching every repository below the folder.
     /// </summary>
-    public static string GitDirCondition(string folder) => $"gitdir/i:{EscapeGlob(ToGitPath(folder))}/";
+    /// <remarks>
+    /// The folder is written in its long form: git also matches against the gitdir's real path, which Git for
+    /// Windows reports with long names, so a pattern containing 8.3 short names (<c>MONAOC~1</c>) could fail.
+    /// </remarks>
+    public static string GitDirCondition(string folder) => $"gitdir/i:{EscapeGlob(ToGitPath(LongPath.Expand(folder)))}/";
 
     private static string Quote(string text) => "\"" + text.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\"";
 

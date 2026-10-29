@@ -76,6 +76,25 @@ public sealed class RealToolsTests : IDisposable
     }
 
     [Fact]
+    public async Task Folder_rules_given_with_8dot3_short_names_still_match()
+    {
+        // Git for Windows never matches a gitdir pattern written with short names (C:/Users/MONAOC~1/...),
+        // whatever form the repository path has, so folders must always be written in long form.
+        var repo = await InitRepoAsync(_home.Combine("Work Folder", "api"));
+        if (ShortPath.Of(_home.Combine("Work Folder")) is not { } shortFolder)
+        {
+            return; // this volume has no 8.3 names
+        }
+
+        Apply(TestProfiles.Create("work", _home.Path, shortFolder));
+
+        var viaDashC = await _git.RunAsync(["-C", repo, "config", "user.email"], workingDirectory: null, environment: _isolated);
+
+        Assert.Equal("work@example.com", viaDashC.StandardOutput.Trim());
+        Assert.DoesNotContain("~", File.ReadAllText(_paths.GlobalGitConfigFile), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task Folder_rules_match_case_insensitively_and_literally()
     {
         Apply(TestProfiles.Create("work", _home.Path, _home.Combine("My Repos", "old[2024]")));

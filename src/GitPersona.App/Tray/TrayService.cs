@@ -74,7 +74,7 @@ public sealed class TrayService(AppShell shell, ProfilesService profiles) : IDis
         menu.Items.Add(profileMenu);
 
         menu.Items.Add(Item("Tray_CloneFromUrl", SymbolRegular.ArrowDownload24, shell.ShowClone));
-        menu.Items.Add(Item("Tray_Scan", SymbolRegular.FolderSearch24, () => shell.Navigate(AppPage.Scanner)));
+        menu.Items.Add(Item("Tray_Scan", SymbolRegular.FolderSearch24, shell.ShowScanner));
         menu.Items.Add(new Separator());
         menu.Items.Add(Item("Tray_Exit", SymbolRegular.Power24, shell.Exit));
         return menu;

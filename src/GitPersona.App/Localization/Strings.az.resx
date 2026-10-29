@@ -306,4 +306,47 @@ Commit və push-ların səhv hesaba getməsi məhz belə baş verir. Brauzerdə 
   <data name="Guard_Fix" xml:space="preserve"><value>GitPersona-da düzəldin (Profillər → Konfiqurasiyanı tətbiq et), və ya bu repo üçün email-i təyin edin:</value></data>
   <data name="Guard_Bypass" xml:space="preserve"><value>Və ya bir dəfəlik yoxlamasız commit edin:</value></data>
   <data name="Guard_Conflict" xml:space="preserve"><value>qeyd: bu qovluğun profili remote alias-ın profilindən fərqlidir; alias-ın identity-si istifadə olunur.</value></data>
+
+  <!-- Repo skaneri -->
+  <data name="Scanner_Roots" xml:space="preserve"><value>Axtarılan qovluqlar</value></data>
+  <data name="Scanner_RootsHint" xml:space="preserve"><value>Bütün profil qovluqları axtarılır. Repo saxladığınız digər qovluqları da əlavə edin.</value></data>
+  <data name="Scanner_RootProfile" xml:space="preserve"><value>{0} profili</value></data>
+  <data name="Scanner_Scan" xml:space="preserve"><value>Skan et</value></data>
+  <data name="Scanner_OnlyProblems" xml:space="preserve"><value>Yalnız problemləri göstər</value></data>
+  <data name="Scanner_FixAll" xml:space="preserve"><value>Hamısını düzəlt</value></data>
+  <data name="Scanner_Summary" xml:space="preserve"><value>{0} repo · {1} problemli</value></data>
+  <data name="Scanner_Scanning" xml:space="preserve"><value>Skan edilir… indiyədək {0} tapıldı</value></data>
+  <data name="Scanner_NoRoots" xml:space="preserve"><value>Skan ediləcək qovluq yoxdur: profilə və ya buraya qovluq əlavə edin.</value></data>
+  <data name="Scanner_NoProfile" xml:space="preserve"><value>Profil yoxdur</value></data>
+  <data name="Scanner_Source_Alias" xml:space="preserve"><value>remote alias-a görə</value></data>
+  <data name="Scanner_Source_Folder" xml:space="preserve"><value>qovluğa görə</value></data>
+  <data name="Scanner_Source_Owner" xml:space="preserve"><value>owner-ə görə</value></data>
+  <data name="Scanner_Source_Username" xml:space="preserve"><value>GitHub istifadəçi adına görə</value></data>
+  <data name="Scanner_Email" xml:space="preserve"><value>{0} kimi commit edir</value></data>
+  <data name="Scanner_NoRemote" xml:space="preserve"><value>remote yoxdur</value></data>
+  <data name="Scanner_Fix" xml:space="preserve"><value>Düzəlt</value></data>
+  <data name="Scanner_FixTitle" xml:space="preserve"><value>Repo-nu düzəlt</value></data>
+  <data name="Scanner_FixConfirm_SetRemoteUrl" xml:space="preserve"><value>{1} repo-sunun "{0}" remote-u dəyişdirilsin?
+
+{2}
+→ {3}
+
+Əvvəlcə repo-nun .git/config faylının backup-ı yaradılır.</value></data>
+  <data name="Scanner_FixConfirm_UnsetLocalEmail" xml:space="preserve"><value>{0} repo-sunun daxilində təyin olunmuş user.email ({1}) silinsin ki, profilin email-i ({2}) tətbiq olunsun?
+
+Əvvəlcə repo-nun .git/config faylının backup-ı yaradılır.</value></data>
+  <data name="Scanner_FixAllConfirm" xml:space="preserve"><value>{1} repo-da {0} düzəliş tətbiq edilsin?
+
+Hər repo-nun .git/config faylının əvvəlcə backup-ı yaradılır.</value></data>
+  <data name="Scanner_Fixed" xml:space="preserve"><value>{0} düzəliş tətbiq olundu.</value></data>
+  <data name="Scanner_FixFailed" xml:space="preserve"><value>{0}: düzəliş alınmadı — {1}</value></data>
+  <data name="Issue_Repo_HttpsRemote" xml:space="preserve"><value>Remote HTTPS istifadə edir ({0}), ona görə push-lar profilin SSH key-i ilə getmir. {1} ünvanına keçin.</value></data>
+  <data name="Issue_Repo_SshWithoutAlias" xml:space="preserve"><value>Remote profilin alias-ı olmadan github.com istifadə edir ({0}), ona görə ssh başqa hesabın key-ini təqdim edə bilər. {1} ünvanına keçin.</value></data>
+  <data name="Issue_Repo_OtherProfilesAlias" xml:space="preserve"><value>Bu profilin qovluğunda remote başqa profilin alias-ını istifadə edir ({0}). {1} ünvanına keçilsin?</value></data>
+  <data name="Issue_Repo_EmailMismatch" xml:space="preserve"><value>Commit-lər profilin {1} email-i əvəzinə {0} ilə edilir.</value></data>
+  <data name="Issue_Repo_EmailMismatch_Apply" xml:space="preserve"><value>Commit-lər profilin {1} email-i əvəzinə {0} ilə edilir. Profilin qaydalarının işləməsi üçün konfiqurasiyanı tətbiq edin (və ya remote-u düzəldin).</value></data>
+  <data name="Issue_Repo_EmailMissing" xml:space="preserve"><value>user.email təyin olunmayıb; profilin {1} email-i hələ tətbiq olunmur. Konfiqurasiyanı tətbiq edin.</value></data>
+  <data name="Issue_Repo_OwnHooksPath" xml:space="preserve"><value>Öz core.hooksPath-ı var ({0}), ona görə commit qoruyucusu bu repo-nu yoxlamır.</value></data>
+  <data name="Issue_Repo_NoProfile" xml:space="preserve"><value>Bu GitHub repo-su heç bir profilə aid deyil.</value></data>
+  <data name="Issue_Repo_GitError" xml:space="preserve"><value>git onu oxuya bilmədi: {0}</value></data>
 </root>

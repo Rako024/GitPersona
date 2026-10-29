@@ -2,7 +2,7 @@
 
 GitPersona bir Windows kompüterində bir neçə GitHub hesabını idarə etmək üçündür. Hər repo üçün düzgün SSH key, düzgün `user.email` və düzgün hesabı avtomatik seçir.
 
-> **Status:** 1–5-ci mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
+> **Status:** 1–6-cı mərhələlər hazırdır: skelet; profillər, SSH key və config yazılması; GitHub-a giriş və key yükləmə; ağıllı clone; commit qoruyucusu; repo skaneri. Planı və mərhələləri [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) faylında oxuya bilərsiniz.
 
 ## Tələblər
 
@@ -130,6 +130,23 @@ Qeydlər:
   Quraşdırılmış hook GitPersona vasitəsilə işləyəcək.
 - **Sürət:** Windows-da qoruyucu hər commit-ə təxminən 0,3 s əlavə edir.
 - **Mesajların dili:** qoruyucunun mesajları interfeysin dilindədir.
+
+### Repo skaneri
+
+**Repo skaneri** səhifəsi bütün profil qovluqlarını və orada əlavə etdiyiniz qovluqları skan edir. Tray menyusundakı **Repo-ları skan et** bəndi skanı dərhal başladır.
+
+- **Axtarış qaydaları:** default olaraq 5 səviyyə dərinliyə qədər axtarır, `settings.json`-dakı `scanMaxDepth` ilə dəyişmək olur. `node_modules`, `bin`, `obj` kimi qovluqlara və repo-ların öz daxilinə girmir.
+- **Hər repo üçün göstərilənlər:**
+  - hansı profilə aid olduğu (remote alias-a, qovluğa, owner-ə və ya GitHub istifadəçi adına görə);
+  - əsas remote;
+  - commit-lərin hansı email ilə ediləcəyi.
+- **Qırmızı ilə göstərilən problemlər:**
+  - HTTPS remote;
+  - alias-sız `git@github.com:` remote;
+  - qovluğun profilinə uyğun olmayan başqa profilin alias-ı;
+  - səhv və ya təyin olunmamış email.
+- **Düzəliş:** **Düzəlt** düyməsi dəqiq dəyişikliyi göstərib təsdiq istəyir, sonra `git remote set-url` əmrini işlədir və ya repo daxilindəki `user.email`-i silir. Hər düzəlişdən əvvəl repo-nun `.git/config` faylının backup-ı yaradılır. **Hamısını düzəlt** düyməsi bütün düzəlişləri bir dəfəyə tətbiq edir.
+- **Toxunulmayan repo-lar:** yalnız əsas (`origin`) remote yoxlanılır. Fork-ların HTTPS `upstream`-inə və GitHub olmayan remote-lara (TFS, GitLab) toxunulmur.
 
 ## Publish (tək `.exe`)
 

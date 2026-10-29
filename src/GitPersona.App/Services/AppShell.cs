@@ -40,6 +40,13 @@ public sealed class AppShell(IServiceProvider services)
         services.GetRequiredService<CloneViewModel>().PrefillFromClipboard();
     }
 
+    /// <summary>Opens the Scanner page and starts a scan.</summary>
+    public void ShowScanner()
+    {
+        Navigate(AppPage.Scanner);
+        services.GetRequiredService<ScannerViewModel>().StartScan();
+    }
+
     public void ShowProfile(string profileId)
     {
         Navigate(AppPage.Profiles);

@@ -32,6 +32,21 @@ internal sealed class TempDirectory : IDisposable
     }
 }
 
+internal static partial class ShortPath
+{
+    /// <summary>The 8.3 form of an existing path, or <see langword="null"/> when the volume has no short names.</summary>
+    public static string? Of(string path)
+    {
+        var buffer = new char[1024];
+        var length = GetShortPathNameW(path, buffer, (uint)buffer.Length);
+        var shortPath = length is > 0 and < 1024 ? new string(buffer, 0, (int)length) : null;
+        return shortPath is not null && !shortPath.Equals(path, StringComparison.OrdinalIgnoreCase) ? shortPath : null;
+    }
+
+    [System.Runtime.InteropServices.LibraryImport("kernel32.dll", StringMarshalling = System.Runtime.InteropServices.StringMarshalling.Utf16)]
+    private static partial uint GetShortPathNameW(string longPath, [System.Runtime.InteropServices.Out] char[] shortPath, uint bufferLength);
+}
+
 internal sealed class FixedTimeProvider(DateTimeOffset now) : TimeProvider
 {
     public DateTimeOffset Now { get; set; } = now;

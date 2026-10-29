@@ -1,4 +1,5 @@
 using GitPersona.Core.Git;
+using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Models;
 
 namespace GitPersona.Core.Profiles;
@@ -42,15 +43,19 @@ public static class ProfileResolver
     }
 
     /// <summary>The profile whose folder contains <paramref name="path"/>; the deepest folder wins, as in git's includeIf order.</summary>
+    /// <remarks>Both sides are compared in long-name form, so 8.3 short names on either side still match.</remarks>
     public static Profile? ForFolder(IReadOnlyList<Profile> profiles, string path)
     {
         ArgumentNullException.ThrowIfNull(profiles);
-        var target = ProfileValidator.NormalizeFolder(path) + Path.DirectorySeparatorChar;
+        var target = Normalize(path);
         return profiles
-            .SelectMany(p => p.Folders.Where(Path.IsPathFullyQualified).Select(f => (profile: p, folder: ProfileValidator.NormalizeFolder(f) + Path.DirectorySeparatorChar)))
+            .SelectMany(p => p.Folders.Where(Path.IsPathFullyQualified).Select(f => (profile: p, folder: Normalize(f))))
             .Where(x => target.StartsWith(x.folder, StringComparison.OrdinalIgnoreCase))
             .OrderByDescending(x => x.folder.Length)
             .Select(x => x.profile)
             .FirstOrDefault();
     }
+
+    private static string Normalize(string folder) =>
+        ProfileValidator.NormalizeFolder(LongPath.Expand(folder)) + Path.DirectorySeparatorChar;
 }

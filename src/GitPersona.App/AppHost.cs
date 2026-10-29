@@ -13,6 +13,7 @@ using GitPersona.Core.Hooks;
 using GitPersona.Core.Infrastructure;
 using GitPersona.Core.Infrastructure.Processes;
 using GitPersona.Core.Profiles;
+using GitPersona.Core.Scanning;
 using GitPersona.Core.Security;
 using GitPersona.Core.Settings;
 using GitPersona.Core.Ssh;
@@ -55,6 +56,8 @@ internal static class AppHost
         services.AddSingleton(sp => new GitService(sp.GetRequiredService<IProcessRunner>(), sp.GetRequiredService<ToolLocator>()));
         services.AddSingleton<CloneService>();
         services.AddSingleton<HookService>();
+        services.AddSingleton<RepoScanner>();
+        services.AddSingleton<RepoFixer>();
         services.AddSingleton<SshKeyService>();
         services.AddSingleton(_ => new BackupManager());
         services.AddSingleton<ConfigWriter>();
@@ -80,6 +83,7 @@ internal static class AppHost
         services.AddSingleton<MainWindowViewModel>();
         services.AddSingleton<ProfilesViewModel>();
         services.AddSingleton<CloneViewModel>();
+        services.AddSingleton<ScannerViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<MainWindow>();
 

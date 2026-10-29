@@ -29,14 +29,13 @@ public sealed class NavigationItem(AppPage page, string titleKey, SymbolRegular 
 
 public sealed partial class MainWindowViewModel : ObservableObject
 {
-    public MainWindowViewModel(ProfilesViewModel profiles, CloneViewModel clone, SettingsViewModel settings)
+    public MainWindowViewModel(ProfilesViewModel profiles, CloneViewModel clone, ScannerViewModel scanner, SettingsViewModel settings)
     {
         Items =
         [
             new(AppPage.Profiles, "Nav_Profiles", SymbolRegular.People24, profiles),
             new(AppPage.Clone, "Nav_Clone", SymbolRegular.ArrowDownload24, clone),
-            new(AppPage.Scanner, "Nav_Scanner", SymbolRegular.FolderSearch24,
-                new PlaceholderPageViewModel("Scanner_Description", phase: 6)),
+            new(AppPage.Scanner, "Nav_Scanner", SymbolRegular.FolderSearch24, scanner),
             new(AppPage.Diagnostics, "Nav_Diagnostics", SymbolRegular.Stethoscope24,
                 new PlaceholderPageViewModel("Diagnostics_Description", phase: 7)),
             new(AppPage.Settings, "Nav_Settings", SymbolRegular.Settings24, settings),

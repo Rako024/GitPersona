@@ -306,4 +306,47 @@ This is exactly how commits and pushes end up on the wrong account. Sign out of 
   <data name="Guard_Fix" xml:space="preserve"><value>Fix it in GitPersona (Profiles → Apply configuration), or set the email for this repository:</value></data>
   <data name="Guard_Bypass" xml:space="preserve"><value>Or commit once without the check:</value></data>
   <data name="Guard_Conflict" xml:space="preserve"><value>note: this folder's profile differs from the remote alias's profile; the alias's identity is used.</value></data>
+
+  <!-- Repository scanner -->
+  <data name="Scanner_Roots" xml:space="preserve"><value>Searched folders</value></data>
+  <data name="Scanner_RootsHint" xml:space="preserve"><value>Every profile folder is searched. Add other folders where you keep repositories.</value></data>
+  <data name="Scanner_RootProfile" xml:space="preserve"><value>profile {0}</value></data>
+  <data name="Scanner_Scan" xml:space="preserve"><value>Scan</value></data>
+  <data name="Scanner_OnlyProblems" xml:space="preserve"><value>Only show problems</value></data>
+  <data name="Scanner_FixAll" xml:space="preserve"><value>Fix all</value></data>
+  <data name="Scanner_Summary" xml:space="preserve"><value>{0} repositories · {1} with problems</value></data>
+  <data name="Scanner_Scanning" xml:space="preserve"><value>Scanning… {0} found so far</value></data>
+  <data name="Scanner_NoRoots" xml:space="preserve"><value>Nothing to scan yet: add a folder to a profile or here.</value></data>
+  <data name="Scanner_NoProfile" xml:space="preserve"><value>No profile</value></data>
+  <data name="Scanner_Source_Alias" xml:space="preserve"><value>by remote alias</value></data>
+  <data name="Scanner_Source_Folder" xml:space="preserve"><value>by folder</value></data>
+  <data name="Scanner_Source_Owner" xml:space="preserve"><value>by owner</value></data>
+  <data name="Scanner_Source_Username" xml:space="preserve"><value>by GitHub username</value></data>
+  <data name="Scanner_Email" xml:space="preserve"><value>Commits as {0}</value></data>
+  <data name="Scanner_NoRemote" xml:space="preserve"><value>no remote</value></data>
+  <data name="Scanner_Fix" xml:space="preserve"><value>Fix</value></data>
+  <data name="Scanner_FixTitle" xml:space="preserve"><value>Fix repository</value></data>
+  <data name="Scanner_FixConfirm_SetRemoteUrl" xml:space="preserve"><value>Change the "{0}" remote of {1}?
+
+{2}
+→ {3}
+
+A backup of the repository's .git/config is made first.</value></data>
+  <data name="Scanner_FixConfirm_UnsetLocalEmail" xml:space="preserve"><value>Remove the user.email set inside {0} ({1}), so the profile's email ({2}) applies?
+
+A backup of the repository's .git/config is made first.</value></data>
+  <data name="Scanner_FixAllConfirm" xml:space="preserve"><value>Apply {0} fix(es) in {1} repositories?
+
+Each repository's .git/config is backed up first.</value></data>
+  <data name="Scanner_Fixed" xml:space="preserve"><value>{0} fix(es) applied.</value></data>
+  <data name="Scanner_FixFailed" xml:space="preserve"><value>{0}: the fix failed — {1}</value></data>
+  <data name="Issue_Repo_HttpsRemote" xml:space="preserve"><value>The remote uses HTTPS ({0}), so pushes do not use the profile's SSH key. Switch to {1}.</value></data>
+  <data name="Issue_Repo_SshWithoutAlias" xml:space="preserve"><value>The remote uses github.com without the profile's alias ({0}), so ssh may offer another account's key. Switch to {1}.</value></data>
+  <data name="Issue_Repo_OtherProfilesAlias" xml:space="preserve"><value>The remote uses another profile's alias ({0}) inside this profile's folder. Switch to {1}?</value></data>
+  <data name="Issue_Repo_EmailMismatch" xml:space="preserve"><value>Commits use {0} instead of the profile's {1}.</value></data>
+  <data name="Issue_Repo_EmailMismatch_Apply" xml:space="preserve"><value>Commits use {0} instead of the profile's {1}. Apply the configuration (or fix the remote) so the profile's rules take effect.</value></data>
+  <data name="Issue_Repo_EmailMissing" xml:space="preserve"><value>No user.email is set; the profile's {1} does not apply yet. Apply the configuration.</value></data>
+  <data name="Issue_Repo_OwnHooksPath" xml:space="preserve"><value>Has its own core.hooksPath ({0}), so the commit guard does not check this repository.</value></data>
+  <data name="Issue_Repo_NoProfile" xml:space="preserve"><value>No profile claims this GitHub repository.</value></data>
+  <data name="Issue_Repo_GitError" xml:space="preserve"><value>git could not read it: {0}</value></data>
 </root>

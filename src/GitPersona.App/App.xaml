@@ -33,6 +33,9 @@
             <DataTemplate DataType="{x:Type vm:CloneViewModel}">
                 <views:CloneView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ScannerViewModel}">
+                <views:ScannerView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>
